@@ -1,0 +1,25 @@
+.tab-content-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #fff8c5;
+  white-space: pre-wrap;
+  text-align: center;
+  overflow-y: auto;
+  max-height: 80vh; /* Allow scrolling if too tall */
+  z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .tab-content-container {
+    padding: 20px;
+    font-size: 1rem;
+    max-height: 70vh;
+  }
+}

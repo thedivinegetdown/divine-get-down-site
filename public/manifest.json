@@ -1,0 +1,21 @@
+{
+  "short_name": "Divine Get Down",
+  "name": "The Divine Get Down \u2014 Sanctuary of Presence",
+  "description": "A sacred rhythm for the weary soul \u2014 a place to breathe, remember, and rest in God\u2019s presence.",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000"
+}

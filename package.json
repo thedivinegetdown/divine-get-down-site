@@ -1,0 +1,63 @@
+{
+  "name": "divine-get-down",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Your Name",
+  "description": "The Divine Get Down \u2014 sacred sanctuary for restoration and rhythm.",
+  "keywords": [
+    "react",
+    "music",
+    "wellness",
+    "storytelling",
+    "spirituality",
+    "community"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thedivinegetdown/divine-get-down-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thedivinegetdown/divine-get-down-react/issues"
+  },
+  "homepage": "https://thedivinegetdown.com",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "framer-motion": "12.23.26",
+    "prop-types": "15.8.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-helmet-async": "2.0.5",
+    "react-router-dom": "7.11.0",
+    "lite-youtube-embed": "0.3.4"
+  },
+  "devDependencies": {
+    "eslint": "8.48.0",
+    "eslint-plugin-react": "7.33.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "husky": "8.0.0",
+    "lint-staged": "13.2.3",
+    "prettier": "3.0.0",
+    "vite": "5.4.10",
+    "@vitejs/plugin-react": "4.3.4"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "test": "node -e \"console.log('No tests configured yet.');\"",
+    "lint": "eslint ./src --ext .js,.jsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
+    "prepare": "node scripts/prepare-husky.cjs",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "packageManager": "npm@11"
+}
