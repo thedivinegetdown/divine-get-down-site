@@ -1,2 +1,0 @@
-Project audited and optimized for production.
-FINAL_FORM_NO_AI_PLUS
