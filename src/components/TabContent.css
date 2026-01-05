@@ -1,0 +1,41 @@
+.tab-content-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), 0 0 22px rgba(255, 217, 90, 0.08);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #fff8c5;
+  white-space: pre-wrap;
+  text-align: center;
+  overflow-y: auto;
+  max-height: 80vh; /* Allow scrolling if too tall */
+  z-index: 1;
+  animation: riseSoft 420ms ease-out both;
+}
+
+
+@media screen and (max-width: 768px) {
+  .tab-content-container {
+    padding: 20px;
+    font-size: 1rem;
+    max-height: 70vh;
+  }
+}
+
+.tab-content-container p {
+  margin: 0 0 14px 0;
+}
+
+.tab-content-container h1,
+.tab-content-container h2,
+.tab-content-container h3 {
+  color: var(--gold-text);
+  text-shadow: 0 0 10px rgba(255, 217, 90, 0.22);
+  letter-spacing: 0.2px;
+}
