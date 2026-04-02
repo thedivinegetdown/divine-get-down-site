@@ -1,0 +1,84 @@
+/* ===========================
+   index.css — FINAL
+   Global baseline styles only
+   =========================== */
+
+/* Reset + sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Root sizing */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/* DO NOT paint background here — stars live in App.css */
+html {
+  background: transparent;
+}
+
+/* Body baseline */
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  overflow-x: hidden;
+
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Root must remain transparent */
+#root {
+  background: transparent;
+}
+
+/* Code blocks */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+/* ---------- Accessibility + polish ---------- */
+::selection {
+  background: rgba(255, 217, 90, 0.25);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 217, 90, 0.85);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

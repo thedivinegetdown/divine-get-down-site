@@ -1,0 +1,143 @@
+.navbar-container {
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 0 8px;
+  margin: 0 auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.navbar-container::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  white-space: nowrap;
+  width: max-content;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: rgba(8, 10, 18, 0.58);
+  border: 1px solid rgba(255, 217, 90, 0.16);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.30),
+    0 0 24px rgba(255, 217, 90, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+.tab-button {
+  appearance: none;
+  padding: 11px 18px;
+  background: linear-gradient(145deg, rgba(255, 255, 100, 0.14), rgba(255, 255, 255, 0.04));
+  color: #fff6bf;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: transform 160ms ease, box-shadow 220ms ease, background 220ms ease, border-color 220ms ease, color 220ms ease;
+  text-shadow: 0 0 6px rgba(255, 245, 157, 0.55);
+  box-shadow: 0 0 8px rgba(255, 255, 160, 0.15);
+  scroll-snap-align: center;
+}
+
+.tab-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(145deg, rgba(255, 232, 124, 0.20), rgba(255, 255, 255, 0.05));
+  border-color: rgba(255, 217, 90, 0.24);
+}
+
+.tab-button.is-active,
+.tab-button.active {
+  color: #1b1606;
+  background: linear-gradient(180deg, rgba(255, 232, 124, 1), rgba(230, 188, 67, 0.95));
+  border-color: rgba(255, 232, 124, 0.55);
+  box-shadow:
+    0 8px 20px rgba(255, 206, 77, 0.28),
+    0 0 24px rgba(255, 223, 124, 0.22);
+  text-shadow: none;
+}
+
+.tab-label {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    justify-content: flex-start;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .navbar {
+    margin: 0;
+  }
+}
+
+.navbar-container::before,
+.navbar-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.navbar-container::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(1, 3, 10, 0.95), rgba(1, 3, 10, 0));
+}
+
+.navbar-container::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(1, 3, 10, 0.95), rgba(1, 3, 10, 0));
+}
+
+.tab-button:focus-visible {
+  outline: 2px solid rgba(255, 217, 90, 0.9);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 217, 90, 0.12), 0 0 18px rgba(255, 217, 90, 0.35);
+}
+
+/* Luxury nav refinement */
+.navbar {
+  padding: 12px 16px;
+  gap: 12px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)),
+    rgba(5, 9, 20, 0.72);
+  border: 1px solid rgba(255, 220, 120, 0.18);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.30),
+    0 0 30px rgba(255, 217, 90, 0.08);
+}
+
+.tab-button {
+  min-height: 50px;
+  padding: 12px 20px;
+  font-size: 15px;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.18),
+    0 0 12px rgba(255, 255, 160, 0.10);
+}
+
+.tab-button.is-active,
+.tab-button.active {
+  box-shadow:
+    0 12px 28px rgba(255, 206, 77, 0.24),
+    0 0 30px rgba(255, 223, 124, 0.22);
+}
