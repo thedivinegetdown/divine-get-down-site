@@ -14,7 +14,7 @@ export default function TabContent({ activeTab }) {
   const meta = getTabMeta(activeTab);
   const canonical = `${SITE_URL}${meta.path}`;
   const subscribeUrl = `${YOUTUBE.channelUrl}?sub_confirmation=1`;
-  const emailHref = `mailto:${CONTACT_EMAIL}?subject=The%20Divine%20Get%20Down%20Inquiry`;
+  const emailHref = `mailto:${CONTACT_EMAIL}?subject=The%20Divine%20Get%20Down%20Inquiry%20-%20Speaking%20or%20Collaboration`;
 
   const orgJsonLd = {
     '@context': 'https://schema.org',
@@ -122,26 +122,42 @@ export default function TabContent({ activeTab }) {
 
             <div className="uspto-panel-grid">
               <div className="uspto-panel-card">
-                <h3>Video Content</h3>
+                <h3>Non-Downloadable Video Content & Spiritual Experiences</h3>
                 <ul className="uspto-list">
-                  <li>Non-downloadable video content focused on faith, purpose, and spiritual awareness</li>
-                  <li>Guided movement and reflection experiences</li>
-                  <li>Inspirational and faith-based media designed to encourage renewal and clarity</li>
+                  <li>Providing non-downloadable online videos featuring faith, Scripture, spiritual renewal, and guided movement experiences</li>
+                  <li>Daily scripture-centered encouragement and reflection content</li>
+                  <li>Immersive faith-based media designed to encourage stillness and clarity</li>
                 </ul>
               </div>
 
               <div className="uspto-panel-card">
-                <h3>Speaking & Teaching</h3>
+                <h3>Motivational Speaking & Educational Teaching</h3>
                 <ul className="uspto-list">
-                  <li>Motivational speaking services</li>
-                  <li>Educational and faith-based teaching sessions</li>
-                  <li>Collaborations, workshops, and media appearances</li>
+                  <li>Motivational speaking services for events, churches, and organizations</li>
+                  <li>Educational and faith-based teaching sessions and workshops</li>
+                  <li>Collaborations, interviews, media appearances, and spiritual reflection experiences</li>
                 </ul>
               </div>
             </div>
 
+            {/* Strong commerce signal – helps direct association for speaking services */}
+            <div className="uspto-panel-card" style={{ marginTop: '24px', background: 'rgba(255, 240, 150, 0.08)', borderColor: 'rgba(255, 217, 90, 0.3)' }}>
+              <h3>Bring The Divine Get Down to Your Event or Group</h3>
+              <p>Motivational speaking, teaching sessions, workshops, and faith-centered collaborations are available now. Invite us to speak or partner on content.</p>
+              <button
+                type="button"
+                className="primary-cta"
+                onClick={() => {
+                  if (typeof window !== 'undefined') window.location.hash = '#contact';
+                }}
+                style={{ marginTop: '12px' }}
+              >
+                Inquire About Speaking or Collaboration
+              </button>
+            </div>
+
             <p className="muted" style={{ marginTop: 18 }}>
-              Explore this platform for faith-centered messages, videos, and speaking opportunities.
+              Explore faith-centered messages, videos, and speaking opportunities.
             </p>
 
             <div className="cta-row">
@@ -263,10 +279,10 @@ export default function TabContent({ activeTab }) {
               <div className="uspto-panel-card">
                 <h3>Contact for</h3>
                 <ul className="uspto-list">
-                  <li>Motivational speaking inquiries</li>
-                  <li>Educational teaching opportunities</li>
-                  <li>Media interviews</li>
-                  <li>Faith-based collaborations and workshop invitations</li>
+                  <li>Motivational speaking engagements and live/virtual events</li>
+                  <li>Educational teaching sessions and workshops</li>
+                  <li>Faith-based video collaborations and media opportunities</li>
+                  <li>Interviews and partnership inquiries</li>
                 </ul>
               </div>
 
@@ -310,10 +326,6 @@ export default function TabContent({ activeTab }) {
               <a className="secondary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
                 Watch on YouTube
               </a>
-            </div>
-
-            <div className="muted" style={{ marginTop: 10 }}>
-              Placeholder: update <code>emailCaptureUrl</code> in <code>src/config/youtube.js</code> when your form is ready.
             </div>
 
             <PinnedLinks emailHref={emailHref} />
