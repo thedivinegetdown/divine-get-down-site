@@ -105,8 +105,6 @@ function Home() {
           </Suspense>
         </div>
 
-        
-
         <section className="compliance-shell compliance-shell--after-menu" aria-label="Services">
           <div className="compliance-card compliance-card--primary">
             <p className="compliance-kicker">Faith-Based Media, Teaching, and Speaking</p>
@@ -152,6 +150,20 @@ function Home() {
                 <li>Collaborations, workshops, interviews, and media appearances</li>
               </ul>
             </div>
+          </div>
+
+          {/* USPTO-friendly commerce signal – direct association for speaking & teaching services */}
+          <div className="compliance-card" style={{ marginTop: '24px', background: 'rgba(255, 240, 150, 0.08)', borderColor: 'rgba(255, 217, 90, 0.3)' }}>
+            <h3>Bring The Divine Get Down to Your Event or Group</h3>
+            <p>Motivational speaking, educational teaching sessions, workshops, and faith-centered collaborations are available now. Invite us to speak or partner on content.</p>
+            <button
+              type="button"
+              className="primary-cta compliance-button"
+              onClick={() => setActiveTab('contact')}
+              style={{ marginTop: '12px' }}
+            >
+              Inquire About Speaking or Collaboration
+            </button>
           </div>
         </section>
       </header>
