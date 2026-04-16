@@ -1,26 +1,24 @@
 // src/config/youtube.js
-// Single source of truth for YouTube + funnel links.
-// Update these values and the site will refresh everywhere automatically.
-
 export const YOUTUBE = {
-  // Provided by you
   channelUrl: 'https://www.youtube.com/@TheDivineGetDown',
-  featuredVideoId: 'rhjTW4JYnUA',
+  featuredVideoId: 'rhjTW4JYnUA',   // ← your actual featured video ID
 
-  // Optional (placeholders — replace anytime)
+  // Real Shorts video IDs (add 6–12 actual ones)
+  shorts: [
+    'PFk-2MwQ0X8',
+    'GlVfcBWHy_8',
+    'SMnaSvh7KZA',
+    'TYJ6dRF83E4',
+    'iqFTeh-2tNA',
+    '8hPm7RZhRwA'
+  ],
+
+  // Working email capture / Scroll Vault link (point to your live form or page)
+  emailCaptureUrl: 'https://thedivinegetdown.com/stillness',   // or your actual Netlify form URL
+
+  // Optional playlists (replace if you have real ones)
   playlistIds: {
-    longform: 'YOUR_LONGFORM_PLAYLIST_ID',
-    shorts: 'YOUR_SHORTS_PLAYLIST_ID',
+    longform: '',   // leave empty or add real ID
+    shorts: ''
   },
-
-  // For the Shorts grid (6–12). Use YouTube Shorts video IDs.
-  // Example short URL: https://youtube.com/shorts/VIDEO_ID
-  shortsVideoIds: ['PFk-2MwQ0X8', 'GlVfcBWHy_8', 'SMnaSvh7KZA', 'TYJ6dRF83E4', 'iqFTeh-2tNA', '8hPm7RZhRwA'],
-
-  // Funnel / community actions
-  joinCommunityPath: '/community',
-  leadMagnetPath: '/stillness',
-
-  // Placeholder until your email capture is wired up (Button should open a link)
-  emailCaptureUrl: 'https://example.com/stillness-scroll',
 };
