@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "Your Name",
-  "description": "The Divine Get Down \u2014 sacred sanctuary for restoration and rhythm.",
+  "description": "The Divine Get Down — sacred sanctuary for restoration and rhythm.",
   "keywords": [
     "react",
     "music",
@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "framer-motion": "^10.12.16",
+    "lite-youtube-embed": "^0.3.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
-    "react-router-dom": "^6.15.0",
-    "react-scripts": "5.0.1",
-    "lite-youtube-embed": "^0.3.3"
+    "react-router-dom": "^6.30.3",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
