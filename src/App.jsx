@@ -15,6 +15,7 @@ const StillnessScrollPage = lazy(() => import('./pages/StillnessScrollPage'));
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage'));
 const JourneyPage = lazy(() => import('./pages/JourneyPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
+const ResetExperiencePage = lazy(() => import('./pages/ResetExperiencePage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       import('./pages/JourneyPage');
       import('./pages/CommunityPage');
       import('./pages/StillnessScrollPage');
+      import('./pages/ResetExperiencePage');
     };
 
     if (canPrefetch) {
@@ -73,9 +75,11 @@ function App() {
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/journey" element={<JourneyPage />} />
             <Route path="/community" element={<CommunityPage />} />
+            <Route path="/reset-experience" element={<ResetExperiencePage />} />
 
             <Route path="/scroll" element={<Navigate to="/stillness" replace />} />
             <Route path="/inner-rhythm" element={<Navigate to="/community" replace />} />
+            <Route path="/reset" element={<Navigate to="/reset-experience" replace />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
