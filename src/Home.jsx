@@ -1,7 +1,7 @@
 // src/Home.jsx
 import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './App.css';
 
 import { YOUTUBE } from './config/youtube';
@@ -11,6 +11,10 @@ const TabContent = lazy(() => import('./components/TabContent'));
 
 const TABS = [
   { id: 'welcome', label: 'Welcome' },
+
+  // 🔥 KEEP THIS SECOND (VISIBLE IMMEDIATELY)
+  { id: 'experience', label: 'Experience' },
+
   { id: 'watch', label: 'Watch' },
   { id: 'shorts', label: 'Shorts' },
   { id: 'services', label: 'Services' },
@@ -47,6 +51,7 @@ function Home() {
   useEffect(() => {
     const el = stickyTabsRef.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
@@ -57,6 +62,7 @@ function Home() {
       },
       { rootMargin: '-1px 0px 0px 0px', threshold: [1] }
     );
+
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -99,9 +105,25 @@ function Home() {
         </motion.div>
 
         <div className="top-menu-anchor" aria-hidden="true" />
-        <div ref={stickyTabsRef} className="sticky-tabs top-site-menu" role="navigation" aria-label="Primary">
+
+        <div
+          ref={stickyTabsRef}
+          className="sticky-tabs top-site-menu"
+          role="navigation"
+          aria-label="Primary"
+        >
           <Suspense fallback={<NavFallback />}>
-            <NavigationBar tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
+            <NavigationBar
+              tabs={TABS}
+              activeTab={activeTab}
+              onTabChange={(id) => {
+                if (id === 'experience') {
+                  window.location.href = '/reset-experience';
+                } else {
+                  setActiveTab(id);
+                }
+              }}
+            />
           </Suspense>
         </div>
 
@@ -110,10 +132,12 @@ function Home() {
             <p className="compliance-kicker">Faith-Based Media, Teaching, and Speaking</p>
             <h1 className="compliance-title">The Divine Get Down</h1>
             <p className="compliance-copy">
-              The Divine Get Down is a faith-based platform offering video content, spiritual encouragement,
-              motivational speaking, educational teaching, and creative collaboration designed to inspire reflection,
-              renewal, and connection with God.
+              The Divine Get Down is a faith-based platform offering video content,
+              spiritual encouragement, motivational speaking, educational teaching,
+              and creative collaboration designed to inspire reflection, renewal,
+              and connection with God.
             </p>
+
             <div className="compliance-actions">
               <button
                 type="button"
@@ -122,6 +146,7 @@ function Home() {
               >
                 View Services
               </button>
+
               <button
                 type="button"
                 className="secondary-cta compliance-button"
@@ -130,40 +155,6 @@ function Home() {
                 Speaking & Business Inquiries
               </button>
             </div>
-          </div>
-
-          <div className="compliance-grid">
-            <div className="compliance-card">
-              <h2>Video Content</h2>
-              <ul className="compliance-list">
-                <li>Non-downloadable faith-based videos focused on spiritual growth, reflection, and renewal</li>
-                <li>Inspirational media created to encourage peace, stillness, and purpose</li>
-                <li>Scripture-centered visual messages and movement-based encouragement</li>
-              </ul>
-            </div>
-
-            <div className="compliance-card">
-              <h2>Speaking & Teaching</h2>
-              <ul className="compliance-list">
-                <li>Motivational speaking services</li>
-                <li>Educational and faith-based teaching sessions</li>
-                <li>Collaborations, workshops, interviews, and media appearances</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* USPTO-friendly commerce signal – direct association for speaking & teaching services */}
-          <div className="compliance-card" style={{ marginTop: '24px', background: 'rgba(255, 240, 150, 0.08)', borderColor: 'rgba(255, 217, 90, 0.3)' }}>
-            <h3>Bring The Divine Get Down to Your Event or Group</h3>
-            <p>Motivational speaking, educational teaching sessions, workshops, and faith-centered collaborations are available now. Invite us to speak or partner on content.</p>
-            <button
-              type="button"
-              className="primary-cta compliance-button"
-              onClick={() => setActiveTab('contact')}
-              style={{ marginTop: '12px' }}
-            >
-              Inquire About Speaking or Collaboration
-            </button>
           </div>
         </section>
       </header>
