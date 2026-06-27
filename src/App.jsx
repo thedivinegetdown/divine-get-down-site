@@ -15,7 +15,12 @@ const StillnessScrollPage = lazy(() => import('./pages/StillnessScrollPage'));
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage'));
 const JourneyPage = lazy(() => import('./pages/JourneyPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
+const ScrollVaultPage = lazy(() => import('./pages/ScrollVaultPage'));
 const ResetExperiencePage = lazy(() => import('./pages/ResetExperiencePage'));
+
+// 🔥 ADD THIS (ACCESS PAGE)
+const ExperienceAccessPage = lazy(() => import('./pages/ExperienceAccessPage'));
+
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 function App() {
@@ -26,13 +31,16 @@ function App() {
   }, [location.pathname, location.hash, location.search]);
 
   useEffect(() => {
-    const canPrefetch = typeof window !== 'undefined' && 'requestIdleCallback' in window;
+    const canPrefetch =
+      typeof window !== 'undefined' && 'requestIdleCallback' in window;
 
     const prefetch = () => {
       import('./pages/JourneyPage');
       import('./pages/CommunityPage');
+      import('./pages/ScrollVaultPage');
       import('./pages/StillnessScrollPage');
       import('./pages/ResetExperiencePage');
+      import('./pages/ExperienceAccessPage'); // 🔥 ADD THIS
     };
 
     if (canPrefetch) {
@@ -75,7 +83,11 @@ function App() {
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/journey" element={<JourneyPage />} />
             <Route path="/community" element={<CommunityPage />} />
+            <Route path="/vault" element={<ScrollVaultPage />} />
             <Route path="/reset-experience" element={<ResetExperiencePage />} />
+
+            {/* 🔥 THIS IS THE KEY ADD */}
+            <Route path="/experience-access" element={<ExperienceAccessPage />} />
 
             <Route path="/scroll" element={<Navigate to="/stillness" replace />} />
             <Route path="/inner-rhythm" element={<Navigate to="/community" replace />} />

@@ -32,7 +32,6 @@ function ScrollVaultPage() {
               alt="The Divine Get Down crest"
               className="funnel-logo"
               loading="eager"
-              decoding="async"
             
         width="160"
         height="160"

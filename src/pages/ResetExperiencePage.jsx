@@ -18,7 +18,12 @@ const receiveItems = [
   'repeatable reset experience',
 ];
 
+const checkoutUrl =
+  process.env.REACT_APP_RESET_EXPERIENCE_CHECKOUT_URL || '/experience-access';
+
 function ResetExperiencePage() {
+  const checkoutIsExternal = /^https?:\/\//i.test(checkoutUrl);
+
   return (
     <div className="App reset-experience-page" aria-live="polite">
       <MetaTags
@@ -54,7 +59,12 @@ function ResetExperiencePage() {
             mind, reconnect to your body, and realign your spirit.
           </p>
 
-          <a className="primary-cta reset-cta" href="#checkout">
+          <a
+            className="primary-cta reset-cta"
+            href={checkoutUrl}
+            target={checkoutIsExternal ? '_blank' : undefined}
+            rel={checkoutIsExternal ? 'noreferrer' : undefined}
+          >
             Unlock The Experience
           </a>
         </section>
@@ -99,7 +109,12 @@ function ResetExperiencePage() {
               Step into the reset whenever you need a guided return to presence, rhythm,
               and clarity.
             </p>
-            <a className="primary-cta reset-cta" href="#checkout">
+            <a
+              className="primary-cta reset-cta"
+              href={checkoutUrl}
+              target={checkoutIsExternal ? '_blank' : undefined}
+              rel={checkoutIsExternal ? 'noreferrer' : undefined}
+            >
               Unlock The Experience
             </a>
           </section>
