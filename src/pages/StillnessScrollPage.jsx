@@ -8,7 +8,11 @@ import './FunnelPages.css';
 function StillnessScrollPage() {
   return (
     <div className="App" aria-live="polite">
-      <MetaTags title="Stillness Scroll — The Divine Get Down" description="A calm, Scripture-rooted stillness space. Slow down, breathe, and return to what is steady." path="/stillness" />
+      <MetaTags
+        title="Stillness Scroll — The Divine Get Down"
+        description="A calm, Scripture-rooted stillness space. Slow down, breathe, and return to what is steady."
+        path="/stillness"
+      />
 
       <div className="funnel-shell" id="main-content">
         <div className="funnel-card">
@@ -20,18 +24,18 @@ function StillnessScrollPage() {
 
           <div className="funnel-top">
             <picture>
-      <source srcSet="/divine_logo.webp" type="image/webp" />
-      <img
-        src="/divine_logo.png"
-              alt="The Divine Get Down crest"
-              className="funnel-logo"
-              loading="eager"
-        width="160"
-        height="160"
-        decoding="async"
-        fetchPriority="high"
-      />
-    </picture>
+              <source srcSet="/divine_logo.webp" type="image/webp" />
+              <img
+                src="/divine_logo.png"
+                alt="The Divine Get Down crest"
+                className="funnel-logo"
+                loading="eager"
+                width="160"
+                height="160"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
           <h1 className="funnel-title">A Sacred Scroll for the Weary Soul</h1>
@@ -55,42 +59,22 @@ function StillnessScrollPage() {
               This is free. This is a gift.
             </p>
 
-            <div className="funnel-panel" style={{ marginTop: 14 }}>
-              <h3 style={{ textAlign: 'center' }}>Enter your email to receive the scroll</h3>
+            <div className="funnel-panel" style={{ marginTop: 14, textAlign: 'center' }}>
+              <h3>Open the scroll whenever you need a moment of peace.</h3>
 
-              {/* Netlify Forms (works great on Netlify) */}
-              <form
-                className="funnel-form"
-                name="stillness-scroll"
-                method="POST"
-                action="/thank-you"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-              >
-                <input type="hidden" name="form-name" value="stillness-scroll" />
-                <p style={{ display: 'none' }}>
-                  <label>
-                    Don’t fill this out if you’re human:{' '}
-                    <input name="bot-field" />
-                  </label>
-                </p>
-
-                <input
-                  className="funnel-input"
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Your email address"
-                  autoComplete="email"
-                />
-
-                <button className="primary-cta" type="submit">
-                  Send Me the Scroll
-                </button>
-              </form>
+              <div className="funnel-actions">
+                <a
+                  className="primary-cta"
+                  href="/stillness-scroll.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open The Stillness Scroll
+                </a>
+              </div>
 
               <p className="funnel-footnote">
-                We honor your inbox. No noise. No pressure. Only presence.
+                No noise. No pressure. Only stillness, reflection, and peace through Jesus Christ.
               </p>
             </div>
           </div>
