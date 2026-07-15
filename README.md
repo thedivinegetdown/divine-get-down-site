@@ -1,43 +1,170 @@
-# Divine Get Down
+The Divine Get Down
 
-Welcome to the official Divine Get Down website repository — a sacred sanctuary for restoration, rhythm, and remembrance.
+A Christ-centered faith-based media platform dedicated to helping people slow down, reconnect with God, and find peace through Scripture, reflection, teaching, and meaningful digital experiences.
 
-This project is built with React and Next.js to provide a dynamic scroll vault, immersive audio experiences, and a smooth, spiritual web journey.
+Mission
 
-## Features
+To create a sacred rhythm for the weary soul, a place to breathe, remember, and rest in God’s presence.
 
-- Tabbed interface for easy navigation  
-- Sacred scroll vault with downloadable scrolls  
-- Integrated audio and video players  
-- Responsive and mobile-friendly design  
-- Prepared for future AI and CMS integrations  
+⸻
 
-## Getting Started
+Features
 
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/your-username/divine-get-down.git
+* Peaceful, Scripture-centered website
+* Guided Reset Experience
+* Free Stillness Scroll
+* Scroll Vault
+* Faith-based video content
+* Speaking and collaboration information
+* Mobile-responsive design
+* SEO optimization
+* React Router navigation
+* Netlify deployment
 
+⸻
 
-## USPTO update
-This build includes a visible homepage services section plus Services and Contact tabs to show direct association between THE DIVINE GET DOWN mark and the services offered.
+Tech Stack
 
+* React
+* React Router
+* React Helmet Async
+* Netlify
+* GitHub
+* Stripe Payment Links
+* YouTube (Unlisted Video Delivery)
 
-## Final site language update
-This build replaces overly legal specimen language with natural service descriptions while preserving the service categories that support the trademark use.
+⸻
 
+Project Structure
 
-## Elite contact update
-This build upgrades the centered top navigation, keeps Scroll Vault in the menu, and adds a stronger Contact experience using thedivinegetdown@gmail.com.
+src/
+ ├── components/
+ ├── pages/
+ ├── utils/
+ ├── Home.jsx
+ └── App.jsx
+public/
+ ├── _redirects
+ ├── divine_logo.png
+ ├── divine_logo.webp
+ ├── stillness-scroll.pdf
+ └── reset-companion.pdf
 
+⸻
 
-## Banner/menu placement update
-The tab menu now sits directly under the main Divine Get Down banner/hero section before the services block.
+Routes
 
+Route	Description
+/	Home
+/stillness	Free Stillness Scroll
+/reset-experience	Reset Experience landing page
+/experience-access	Paid experience access
+/journey	Journey page
+/community	Community page
+/vault	Scroll Vault
+/thank-you	Thank You page
 
-## Luxury polish update
-This build adds a higher-end visual layer with richer spacing, softer premium glow, stronger card treatment, and a more elevated navigation feel.
+⸻
 
+Local Development
 
-## Layout lock update
-The hero now shows only the Scroll Vault CTA above the tab menu. Watch, Subscribe, and Contact have been moved below the tabs for a cleaner flow.
+Install dependencies:
+
+npm install
+
+Run locally:
+
+npm start
+
+Create a production build:
+
+npm run build
+
+⸻
+
+Deployment
+
+The site is automatically deployed through Netlify whenever changes are pushed to the main branch.
+
+Required Netlify Environment Variable
+
+REACT_APP_RESET_EXPERIENCE_CHECKOUT_URL
+
+This variable should contain the Stripe Payment Link URL.
+
+⸻
+
+Netlify Redirects
+
+React Router requires the following file:
+
+public/_redirects
+
+Contents:
+
+/*    /index.html    200
+
+⸻
+
+Stripe Integration
+
+The Reset Experience uses Stripe Payment Links.
+
+After a successful purchase, customers are redirected to:
+
+/experience-access
+
+The access page includes:
+
+* Unlisted YouTube experience
+* Reset Companion PDF
+
+⸻
+
+Static Resources
+
+Public assets are served from the public folder.
+
+Examples:
+
+* /stillness-scroll.pdf
+* /reset-companion.pdf
+* /divine_logo.png
+
+⸻
+
+Development Guidelines
+
+* Keep changes minimal and intentional.
+* Preserve the Christ-centered mission and peaceful design.
+* Test with npm run build before deploying.
+* Avoid unnecessary dependencies.
+* Keep routing compatible with Netlify.
+
+⸻
+
+Contributing
+
+1. Create a feature branch.
+2. Make your changes.
+3. Test locally.
+4. Run a production build.
+5. Open a pull request.
+
+⸻
+
+License
+
+All original branding, written content, videos, PDFs, artwork, and digital experiences are the intellectual property of The Divine Get Down unless otherwise noted.
+
+⸻
+
+Website
+
+https://thedivinegetdown.com
+
+⸻
+
+Contact
+
+thedivinegetdown@gmail.com
