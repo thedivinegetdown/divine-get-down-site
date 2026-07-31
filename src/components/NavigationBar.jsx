@@ -1,5 +1,5 @@
 // src/components/NavigationBar.jsx
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -20,12 +20,6 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
     dragged: false,
     pointerId: null,
   });
-
-  const idToIndex = useMemo(() => {
-    const map = new Map();
-    tabs.forEach((t, i) => map.set(t.id, i));
-    return map;
-  }, [tabs]);
 
   // Ensure valid active tab (especially after tab list changes)
   useEffect(() => {

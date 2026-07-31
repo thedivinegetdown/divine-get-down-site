@@ -24,7 +24,6 @@ function NotFoundPage() {
             
         width="160"
         height="160"
-        decoding="async"
         fetchPriority="high"
       />
     </picture>
