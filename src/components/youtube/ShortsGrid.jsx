@@ -21,14 +21,15 @@ function ShortsGrid({ videoIds = [] }) {
           target="_blank"
           rel="noreferrer"
         >
-          <img loading="lazy" decoding="async" referrerPolicy="no-referrer"
+          <img
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
             className="short-thumb"
             src={toThumb(id)}
             alt="YouTube Short thumbnail"
             width="480"
             height="360"
-            loading="lazy"
-            decoding="async"
           />
           <span className="short-badge" aria-hidden="true">
             Short

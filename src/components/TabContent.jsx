@@ -187,7 +187,7 @@ export default function TabContent({ activeTab }) {
             </p>
 
             <div className="yt-lite-wrap">
-              <LiteYouTube id={YOUTUBE.featuredVideoId} title="The Divine Get Down featured video" />
+              <LiteYouTube videoId={YOUTUBE.featuredVideoId} title="The Divine Get Down featured video" />
             </div>
 
             <div className="cta-row">
@@ -212,7 +212,7 @@ export default function TabContent({ activeTab }) {
               Short, scripture-centered encouragement designed to reset your mind and strengthen your spirit.
             </p>
 
-            <ShortsGrid items={YOUTUBE.shorts || []} />
+            <ShortsGrid videoIds={YOUTUBE.shorts || []} />
 
             <div className="cta-row">
               <a className="primary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
