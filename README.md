@@ -1,170 +1,137 @@
-The Divine Get Down
+# The Divine Get Down
 
-A Christ-centered faith-based media platform dedicated to helping people slow down, reconnect with God, and find peace through Scripture, reflection, teaching, and meaningful digital experiences.
+The Divine Get Down is a Christ-centered faith-based media and digital ministry platform for Scripture-rooted reflection, teaching, guided experiences, speaking inquiries, and peaceful digital resources.
 
-Mission
+## Mission
 
-To create a sacred rhythm for the weary soul, a place to breathe, remember, and rest in God’s presence.
+To create a sacred rhythm for the weary soul, a place to breathe, remember, and rest in God's presence.
 
-⸻
+## Architecture
 
-Features
+The permanent governing architecture package is documented in [docs/architecture/README.md](docs/architecture/README.md).
 
-* Peaceful, Scripture-centered website
-* Guided Reset Experience
-* Free Stillness Scroll
-* Scroll Vault
-* Faith-based video content
-* Speaking and collaboration information
-* Mobile-responsive design
-* SEO optimization
-* React Router navigation
-* Netlify deployment
+All implementation work must follow the architecture-first workflow defined there:
 
-⸻
+Architecture -> Roadmap -> Execution Order -> Implementation -> One Validation Cycle -> One Commit -> One Push -> Architecture Review.
 
-Tech Stack
+## Tech Stack
 
-* React
-* React Router
-* React Helmet Async
-* Netlify
-* GitHub
-* Stripe Payment Links
-* YouTube (Unlisted Video Delivery)
+- React 18
+- Create React App / react-scripts
+- React Router
+- React Helmet Async
+- Framer Motion
+- Netlify
+- Stripe Payment Links
+- YouTube embeds
+- Static PDF delivery
 
-⸻
+## Supported Runtime
 
-Project Structure
+This repository declares the following engine requirements in `package.json`:
 
-src/
- ├── components/
- ├── pages/
- ├── utils/
- ├── Home.jsx
- └── App.jsx
-public/
- ├── _redirects
- ├── divine_logo.png
- ├── divine_logo.webp
- ├── stillness-scroll.pdf
- └── reset-companion.pdf
+- Node.js `>=18.0.0`
+- npm `>=8.0.0`
 
-⸻
-
-Routes
-
-Route	Description
-/	Home
-/stillness	Free Stillness Scroll
-/reset-experience	Reset Experience landing page
-/experience-access	Paid experience access
-/journey	Journey page
-/community	Community page
-/vault	Scroll Vault
-/thank-you	Thank You page
-
-⸻
-
-Local Development
+## Local Development
 
 Install dependencies:
 
+```bash
 npm install
+```
 
 Run locally:
 
+```bash
 npm start
+```
 
-Create a production build:
+## Repository Validation
 
+Use these commands for the current repository baseline:
+
+```bash
+git diff --check
+npm run lint
+npm test -- --watchAll=false
 npm run build
+git status
+```
 
-⸻
+Notes:
 
-Deployment
+- `npm run lint` uses the React app ESLint configuration.
+- `npm test -- --watchAll=false` is configured to pass when no test files exist yet.
+- Future Execution Orders may add stricter validation gates without changing this baseline retroactively.
 
-The site is automatically deployed through Netlify whenever changes are pushed to the main branch.
+## Routes
 
-Required Netlify Environment Variable
+Current public routes include:
 
-REACT_APP_RESET_EXPERIENCE_CHECKOUT_URL
+| Route | Purpose |
+| --- | --- |
+| `/` | Home |
+| `/stillness` | Stillness Scroll |
+| `/reset-experience` | Reset Experience landing page |
+| `/experience-access` | Experience access page |
+| `/journey` | Journey page |
+| `/community` | Community page |
+| `/vault` | Scroll Vault |
+| `/thank-you` | Thank You page |
 
-This variable should contain the Stripe Payment Link URL.
+## Static Resources
 
-⸻
+Public assets are served from `public/`.
 
-Netlify Redirects
+Current examples:
 
-React Router requires the following file:
+- `/stillness-scroll.pdf`
+- `/reset-companion.pdf`
+- `/divine_logo.png`
+- `/divine_logo.webp`
 
+## Deployment
+
+The current deployment path is GitHub `main` to Netlify production.
+
+React Router fallback routing depends on:
+
+```text
 public/_redirects
+```
 
-Contents:
+with:
 
-/*    /index.html    200
+```text
+/*    /index.html   200
+```
 
-⸻
+Required Netlify environment variable:
 
-Stripe Integration
+```text
+REACT_APP_RESET_EXPERIENCE_CHECKOUT_URL
+```
 
-The Reset Experience uses Stripe Payment Links.
+This variable should contain the Stripe Payment Link URL for the Reset Experience checkout.
 
-After a successful purchase, customers are redirected to:
+## Repository Governance
 
-/experience-access
+- `main` is the production deployment branch.
+- Changes should be made through a scoped Execution Order.
+- Each Execution Order should produce one validation cycle, one commit, and one push.
+- Product functionality, architecture changes, dependency upgrades, and infrastructure changes require the applicable roadmap and ADR review before implementation.
+- Keep changes minimal, intentional, and aligned with the Christ-centered mission and architecture package.
 
-The access page includes:
+## Contributing
 
-* Unlisted YouTube experience
-* Reset Companion PDF
+1. Confirm the active Execution Order and scope.
+2. Create or use the approved working branch.
+3. Make only scoped changes.
+4. Run the defined validation cycle.
+5. Commit once with the Execution Order commit message.
+6. Push to the approved target.
 
-⸻
-
-Static Resources
-
-Public assets are served from the public folder.
-
-Examples:
-
-* /stillness-scroll.pdf
-* /reset-companion.pdf
-* /divine_logo.png
-
-⸻
-
-Development Guidelines
-
-* Keep changes minimal and intentional.
-* Preserve the Christ-centered mission and peaceful design.
-* Test with npm run build before deploying.
-* Avoid unnecessary dependencies.
-* Keep routing compatible with Netlify.
-
-⸻
-
-Contributing
-
-1. Create a feature branch.
-2. Make your changes.
-3. Test locally.
-4. Run a production build.
-5. Open a pull request.
-
-⸻
-
-License
-
-All original branding, written content, videos, PDFs, artwork, and digital experiences are the intellectual property of The Divine Get Down unless otherwise noted.
-
-⸻
-
-Website
-
-https://thedivinegetdown.com
-
-⸻
-
-Contact
+## Contact
 
 thedivinegetdown@gmail.com
