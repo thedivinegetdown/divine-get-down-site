@@ -31,8 +31,19 @@ function App() {
   }, [location.pathname, location.hash, location.search]);
 
   useEffect(() => {
-    const canPrefetch =
-      typeof window !== 'undefined' && 'requestIdleCallback' in window;
+    if (typeof window === 'undefined') return undefined;
+
+    const connection =
+      window.navigator.connection ||
+      window.navigator.mozConnection ||
+      window.navigator.webkitConnection;
+    const isConstrained =
+      connection?.saveData ||
+      connection?.effectiveType === 'slow-2g' ||
+      connection?.effectiveType === '2g';
+    const canPrefetch = 'requestIdleCallback' in window;
+
+    if (!canPrefetch || isConstrained) return undefined;
 
     const prefetch = () => {
       import('./pages/JourneyPage');
@@ -43,14 +54,9 @@ function App() {
       import('./pages/ExperienceAccessPage'); // 🔥 ADD THIS
     };
 
-    if (canPrefetch) {
-      requestIdleCallback(prefetch, { timeout: 1500 });
-    } else {
-      const t = setTimeout(prefetch, 700);
-      return () => clearTimeout(t);
-    }
+    const idleId = window.requestIdleCallback(prefetch, { timeout: 1500 });
 
-    return undefined;
+    return () => window.cancelIdleCallback?.(idleId);
   }, []);
 
   return (

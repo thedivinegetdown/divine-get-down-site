@@ -1,11 +1,12 @@
 // src/components/TabContent.jsx
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 
 import { YOUTUBE } from '../config/youtube';
-import LiteYouTube from './youtube/LiteYouTube';
-import ShortsGrid from './youtube/ShortsGrid';
+
+const LiteYouTube = lazy(() => import('./youtube/LiteYouTube'));
+const ShortsGrid = lazy(() => import('./youtube/ShortsGrid'));
 
 const SITE_URL = process.env.REACT_APP_SITE_URL || 'https://thedivinegetdown.com';
 const CONTACT_EMAIL = 'thedivinegetdown@gmail.com';
@@ -187,7 +188,9 @@ export default function TabContent({ activeTab }) {
             </p>
 
             <div className="yt-lite-wrap">
-              <LiteYouTube videoId={YOUTUBE.featuredVideoId} title="The Divine Get Down featured video" />
+              <Suspense fallback={null}>
+                <LiteYouTube videoId={YOUTUBE.featuredVideoId} title="The Divine Get Down featured video" />
+              </Suspense>
             </div>
 
             <div className="cta-row">
@@ -212,7 +215,9 @@ export default function TabContent({ activeTab }) {
               Short, scripture-centered encouragement designed to reset your mind and strengthen your spirit.
             </p>
 
-            <ShortsGrid videoIds={YOUTUBE.shorts || []} />
+            <Suspense fallback={null}>
+              <ShortsGrid videoIds={YOUTUBE.shorts || []} />
+            </Suspense>
 
             <div className="cta-row">
               <a className="primary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
