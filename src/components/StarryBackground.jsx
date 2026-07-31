@@ -14,13 +14,14 @@ export default function StarryBackground({ audioRef, enabled = true }) {
 
   // Keep Lighthouse + performance strong: disable heavy canvas animation on mobile or when user prefers reduced motion.
   const isMobile = typeof navigator !== "undefined" && /Mobi|Android/i.test(navigator.userAgent);
+  const shouldRender = enabled && !prefersReducedMotion && !isMobile;
 
-  if (!enabled || prefersReducedMotion || isMobile) {
-    return null;
-  }
+  useEffect(() => {
+    if (!shouldRender) return undefined;
 
-useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return undefined;
+
     const ctx = canvas.getContext("2d");
 
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
@@ -166,7 +167,11 @@ useEffect(() => {
         audioContextRef.current.close();
       }
     };
-  }, [audioRef]);
+  }, [audioRef, shouldRender]);
+
+  if (!shouldRender) {
+    return null;
+  }
 
   return (
     <canvas
