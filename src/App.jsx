@@ -82,7 +82,13 @@ function App() {
       <ScrollToTop />
 
       <ErrorBoundary>
-        <Suspense fallback={<div style={{ padding: 16, color: '#fff' }}>Loading…</div>}>
+        <Suspense
+          fallback={(
+            <div role="status" aria-live="polite" style={{ padding: 16, color: '#fff' }}>
+              Loading…
+            </div>
+          )}
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/stillness" element={<StillnessScrollPage />} />

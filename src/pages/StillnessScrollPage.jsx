@@ -7,14 +7,14 @@ import './FunnelPages.css';
 
 function StillnessScrollPage() {
   return (
-    <div className="App" aria-live="polite">
+    <div className="App">
       <MetaTags
         title="Stillness Scroll — The Divine Get Down"
         description="A calm, Scripture-rooted stillness space. Slow down, breathe, and return to what is steady."
         path="/stillness"
       />
 
-      <div className="funnel-shell" id="main-content">
+      <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
             <Link className="funnel-link" to="/">
@@ -79,7 +79,7 @@ function StillnessScrollPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

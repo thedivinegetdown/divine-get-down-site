@@ -7,10 +7,10 @@ import './FunnelPages.css';
 
 function ThankYouPage() {
   return (
-    <div className="App" aria-live="polite">
+    <div className="App">
       <MetaTags title="Thank You — The Divine Get Down" description="You’re in. Thank you for joining the sanctuary. Your next step is waiting." path="/thank-you" noIndex />
 
-      <div className="funnel-shell" id="main-content">
+      <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
             <Link className="funnel-link" to="/">
@@ -76,7 +76,7 @@ function ThankYouPage() {
             <p className="funnel-footnote">There is no obligation. Only an open door.</p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

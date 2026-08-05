@@ -7,10 +7,10 @@ import './FunnelPages.css';
 
 function CommunityPage() {
   return (
-    <div className="App" aria-live="polite">
+    <div className="App">
       <MetaTags title="The Inner Rhythm — The Divine Get Down" description="A sanctuary for community, short films, and sacred rhythm. Watch, reflect, and share the light." path="/community" />
 
-      <div className="funnel-shell" id="main-content">
+      <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
             <Link className="funnel-link" to="/">
@@ -90,7 +90,11 @@ function CommunityPage() {
                 </label>
               </p>
 
+              <label className="funnel-label" htmlFor="community-email">
+                Email address
+              </label>
               <input
+                id="community-email"
                 className="funnel-input"
                 type="email"
                 name="email"
@@ -99,7 +103,11 @@ function CommunityPage() {
                 autoComplete="email"
               />
 
+              <label className="funnel-label" htmlFor="community-note">
+                Prayer request (optional)
+              </label>
               <textarea
+                id="community-note"
                 className="funnel-textarea"
                 name="note"
                 placeholder="Optional: What would you like prayer for this month?"
@@ -120,7 +128,7 @@ function CommunityPage() {
             </p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

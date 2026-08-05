@@ -7,10 +7,10 @@ import './FunnelPages.css';
 
 function JourneyPage() {
   return (
-    <div className="App" aria-live="polite">
+    <div className="App">
       <MetaTags title="The Journey — The Divine Get Down" description="Step into the 4-week journey: movement, stillness, breath, and breakthrough—rooted in faith." path="/journey" />
 
-      <div className="funnel-shell" id="main-content">
+      <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
             <Link className="funnel-link" to="/">
@@ -109,7 +109,11 @@ function JourneyPage() {
                 </label>
               </p>
 
+              <label className="funnel-label" htmlFor="journey-email">
+                Email address
+              </label>
               <input
+                id="journey-email"
                 className="funnel-input"
                 type="email"
                 name="email"
@@ -118,7 +122,11 @@ function JourneyPage() {
                 autoComplete="email"
               />
 
+              <label className="funnel-label" htmlFor="journey-intention">
+                Intention (optional)
+              </label>
               <textarea
+                id="journey-intention"
                 className="funnel-textarea"
                 name="intention"
                 placeholder="Optional: What are you hoping God restores in you during these 4 weeks?"
@@ -139,7 +147,7 @@ function JourneyPage() {
             </p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

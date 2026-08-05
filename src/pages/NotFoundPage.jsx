@@ -7,10 +7,10 @@ import './FunnelPages.css';
 
 function NotFoundPage() {
   return (
-    <div className="App" aria-live="polite">
+    <div className="App">
       <MetaTags title="Page Not Found — The Divine Get Down" description="This page doesn’t exist, but the sanctuary is still here. Return home." path="/404" noIndex />
 
-      <div className="funnel-shell" id="main-content">
+      <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-top">
             <picture>
@@ -45,7 +45,7 @@ function NotFoundPage() {
             </Link>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

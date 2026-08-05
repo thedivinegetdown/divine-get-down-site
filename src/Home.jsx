@@ -1,6 +1,6 @@
 // src/Home.jsx
 import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import './App.css';
 
@@ -27,6 +27,7 @@ function Home() {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const location = useLocation();
   const stickyTabsRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const hash = (location.hash || '').replace('#', '').trim();
@@ -45,8 +46,13 @@ function Home() {
 
   useEffect(() => {
     const el = document.getElementById('main-content');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [activeTab]);
+    if (el) {
+      el.scrollIntoView({
+        behavior: shouldReduceMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    }
+  }, [activeTab, shouldReduceMotion]);
 
   useEffect(() => {
     const el = stickyTabsRef.current;
@@ -70,15 +76,13 @@ function Home() {
   const subscribeUrl = `${YOUTUBE?.channelUrl || 'https://www.youtube.com/@TheDivineGetDown'}?sub_confirmation=1`;
 
   return (
-    <div className="App" aria-live="polite">
-      <a className="skip-link" href="#main-content">Skip to content</a>
-
+    <div className="App">
       <header aria-label="Site header">
         <motion.div
           className="hero-logo-wrap"
-          initial={{ opacity: 0, y: -12, scale: 0.98 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: -12, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: 'easeOut' }}
         >
           <picture>
             <source srcSet="/divine_logo.webp" type="image/webp" />
@@ -96,9 +100,12 @@ function Home() {
 
           <motion.p
             className="hero-subhead"
-            initial={{ opacity: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
+            transition={{
+              delay: shouldReduceMotion ? 0 : 0.35,
+              duration: shouldReduceMotion ? 0 : 0.6,
+            }}
           >
             A sacred rhythm for the weary soul — a place to breathe, remember, and rest in God's presence.
           </motion.p>
@@ -159,14 +166,14 @@ function Home() {
         </section>
       </header>
 
-      <main id="main-content" role="main" aria-label="Main content area">
+      <main id="main-content" role="main" aria-label="Main content area" tabIndex={-1}>
         <AnimatePresence mode="wait">
           <motion.section
             key={activeTab}
-            initial={{ opacity: 0, y: 12 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
+            exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: 'easeOut' }}
             className="tab-content-wrap"
           >
             <Suspense fallback={<ContentFallback />}>
@@ -190,11 +197,11 @@ function Home() {
 }
 
 function NavFallback() {
-  return <div className="fallback-nav">Loading navigation…</div>;
+  return <div className="fallback-nav" role="status" aria-live="polite">Loading navigation…</div>;
 }
 
 function ContentFallback() {
-  return <div className="fallback-content">Preparing your sacred space…</div>;
+  return <div className="fallback-content" role="status" aria-live="polite">Preparing your sacred space…</div>;
 }
 
 export default Home;

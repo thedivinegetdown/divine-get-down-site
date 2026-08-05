@@ -14,7 +14,7 @@ function ScrollVaultPage() {
         path="/vault"
       />
 
-      <div className="funnel-shell">
+      <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
             <Link className="funnel-link" to="/">
@@ -108,7 +108,11 @@ function ScrollVaultPage() {
                 </label>
               </p>
 
+              <label className="funnel-label" htmlFor="vault-email">
+                Email address
+              </label>
               <input
+                id="vault-email"
                 className="funnel-input"
                 type="email"
                 name="email"
@@ -117,12 +121,19 @@ function ScrollVaultPage() {
                 autoComplete="email"
               />
 
-              <select className="funnel-select" name="plan" defaultValue="one-time" required>
+              <label className="funnel-label" htmlFor="vault-plan">
+                Access plan
+              </label>
+              <select id="vault-plan" className="funnel-select" name="plan" defaultValue="one-time" required>
                 <option value="one-time">One-time access ($11)</option>
                 <option value="monthly">Ongoing access ($19/month)</option>
               </select>
 
+              <label className="funnel-label" htmlFor="vault-note">
+                Prayer request (optional)
+              </label>
               <textarea
+                id="vault-note"
                 className="funnel-textarea"
                 name="note"
                 placeholder="Optional: anything you’d like to receive prayer for?"
@@ -143,7 +154,7 @@ function ScrollVaultPage() {
             </p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

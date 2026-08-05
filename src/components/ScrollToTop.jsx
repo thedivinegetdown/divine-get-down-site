@@ -1,5 +1,5 @@
 // src/components/ScrollToTop.jsx
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -10,6 +10,40 @@ import { useLocation } from 'react-router-dom';
  */
 export default function ScrollToTop() {
   const { pathname, hash } = useLocation();
+  const previousPathname = useRef(pathname);
+
+  useEffect(() => {
+    const routeChanged = previousPathname.current !== pathname;
+    previousPathname.current = pathname;
+
+    if (!routeChanged || typeof document === 'undefined') return undefined;
+
+    let observer;
+    const focusMain = () => {
+      const main = document.getElementById('main-content');
+      if (!main) return false;
+
+      try {
+        main.focus({ preventScroll: true });
+      } catch {
+        main.focus();
+      }
+
+      return true;
+    };
+
+    if (focusMain()) return undefined;
+
+    const root = document.getElementById('root');
+    if (!root || typeof MutationObserver === 'undefined') return undefined;
+
+    observer = new MutationObserver(() => {
+      if (focusMain()) observer.disconnect();
+    });
+    observer.observe(root, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, [pathname]);
 
   useEffect(() => {
     const reduceMotion =

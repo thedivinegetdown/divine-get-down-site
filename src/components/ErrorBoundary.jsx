@@ -39,27 +39,29 @@ class ErrorBoundary extends React.Component {
     }
 
     return (
-      <div style={{ padding: 24, color: '#fff' }}>
-        <h1 style={{ margin: '0 0 8px' }}>Something went off-script.</h1>
-        <p style={{ margin: '0 0 16px', opacity: 0.9 }}>
-          Refresh the page — and if it happens again, use this reference:
-          <strong style={{ marginLeft: 8 }}>{errorId}</strong>
-        </p>
-        <button
-          type="button"
-          onClick={this.handleReset}
-          style={{
-            padding: '10px 14px',
-            borderRadius: 10,
-            border: '1px solid rgba(255,255,255,0.25)',
-            background: 'rgba(0,0,0,0.35)',
-            color: '#fff',
-            cursor: 'pointer',
-          }}
-        >
-          Try again
-        </button>
-      </div>
+      <main id="main-content" tabIndex={-1} style={{ padding: 24, color: '#fff' }}>
+        <div role="alert">
+          <h1 style={{ margin: '0 0 8px' }}>Something went off-script.</h1>
+          <p style={{ margin: '0 0 16px', opacity: 0.9 }}>
+            Refresh the page — and if it happens again, use this reference:
+            <strong style={{ marginLeft: 8 }}>{errorId}</strong>
+          </p>
+          <button
+            type="button"
+            onClick={this.handleReset}
+            style={{
+              padding: '10px 14px',
+              borderRadius: 10,
+              border: '1px solid rgba(255,255,255,0.25)',
+              background: 'rgba(0,0,0,0.35)',
+              color: '#fff',
+              cursor: 'pointer',
+            }}
+          >
+            Try again
+          </button>
+        </div>
+      </main>
     );
   }
 }

@@ -3,7 +3,11 @@ import MetaTags from '../components/MetaTags';
 
 export default function ExperienceAccessPage() {
   return (
-    <div style={{ padding: "40px", textAlign: "center", color: "white" }}>
+    <main
+      id="main-content"
+      tabIndex={-1}
+      style={{ padding: "40px", textAlign: "center", color: "white" }}
+    >
       <MetaTags
         title="Reset Experience Access | The Divine Get Down"
         description="Access the guided Reset Experience and open the Reset Companion from The Divine Get Down."
@@ -24,6 +28,7 @@ export default function ExperienceAccessPage() {
           src="https://www.youtube.com/embed/-2hkUCrCK_0"
           title="Divine Get Down Experience"
           frameBorder="0"
+          style={{ width: "100%", maxWidth: "560px", height: "auto", aspectRatio: "16 / 9" }}
           allowFullScreen
         ></iframe>
       </div>
@@ -38,6 +43,6 @@ export default function ExperienceAccessPage() {
           Open The Reset Companion
         </a>
       </div>
-    </div>
+    </main>
   );
 }

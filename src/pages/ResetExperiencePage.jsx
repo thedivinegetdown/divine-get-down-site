@@ -25,14 +25,14 @@ function ResetExperiencePage() {
   const checkoutIsExternal = /^https?:\/\//i.test(checkoutUrl);
 
   return (
-    <div className="App reset-experience-page" aria-live="polite">
+    <div className="App reset-experience-page">
       <MetaTags
         title="Reset Experience | The Divine Get Down"
         description="A guided movement and rhythm-based experience designed to help you reset your mind, reconnect to your body, and realign your spirit."
         path="/reset-experience"
       />
 
-      <main className="reset-shell" id="main-content">
+      <main className="reset-shell" id="main-content" tabIndex={-1}>
         <section className="reset-hero" aria-labelledby="reset-hero-title">
           <Link className="reset-back-link" to="/">
             Back to the Sanctuary

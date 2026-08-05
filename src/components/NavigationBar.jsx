@@ -36,7 +36,12 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
     const btn = container.querySelector(`[data-tab-id="${activeTab}"]`);
     if (!btn) return;
 
-    centerChild(container, btn, false);
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    centerChild(container, btn, prefersReducedMotion);
   }, [activeTab]);
 
   // Smooth wheel -> horizontal scroll
