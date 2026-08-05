@@ -8,7 +8,7 @@ import './FunnelPages.css';
 function ThankYouPage() {
   return (
     <div className="App" aria-live="polite">
-      <MetaTags title="Thank You — The Divine Get Down" description="You’re in. Thank you for joining the sanctuary. Your next step is waiting." path="/thank-you" />
+      <MetaTags title="Thank You — The Divine Get Down" description="You’re in. Thank you for joining the sanctuary. Your next step is waiting." path="/thank-you" noIndex />
 
       <div className="funnel-shell" id="main-content">
         <div className="funnel-card">

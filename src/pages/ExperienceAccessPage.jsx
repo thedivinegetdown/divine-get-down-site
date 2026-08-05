@@ -1,8 +1,16 @@
 import React from "react";
+import MetaTags from '../components/MetaTags';
 
 export default function ExperienceAccessPage() {
   return (
     <div style={{ padding: "40px", textAlign: "center", color: "white" }}>
+      <MetaTags
+        title="Reset Experience Access | The Divine Get Down"
+        description="Access the guided Reset Experience and open the Reset Companion from The Divine Get Down."
+        path="/experience-access"
+        noIndex
+      />
+
       <h1>Welcome to The Experience</h1>
 
       <h2 style={{ color: "#FFD700" }}>THIS IS LIVE TEST</h2>

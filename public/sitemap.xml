@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://divinewebsite.netlify.app/</loc>
+    <loc>https://thedivinegetdown.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://thedivinegetdown.com/stillness</loc>
+  </url>
+  <url>
+    <loc>https://thedivinegetdown.com/reset-experience</loc>
+  </url>
+  <url>
+    <loc>https://thedivinegetdown.com/journey</loc>
+  </url>
+  <url>
+    <loc>https://thedivinegetdown.com/community</loc>
+  </url>
+  <url>
+    <loc>https://thedivinegetdown.com/vault</loc>
   </url>
 </urlset>

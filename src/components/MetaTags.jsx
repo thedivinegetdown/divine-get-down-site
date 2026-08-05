@@ -14,7 +14,7 @@ export default function MetaTags({
   description,
   path = '/',
   image = DEFAULT_IMAGE,
-  canonicalBase = 'https://divinewebsite.netlify.app',
+  canonicalBase = 'https://thedivinegetdown.com',
   noIndex = false,
 }) {
   const url = `${canonicalBase}${path}`;
@@ -32,7 +32,7 @@ export default function MetaTags({
       <link rel="canonical" href={url} />
 
       {/* Robots */}
-      {noIndex ? <meta name="robots" content="noindex,nofollow" /> : null}
+      {noIndex ? <meta name="robots" content="noindex,follow" /> : null}
 
       {/* Open Graph */}
       <meta property="og:title" content={safeTitle} />

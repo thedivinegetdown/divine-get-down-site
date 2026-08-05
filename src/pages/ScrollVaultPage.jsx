@@ -1,20 +1,18 @@
 // src/pages/ScrollVaultPage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import MetaTags from '../components/MetaTags';
 import '../App.css';
 import './FunnelPages.css';
 
 function ScrollVaultPage() {
   return (
     <div className="App">
-      <Helmet>
-        <title>The Scroll Vault — The Divine Get Down</title>
-        <meta
-          name="description"
-          content="The Scroll Vault is a growing collection of sacred prayers, reflections, and guided moments — a quiet place for those who return."
-        />
-      </Helmet>
+      <MetaTags
+        title="The Scroll Vault — The Divine Get Down"
+        description="The Scroll Vault is a growing collection of sacred prayers, reflections, and guided moments — a quiet place for those who return."
+        path="/vault"
+      />
 
       <div className="funnel-shell">
         <div className="funnel-card">
