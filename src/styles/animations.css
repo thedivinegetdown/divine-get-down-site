@@ -37,5 +37,5 @@
 
 /* Utility: fade in on mount */
 .fade-in-soft {
-  animation: riseSoft 420ms ease-out both;
+  animation: riseSoft var(--duration-slow) var(--easing-out) both;
 }

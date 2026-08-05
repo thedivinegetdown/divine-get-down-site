@@ -87,7 +87,7 @@ function App() {
       <ErrorBoundary>
         <Suspense
           fallback={(
-            <div role="status" aria-live="polite" style={{ padding: 16, color: '#fff' }}>
+            <div className="loading-state" role="status" aria-live="polite">
               Loading…
             </div>
           )}

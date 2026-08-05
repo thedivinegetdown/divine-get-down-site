@@ -31,8 +31,7 @@ body {
   color: inherit;
   overflow-x: hidden;
 
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: var(--font-family-sans);
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -45,16 +44,7 @@ body {
 
 /* Code blocks */
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-/* Accessibility: reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
+  font-family: var(--font-family-mono);
 }
 
 
@@ -63,22 +53,6 @@ code {
   background: rgba(255, 217, 90, 0.25);
 }
 
-:focus-visible {
-  outline: 2px solid rgba(255, 217, 90, 0.85);
-  outline-offset: 3px;
-  border-radius: 10px;
-}
-
 html {
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
 }

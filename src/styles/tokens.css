@@ -1,0 +1,143 @@
+:root {
+  /* Brand colors: derived from the current public website. */
+  --color-page-background: #01030a;
+  --color-page-background-start: #02040c;
+  --color-page-background-mid: #030814;
+  --color-page-background-end: #040a1b;
+  --color-panel-background: rgba(7, 10, 22, 0.78);
+  --color-surface-elevated: rgba(14, 17, 31, 0.88);
+  --color-control-background: rgba(1, 3, 10, 0.82);
+  --color-text-primary: #f7f9ff;
+  --color-text-soft: #f5f7ff;
+  --color-text-muted: rgba(247, 249, 255, 0.82);
+  --color-accent-gold: #ffd95a;
+  --color-accent-gold-soft: #fff59d;
+  --color-accent-gold-strong: #ffc107;
+  --color-accent-amber: #fcd34d;
+  --color-accent-text: #ffe873;
+  --color-heading-accent: #f7dc74;
+  --color-border-subtle: rgba(255, 255, 255, 0.12);
+  --color-border-control: rgba(255, 255, 255, 0.22);
+  --color-border-accent: rgba(255, 220, 120, 0.18);
+  --color-focus: rgba(255, 217, 90, 0.9);
+  --color-success: #ffe873;
+  --color-warning: #fff59d;
+  --color-error: #ffd1d1;
+
+  /* Typography */
+  --font-family-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  --font-size-display: 4.6rem;
+  --font-size-heading-1: 2.5rem;
+  --font-size-heading-2: 2rem;
+  --font-size-heading-3: 1.35rem;
+  --font-size-body-large: 1.16rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.92rem;
+  --font-size-label: 0.84rem;
+  --line-height-tight: 1.14;
+  --line-height-snug: 1.35;
+  --line-height-body: 1.65;
+  --line-height-relaxed: 1.72;
+  --line-height-spacious: 1.78;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --letter-spacing-normal: 0;
+  --letter-spacing-button: 0.01em;
+  --letter-spacing-label: 0.14em;
+  --letter-spacing-wide: 0.18em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 10px;
+  --space-4: 12px;
+  --space-5: 14px;
+  --space-6: 16px;
+  --space-7: 18px;
+  --space-8: 20px;
+  --space-9: 24px;
+  --space-10: 28px;
+  --space-11: 32px;
+  --space-12: 40px;
+  --space-13: 56px;
+  --space-14: 80px;
+
+  /* Shape */
+  --radius-control: 8px;
+  --radius-small: 10px;
+  --radius-medium: 12px;
+  --radius-large: 14px;
+  --radius-card: 16px;
+  --radius-card-large: 18px;
+  --radius-surface: 20px;
+  --radius-panel: 24px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 40px rgba(255, 217, 90, 0.15),
+    0 0 12px rgba(255, 217, 90, 0.2);
+  --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 0 30px rgba(255, 217, 90, 0.05);
+  --shadow-button-primary: 0 16px 38px rgba(255, 202, 87, 0.18),
+    0 0 24px rgba(255, 220, 120, 0.14);
+  --shadow-button-secondary: 0 12px 28px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(255, 220, 120, 0.08);
+  --shadow-focus: 0 0 0 6px rgba(255, 217, 90, 0.12),
+    0 0 18px rgba(255, 217, 90, 0.35);
+  --focus-outline: 2px solid var(--color-focus);
+  --focus-outline-offset: 3px;
+
+  /* Motion */
+  --duration-fast: 160ms;
+  --duration-lift: 180ms;
+  --duration-standard: 220ms;
+  --duration-medium: 280ms;
+  --duration-slow: 420ms;
+  --duration-ambient: 8s;
+  --easing-standard: ease;
+  --easing-out: ease-out;
+  --easing-in-out: ease-in-out;
+
+  /* Layout. Breakpoint values are documentation tokens; media queries remain literal. */
+  --content-width-narrow: 760px;
+  --content-width-media: 900px;
+  --content-width-standard: 980px;
+  --content-width-reset: 1080px;
+  --content-width-wide: 1100px;
+  --content-width-navigation: 1120px;
+  --page-padding-inline: 16px;
+  --page-padding-inline-mobile: 14px;
+  --card-gap: 18px;
+  --breakpoint-small: 420px;
+  --breakpoint-medium: 520px;
+  --breakpoint-form: 680px;
+  --breakpoint-mobile: 768px;
+  --breakpoint-layout: 820px;
+  --breakpoint-wide: 920px;
+
+  /* Compatibility aliases for established component styles. */
+  --gold: var(--color-accent-gold);
+  --gold-soft: var(--color-accent-gold-soft);
+  --gold-strong: var(--color-accent-gold-strong);
+  --gold-text: var(--color-accent-text);
+  --glow: rgba(255, 217, 90, 0.65);
+  --glow-strong: rgba(255, 217, 90, 0.95);
+  --bg-pane: rgba(15, 16, 22, 0.35);
+  --border-pane: var(--color-border-subtle);
+  --shadow-1: var(--shadow-elevated);
+  --shadow-2: var(--shadow-glow);
+  --radius: var(--radius-medium);
+  --transition-fast: var(--duration-fast) var(--easing-standard);
+  --transition-med: var(--duration-medium) var(--easing-standard);
+  --luxury-panel: var(--color-panel-background);
+  --luxury-panel-2: var(--color-surface-elevated);
+  --luxury-border: var(--color-border-accent);
+  --luxury-glow: rgba(255, 217, 90, 0.14);
+}

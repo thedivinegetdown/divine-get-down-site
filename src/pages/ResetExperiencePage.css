@@ -1,16 +1,15 @@
 .reset-experience-page {
-  color: #f7f9ff;
+  color: var(--color-text-primary);
 }
 
 .reset-shell {
-  min-height: 100vh;
-  padding: 24px 16px 72px;
+  padding: var(--space-9) var(--page-padding-inline) 72px;
   overflow: hidden;
 }
 
 .reset-hero,
 .reset-content {
-  width: min(1080px, 100%);
+  width: min(var(--content-width-reset), 100%);
   margin: 0 auto;
 }
 
@@ -101,18 +100,18 @@
   min-height: 48px;
   margin-top: 28px;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .reset-content {
   display: grid;
-  gap: 18px;
+  gap: var(--card-gap);
 }
 
 .reset-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: var(--card-gap);
 }
 
 .reset-panel,
@@ -122,8 +121,8 @@
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
     rgba(8, 10, 18, 0.54);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -149,8 +148,8 @@
   margin: 0;
   color: var(--gold-text);
   font-size: clamp(1.35rem, 3vw, 2rem);
-  line-height: 1.14;
-  letter-spacing: 0;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
   text-shadow: 0 0 12px rgba(255, 230, 120, 0.22);
 }
 
@@ -158,14 +157,14 @@
 .reset-checkout p {
   margin: 16px 0 0;
   color: rgba(247, 249, 255, 0.88);
-  font-size: 1rem;
-  line-height: 1.72;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
 }
 
 .reset-list {
   display: grid;
-  gap: 12px;
-  margin: 18px 0 0;
+  gap: var(--space-4);
+  margin: var(--space-7) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -178,7 +177,7 @@
   line-height: 1.45;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 12px;
+  border-radius: var(--radius-medium);
 }
 
 .reset-list li::before {
@@ -188,7 +187,7 @@
   top: 18px;
   width: 8px;
   height: 8px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--gold-text);
   box-shadow: 0 0 14px rgba(255, 232, 115, 0.64);
 }
@@ -220,7 +219,7 @@
 
 @media (max-width: 760px) {
   .reset-shell {
-    padding: 18px 14px 56px;
+    padding: var(--space-7) var(--page-padding-inline-mobile) var(--space-13);
   }
 
   .reset-hero {
@@ -253,7 +252,7 @@
 
   .reset-panel,
   .reset-checkout {
-    border-radius: 14px;
+    border-radius: var(--radius-large);
   }
 }
 

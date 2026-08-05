@@ -1,20 +1,19 @@
 /* src/pages/FunnelPages.css */
 
 .funnel-shell {
-  min-height: 100vh;
-  padding: 26px 16px 80px;
+  padding: 26px var(--page-padding-inline) var(--space-14);
 }
 
 .funnel-card {
-  animation: riseSoft 420ms ease-out both;
-  max-width: 980px;
+  animation: riseSoft var(--duration-slow) var(--easing-out) both;
+  max-width: var(--content-width-standard);
   margin: 0 auto;
-  padding: 18px 18px 20px;
+  padding: var(--space-7) var(--space-7) var(--space-8);
   background: rgba(255, 255, 255, 0.035);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
   box-shadow: 0 0 22px rgba(0, 0, 0, 0.25);
 }
 
@@ -22,8 +21,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .funnel-logo {
@@ -42,9 +41,9 @@
 }
 
 .funnel-subtitle {
-  color: #f5f7ff;
+  color: var(--color-text-soft);
   text-align: center;
-  line-height: 1.65;
+  line-height: var(--line-height-body);
   margin: 0 auto 14px;
   max-width: 760px;
 }
@@ -73,13 +72,13 @@
 }
 
 .funnel-block p {
-  color: #f5f7ff;
-  line-height: 1.65;
+  color: var(--color-text-soft);
+  line-height: var(--line-height-body);
   margin: 10px 0;
 }
 
 .funnel-list {
-  color: #f5f7ff;
+  color: var(--color-text-soft);
   line-height: 1.7;
   margin: 12px 0 0;
   padding-left: 18px;
@@ -87,7 +86,7 @@
 
 .funnel-grid {
   display: grid;
-  gap: 12px;
+  gap: var(--space-4);
   grid-template-columns: 1fr;
   margin-top: 14px;
 }
@@ -101,8 +100,8 @@
 .funnel-panel {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 14px;
-  padding: 14px;
+  border-radius: var(--radius-large);
+  padding: var(--space-5);
 }
 
 .funnel-panel h3 {
@@ -116,32 +115,28 @@
 
 .funnel-form {
   display: grid;
-  gap: 10px;
-  margin-top: 12px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .funnel-label {
   margin-top: 4px;
-  color: #f5f7ff;
+  color: var(--color-text-soft);
   font-size: 0.95rem;
-  font-weight: 700;
-  text-align: left;
 }
 
 .funnel-input,
 .funnel-textarea,
 .funnel-select {
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 12px;
+  padding: var(--space-4);
+  border-radius: var(--radius-medium);
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: rgba(0, 0, 0, 0.22);
-  color: #f5f7ff;
+  color: var(--color-text-soft);
 }
 
 .funnel-textarea {
   min-height: 120px;
-  resize: vertical;
 }
 
 .funnel-input:focus,
@@ -151,29 +146,12 @@
   box-shadow: 0 0 18px rgba(255, 230, 120, 0.18);
 }
 
-.funnel-input:focus-visible,
-.funnel-textarea:focus-visible,
-.funnel-select:focus-visible {
-  outline: 2px solid rgba(255, 217, 90, 0.9);
-  outline-offset: 3px;
-}
-
 .funnel-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-3);
   justify-content: center;
-  margin-top: 10px;
-}
-
-.funnel-link {
-  color: var(--gold-text);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 240, 150, 0.35);
-}
-
-.funnel-link:hover {
-  border-bottom-color: rgba(255, 240, 150, 0.65);
+  margin-top: var(--space-3);
 }
 
 .funnel-footnote {
