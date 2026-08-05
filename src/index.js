@@ -5,6 +5,9 @@ import './styles/animations.css';
 import App from './App'; // Main app component
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { initErrorMonitoring } from './utils/errorMonitoring';
+
+initErrorMonitoring();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,6 +1,7 @@
 // src/components/ErrorBoundary.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
+import { captureError } from '../utils/errorMonitoring';
 
 /**
  * A minimal, production-safe error boundary.
@@ -17,7 +18,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    // Log in dev only. In prod, you could wire this to Sentry/LogRocket.
+    captureError(error, {
+      source: 'react_error_boundary',
+      componentStack: info?.componentStack,
+      referenceId: this.state.errorId,
+    });
+
     if (process.env.NODE_ENV !== 'production') {
       // eslint-disable-next-line no-console
       console.error('ErrorBoundary caught an error:', error, info);

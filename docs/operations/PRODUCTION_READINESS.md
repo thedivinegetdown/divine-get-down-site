@@ -174,6 +174,8 @@ Apply the retention process rather than treating the repository as their backup.
 
 ## Security and Privacy Baseline
 
+- The provider-neutral browser-error contract and emergency disable procedure
+  are documented in [ERROR_MONITORING.md](ERROR_MONITORING.md).
 - HTTPS is forced and HSTS, content-type, frame, referrer, permissions, opener,
   resource, and embedder headers are present.
 - No private production secret is required by the current browser-only site.
