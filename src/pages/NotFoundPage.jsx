@@ -2,46 +2,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MetaTags from '../components/MetaTags';
+import { NOT_FOUND_CONTENT } from '../content/notFound';
+import { SITE } from '../content/site';
 import '../App.css';
 import './FunnelPages.css';
 
 function NotFoundPage() {
   return (
     <div className="App">
-      <MetaTags title="Page Not Found — The Divine Get Down" description="This page doesn’t exist, but the sanctuary is still here. Return home." path="/404" noIndex />
+      <MetaTags {...NOT_FOUND_CONTENT.metadata} />
 
       <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-top">
             <picture>
-      <source srcSet="/divine_logo.webp" type="image/webp" />
-      <img
-        src="/divine_logo.png"
-              alt="The Divine Get Down crest"
-              className="funnel-logo"
-              loading="eager"
-              decoding="async"
-            
-        width="160"
-        height="160"
-        fetchPriority="high"
-      />
-    </picture>
+              <source srcSet={SITE.logo.webp} type="image/webp" />
+              <img
+                src={SITE.logo.png}
+                alt={SITE.logo.alt}
+                className="funnel-logo"
+                loading="eager"
+                decoding="async"
+                width={SITE.logo.width}
+                height={SITE.logo.height}
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
-          <h1 className="funnel-title">This path isn’t mapped.</h1>
+          <h1 className="funnel-title">{NOT_FOUND_CONTENT.title}</h1>
           <p className="funnel-subtitle">
-            But you’re still welcome here.
+            {NOT_FOUND_CONTENT.subtitleLines[0]}
             <br />
-            Return to the Sanctuary and we’ll continue in peace.
+            {NOT_FOUND_CONTENT.subtitleLines[1]}
           </p>
 
           <div className="funnel-actions">
-            <Link className="primary-cta" to="/">
-              Return to the Sanctuary
+            <Link className="primary-cta" to={SITE.links.home}>
+              {NOT_FOUND_CONTENT.homeButton}
             </Link>
-            <Link className="funnel-link" to="/stillness">
-              Receive the Stillness Scroll →
+            <Link className="funnel-link" to={SITE.links.stillness}>
+              {NOT_FOUND_CONTENT.stillnessLink}
             </Link>
           </div>
         </div>

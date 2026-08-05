@@ -2,114 +2,99 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MetaTags from '../components/MetaTags';
+import { SCROLL_VAULT_CONTENT } from '../content/scrollVault';
+import { SITE } from '../content/site';
 import '../App.css';
 import './FunnelPages.css';
 
 function ScrollVaultPage() {
   return (
     <div className="App">
-      <MetaTags
-        title="The Scroll Vault — The Divine Get Down"
-        description="The Scroll Vault is a growing collection of sacred prayers, reflections, and guided moments — a quiet place for those who return."
-        path="/vault"
-      />
+      <MetaTags {...SCROLL_VAULT_CONTENT.metadata} />
 
       <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
-            <Link className="funnel-link" to="/">
-              ← Back to the Sanctuary
+            <Link className="funnel-link" to={SITE.links.home}>
+              {SITE.labels.backToSanctuary}
             </Link>
           </div>
 
           <div className="funnel-top">
             <picture>
-      <source srcSet="/divine_logo.webp" type="image/webp" />
-      <img
-        src="/divine_logo.png"
-              alt="The Divine Get Down crest"
-              className="funnel-logo"
-              loading="eager"
-            
-        width="160"
-        height="160"
-        decoding="async"
-        fetchPriority="high"
-      />
-    </picture>
+              <source srcSet={SITE.logo.webp} type="image/webp" />
+              <img
+                src={SITE.logo.png}
+                alt={SITE.logo.alt}
+                className="funnel-logo"
+                loading="eager"
+                width={SITE.logo.width}
+                height={SITE.logo.height}
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
-          <h1 className="funnel-title">The Scroll Vault</h1>
-          <p className="funnel-subtitle">A quiet place for those who return.</p>
+          <h1 className="funnel-title">{SCROLL_VAULT_CONTENT.title}</h1>
+          <p className="funnel-subtitle">{SCROLL_VAULT_CONTENT.subtitle}</p>
 
           <div className="funnel-divider" />
 
           <div className="funnel-block">
             <p>
-              The Scroll Vault is a growing collection of sacred prayers, reflections, and guided
-              moments — created to help you slow down and realign with God throughout your day.
+              {SCROLL_VAULT_CONTENT.introduction}
             </p>
             <p>
-              This is not content to consume.
+              {SCROLL_VAULT_CONTENT.rhythmLine}
               <br />
-              This is a rhythm to live by.
+              {SCROLL_VAULT_CONTENT.rhythmResponse}
             </p>
 
-            <h2>Inside the Vault</h2>
+            <h2>{SCROLL_VAULT_CONTENT.insideHeading}</h2>
             <ul className="funnel-list">
-              <li>Prayer scrolls for peace, strength, and healing</li>
-              <li>Short audio reflections</li>
-              <li>Scripture-anchored stillness prompts</li>
-              <li>Gentle guidance for daily return</li>
+              {SCROLL_VAULT_CONTENT.insideItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
 
             <div className="funnel-grid" style={{ marginTop: 16 }}>
-              <div className="funnel-panel">
-                <h3>One-time access</h3>
-                <p>
-                  One-time access — <strong>$11</strong>
-                </p>
-                <p>
-                  A simple doorway to begin.
-                </p>
-              </div>
-
-              <div className="funnel-panel">
-                <h3>Ongoing access</h3>
-                <p>
-                  Ongoing access — <strong>$19/month</strong>
-                </p>
-                <p>
-                  For those who want a daily return.
-                </p>
-              </div>
+              {SCROLL_VAULT_CONTENT.accessOptions.map((option) => (
+                <div className="funnel-panel" key={option.title}>
+                  <h3>{option.title}</h3>
+                  <p>
+                    {option.pricePrefix}
+                    <strong>{option.price}</strong>
+                  </p>
+                  <p>{option.description}</p>
+                </div>
+              ))}
             </div>
 
             <div className="funnel-divider" />
 
-            <h2>Request Access</h2>
+            <h2>{SCROLL_VAULT_CONTENT.requestHeading}</h2>
             <p style={{ textAlign: 'center' }}>
-              Checkout links can be connected next (Gumroad, Stripe, or your preferred flow).
-              For now, this form captures your request so you can be granted access immediately.
+              {SCROLL_VAULT_CONTENT.requestDescription}
             </p>
 
             <form
               className="funnel-form"
               name="scroll-vault-access"
               method="POST"
-              action="/thank-you"
+              action={SITE.links.thankYou}
               data-netlify="true"
               netlify-honeypot="bot-field"
             >
               <input type="hidden" name="form-name" value="scroll-vault-access" />
               <p style={{ display: 'none' }}>
                 <label>
-                  Don’t fill this out if you’re human: <input name="bot-field" />
+                  {SCROLL_VAULT_CONTENT.form.honeypotLabel} <input name="bot-field" />
                 </label>
               </p>
 
               <label className="funnel-label" htmlFor="vault-email">
-                Email address
+                {SCROLL_VAULT_CONTENT.form.emailLabel}
               </label>
               <input
                 id="vault-email"
@@ -117,40 +102,41 @@ function ScrollVaultPage() {
                 type="email"
                 name="email"
                 required
-                placeholder="Your email address"
+                placeholder={SCROLL_VAULT_CONTENT.form.emailPlaceholder}
                 autoComplete="email"
               />
 
               <label className="funnel-label" htmlFor="vault-plan">
-                Access plan
+                {SCROLL_VAULT_CONTENT.form.planLabel}
               </label>
               <select id="vault-plan" className="funnel-select" name="plan" defaultValue="one-time" required>
-                <option value="one-time">One-time access ($11)</option>
-                <option value="monthly">Ongoing access ($19/month)</option>
+                {SCROLL_VAULT_CONTENT.form.plans.map((plan) => (
+                  <option key={plan.value} value={plan.value}>{plan.label}</option>
+                ))}
               </select>
 
               <label className="funnel-label" htmlFor="vault-note">
-                Prayer request (optional)
+                {SCROLL_VAULT_CONTENT.form.noteLabel}
               </label>
               <textarea
                 id="vault-note"
                 className="funnel-textarea"
                 name="note"
-                placeholder="Optional: anything you’d like to receive prayer for?"
+                placeholder={SCROLL_VAULT_CONTENT.form.notePlaceholder}
               />
 
               <div className="funnel-actions">
                 <button className="primary-cta" type="submit">
-                  Enter the Scroll Vault
+                  {SCROLL_VAULT_CONTENT.form.submitButton}
                 </button>
-                <Link className="funnel-link" to="/journey">
-                  Prefer a guided path? Begin the 4-Week Journey →
+                <Link className="funnel-link" to={SITE.links.journey}>
+                  {SCROLL_VAULT_CONTENT.form.journeyLink}
                 </Link>
               </div>
             </form>
 
             <p className="funnel-footnote">
-              You may come and go freely. There is no pressure to stay.
+              {SCROLL_VAULT_CONTENT.footnote}
             </p>
           </div>
         </div>

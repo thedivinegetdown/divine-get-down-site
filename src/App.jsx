@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTop from './components/ScrollToTop';
+import { APP_METADATA } from './content/appMetadata';
 import { trackPageView } from './utils/analytics';
 import './App.css';
 
@@ -65,10 +66,10 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>The Divine Get Down | Faith-Based Videos & Speaking Services</title>
+        <title>{APP_METADATA.title}</title>
         <meta
           name="description"
-          content="The Divine Get Down provides non-downloadable faith-based videos, motivational and educational speaking services, and spiritual encouragement."
+          content={APP_METADATA.description}
         />
         {GOOGLE_SITE_VERIFICATION ? (
           <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
@@ -77,14 +78,7 @@ function App() {
           <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />
         ) : null}
         <script type="application/ld+json">
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'The Divine Get Down',
-            url: 'https://thedivinegetdown.com',
-            description:
-              'Faith-based platform offering non-downloadable videos in the field of religion, motivational speaking services, educational speaking services, and spiritual encouragement.',
-          })}
+          {JSON.stringify(APP_METADATA.websiteStructuredData)}
         </script>
       </Helmet>
 

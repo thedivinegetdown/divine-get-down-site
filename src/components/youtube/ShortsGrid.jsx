@@ -1,6 +1,7 @@
 // src/components/youtube/ShortsGrid.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
+import { YOUTUBE_CONTENT } from '../../content/youtube';
 
 function toThumb(id) {
   return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
@@ -27,12 +28,12 @@ function ShortsGrid({ videoIds = [] }) {
             referrerPolicy="no-referrer"
             className="short-thumb"
             src={toThumb(id)}
-            alt="YouTube Short thumbnail"
+            alt={YOUTUBE_CONTENT.shortThumbnailAlt}
             width="480"
             height="360"
           />
           <span className="short-badge" aria-hidden="true">
-            Short
+            {YOUTUBE_CONTENT.shortBadge}
           </span>
         </a>
       ))}

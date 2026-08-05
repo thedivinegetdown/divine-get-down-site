@@ -1,6 +1,7 @@
 // src/components/NavigationBar.jsx
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { NAVIGATION_ARIA_LABEL } from '../content/navigation';
 
 /**
  * NavigationBar
@@ -200,7 +201,7 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
       ref={containerRef}
       className="navbar-container"
       role="tablist"
-      aria-label="Site sections"
+      aria-label={NAVIGATION_ARIA_LABEL}
       {...ariaProps}
     >
       <div className="navbar">

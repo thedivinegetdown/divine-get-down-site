@@ -3,54 +3,31 @@ import React, { Suspense, lazy, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 
-import { YOUTUBE } from '../config/youtube';
+import { ABOUT_CONTENT } from '../content/about';
+import { CONTACT_CONTENT } from '../content/contact';
+import { HOME_CONTENT } from '../content/home';
+import {
+  createVideoStructuredData,
+  getTabMetadata,
+  ORGANIZATION_STRUCTURED_DATA,
+} from '../content/tabMetadata';
+import { SERVICES_CONTENT } from '../content/services';
+import { CONTACT_EMAIL_HREF, SITE, SITE_URL } from '../content/site';
+import { YOUTUBE, YOUTUBE_CONTENT } from '../content/youtube';
 
 const LiteYouTube = lazy(() => import('./youtube/LiteYouTube'));
 const ShortsGrid = lazy(() => import('./youtube/ShortsGrid'));
 
-const SITE_URL = process.env.REACT_APP_SITE_URL || 'https://thedivinegetdown.com';
-const CONTACT_EMAIL = 'thedivinegetdown@gmail.com';
-const CONTACT_FORM_NAME = 'contact-inquiry';
-
-const INQUIRY_TYPES = [
-  { value: 'speaking-engagement', label: 'Speaking engagement' },
-  { value: 'teaching-workshop', label: 'Teaching or workshop' },
-  { value: 'interview-media', label: 'Interview or media appearance' },
-  { value: 'faith-collaboration', label: 'Faith-based collaboration' },
-  { value: 'business-partnership', label: 'Business or partnership inquiry' },
-  { value: 'general-inquiry', label: 'General inquiry' },
-];
+const CONTACT_EMAIL = SITE.contactEmail;
+const CONTACT_FORM_NAME = SITE.contactFormName;
+const INQUIRY_TYPES = CONTACT_CONTENT.inquiryTypes;
 
 export default function TabContent({ activeTab }) {
-  const meta = getTabMeta(activeTab);
+  const meta = getTabMetadata(activeTab);
   const canonical = `${SITE_URL}${meta.path}`;
   const subscribeUrl = `${YOUTUBE.channelUrl}?sub_confirmation=1`;
-  const emailHref = `mailto:${CONTACT_EMAIL}?subject=The%20Divine%20Get%20Down%20Inquiry%20-%20Speaking%20or%20Collaboration`;
-
-  const orgJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'The Divine Get Down',
-    url: SITE_URL,
-    email: CONTACT_EMAIL,
-    sameAs: [YOUTUBE.channelUrl],
-  };
-
-  const videoJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'VideoObject',
-    name: meta.videoTitle || 'Featured Video',
-    description: meta.videoDescription || meta.description,
-    thumbnailUrl: meta.ogImage ? [meta.ogImage] : undefined,
-    uploadDate: meta.uploadDate || '2025-01-01',
-    embedUrl: meta.videoId ? `https://www.youtube.com/embed/${meta.videoId}` : undefined,
-    contentUrl: meta.videoId ? `https://www.youtube.com/watch?v=${meta.videoId}` : undefined,
-    publisher: {
-      '@type': 'Organization',
-      name: 'The Divine Get Down',
-      url: SITE_URL,
-    },
-  };
+  const emailHref = CONTACT_EMAIL_HREF;
+  const videoJsonLd = createVideoStructuredData(meta);
 
   return (
     <>
@@ -70,19 +47,20 @@ export default function TabContent({ activeTab }) {
         <meta name="twitter:description" content={meta.ogDescription} />
         <meta name="twitter:image" content={meta.ogImage} />
 
-        <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(ORGANIZATION_STRUCTURED_DATA)}
+        </script>
         {activeTab === 'watch' && (
           <script type="application/ld+json">{JSON.stringify(videoJsonLd)}</script>
         )}
       </Helmet>
 
       {activeTab === 'welcome' && (
-        <TabPanel id="welcome" heading="Welcome">
+        <TabPanel id="welcome" heading={HOME_CONTENT.welcome.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">Stillness. Scripture. Strength.</h2>
+            <h2 className="panel-title">{HOME_CONTENT.welcome.title}</h2>
             <p className="panel-lede">
-              If you've been carrying weight you can't explain—this space is for you. Watch the latest message,
-              subscribe for weekly encouragement, and enter the Scroll Vault when you need a deeper reset.
+              {HOME_CONTENT.welcome.description}
             </p>
 
             <div className="cta-row">
@@ -92,28 +70,20 @@ export default function TabContent({ activeTab }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Watch Latest
+                {HOME_CONTENT.welcome.watchButton}
               </a>
               <a className="secondary-cta" href={subscribeUrl} target="_blank" rel="noreferrer">
-                Subscribe
+                {HOME_CONTENT.welcome.subscribeButton}
               </a>
             </div>
 
             <div className="uspto-panel-grid">
-              <div className="uspto-panel-card">
-                <h3>Faith-Based Video Content</h3>
-                <p>
-                  The Divine Get Down shares non-downloadable online videos centered on faith, reflection,
-                  movement, Scripture, and spiritual renewal.
-                </p>
-              </div>
-              <div className="uspto-panel-card">
-                <h3>Speaking & Collaboration</h3>
-                <p>
-                  The platform also offers motivational speaking, educational teaching, interviews, collaborations,
-                  and faith-centered media opportunities.
-                </p>
-              </div>
+              {HOME_CONTENT.welcome.cards.map((card) => (
+                <div className="uspto-panel-card" key={card.title}>
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
+                </div>
+              ))}
             </div>
 
             <PinnedLinks emailHref={emailHref} />
@@ -123,38 +93,28 @@ export default function TabContent({ activeTab }) {
       )}
 
       {activeTab === 'services' && (
-        <TabPanel id="services" heading="Services">
+        <TabPanel id="services" heading={SERVICES_CONTENT.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">What We Offer at The Divine Get Down</h2>
+            <h2 className="panel-title">{SERVICES_CONTENT.title}</h2>
             <p className="panel-lede">
-              The Divine Get Down provides faith-based content, movement, and speaking experiences designed to inspire
-              spiritual growth, reflection, and connection.
+              {SERVICES_CONTENT.description}
             </p>
 
             <div className="uspto-panel-grid">
-              <div className="uspto-panel-card">
-                <h3>Non-Downloadable Video Content & Spiritual Experiences</h3>
-                <ul className="uspto-list">
-                  <li>Providing non-downloadable online videos featuring faith, Scripture, spiritual renewal, and guided movement experiences</li>
-                  <li>Daily scripture-centered encouragement and reflection content</li>
-                  <li>Immersive faith-based media designed to encourage stillness and clarity</li>
-                </ul>
-              </div>
-
-              <div className="uspto-panel-card">
-                <h3>Motivational Speaking & Educational Teaching</h3>
-                <ul className="uspto-list">
-                  <li>Motivational speaking services for events, churches, and organizations</li>
-                  <li>Educational and faith-based teaching sessions and workshops</li>
-                  <li>Collaborations, interviews, media appearances, and spiritual reflection experiences</li>
-                </ul>
-              </div>
+              {SERVICES_CONTENT.cards.map((card) => (
+                <div className="uspto-panel-card" key={card.title}>
+                  <h3>{card.title}</h3>
+                  <ul className="uspto-list">
+                    {card.items.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ))}
             </div>
 
             {/* Strong commerce signal – helps direct association for speaking services */}
             <div className="uspto-panel-card" style={{ marginTop: '24px', background: 'rgba(255, 240, 150, 0.08)', borderColor: 'rgba(255, 217, 90, 0.3)' }}>
-              <h3>Bring The Divine Get Down to Your Event or Group</h3>
-              <p>Motivational speaking, teaching sessions, workshops, and faith-centered collaborations are available now. Invite us to speak or partner on content.</p>
+              <h3>{SERVICES_CONTENT.speaking.title}</h3>
+              <p>{SERVICES_CONTENT.speaking.description}</p>
               <button
                 type="button"
                 className="primary-cta"
@@ -163,17 +123,17 @@ export default function TabContent({ activeTab }) {
                 }}
                 style={{ marginTop: '12px' }}
               >
-                Inquire About Speaking or Collaboration
+                {SERVICES_CONTENT.speaking.button}
               </button>
             </div>
 
             <p className="muted" style={{ marginTop: 18 }}>
-              Explore faith-centered messages, videos, and speaking opportunities.
+              {SERVICES_CONTENT.closing}
             </p>
 
             <div className="cta-row">
               <a className="primary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
-                Watch on YouTube
+                {SERVICES_CONTENT.youtubeButton}
               </a>
               <button
                 type="button"
@@ -182,7 +142,7 @@ export default function TabContent({ activeTab }) {
                   if (typeof window !== 'undefined') window.location.hash = '#contact';
                 }}
               >
-                Contact The Divine Get Down
+                {SERVICES_CONTENT.contactButton}
               </button>
             </div>
           </section>
@@ -190,25 +150,28 @@ export default function TabContent({ activeTab }) {
       )}
 
       {activeTab === 'watch' && (
-        <TabPanel id="watch" heading="Watch">
+        <TabPanel id="watch" heading={HOME_CONTENT.watch.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">Featured Message</h2>
+            <h2 className="panel-title">{HOME_CONTENT.watch.title}</h2>
             <p className="panel-lede">
-              Watch the latest faith-filled video from The Divine Get Down.
+              {HOME_CONTENT.watch.description}
             </p>
 
             <div className="yt-lite-wrap">
               <Suspense fallback={null}>
-                <LiteYouTube videoId={YOUTUBE.featuredVideoId} title="The Divine Get Down featured video" />
+                <LiteYouTube
+                  videoId={YOUTUBE.featuredVideoId}
+                  title={YOUTUBE_CONTENT.featuredVideoTitle}
+                />
               </Suspense>
             </div>
 
             <div className="cta-row">
               <a className="primary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
-                Open YouTube Channel
+                {HOME_CONTENT.watch.channelButton}
               </a>
               <a className="secondary-cta" href={subscribeUrl} target="_blank" rel="noreferrer">
-                Subscribe
+                {HOME_CONTENT.watch.subscribeButton}
               </a>
             </div>
 
@@ -218,11 +181,11 @@ export default function TabContent({ activeTab }) {
       )}
 
       {activeTab === 'shorts' && (
-        <TabPanel id="shorts" heading="Shorts">
+        <TabPanel id="shorts" heading={HOME_CONTENT.shorts.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">Daily Scripture Resets</h2>
+            <h2 className="panel-title">{HOME_CONTENT.shorts.title}</h2>
             <p className="panel-lede">
-              Short, scripture-centered encouragement designed to reset your mind and strengthen your spirit.
+              {HOME_CONTENT.shorts.description}
             </p>
 
             <Suspense fallback={null}>
@@ -231,10 +194,10 @@ export default function TabContent({ activeTab }) {
 
             <div className="cta-row">
               <a className="primary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
-                Watch More Shorts
+                {HOME_CONTENT.shorts.moreButton}
               </a>
               <a className="secondary-cta" href={subscribeUrl} target="_blank" rel="noreferrer">
-                Subscribe
+                {HOME_CONTENT.shorts.subscribeButton}
               </a>
             </div>
           </section>
@@ -242,28 +205,20 @@ export default function TabContent({ activeTab }) {
       )}
 
       {activeTab === 'about' && (
-        <TabPanel id="about" heading="About">
+        <TabPanel id="about" heading={ABOUT_CONTENT.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">Why This Exists</h2>
+            <h2 className="panel-title">{ABOUT_CONTENT.title}</h2>
             <p className="panel-lede">
-              The Divine Get Down is a faith-based media and speaking platform created to share spiritual encouragement,
-              Scripture-centered reflection, and motivating messages that help people reconnect with God and move forward with peace.
+              {ABOUT_CONTENT.description}
             </p>
 
             <div className="uspto-panel-grid">
-              <div className="uspto-panel-card">
-                <h3>Media Platform</h3>
-                <p>
-                  The Divine Get Down publishes faith-centered online video content, spiritual encouragement,
-                  and movement-rooted reflection experiences.
-                </p>
-              </div>
-              <div className="uspto-panel-card">
-                <h3>Mission</h3>
-                <p>
-                  To create a sacred rhythm for the weary soul—a place to breathe, remember, and rest in God's presence.
-                </p>
-              </div>
+              {ABOUT_CONTENT.cards.map((card) => (
+                <div className="uspto-panel-card" key={card.title}>
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
+                </div>
+              ))}
             </div>
 
             <PinnedLinks emailHref={emailHref} />
@@ -272,21 +227,20 @@ export default function TabContent({ activeTab }) {
       )}
 
       {activeTab === 'contact' && (
-        <TabPanel id="contact" heading="Contact">
+        <TabPanel id="contact" heading={CONTACT_CONTENT.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">People & Businesses Can Reach Out Here</h2>
+            <h2 className="panel-title">{CONTACT_CONTENT.title}</h2>
             <p className="panel-lede">
-              People, ministries, brands, and businesses can contact The Divine Get Down for speaking engagements,
-              collaborations, interviews, partnerships, workshops, and other creative opportunities.
+              {CONTACT_CONTENT.description}
             </p>
 
             <div className="contact-hero-card">
-              <p className="contact-kicker">Business Contact</p>
+              <p className="contact-kicker">{CONTACT_CONTENT.businessContactKicker}</p>
               <a className="contact-email-link" href={emailHref}>
                 {CONTACT_EMAIL}
               </a>
               <p className="muted contact-helper">
-                Tap the email above to open your mail app instantly.
+                {CONTACT_CONTENT.emailHelper}
               </p>
             </div>
 
@@ -294,27 +248,25 @@ export default function TabContent({ activeTab }) {
 
             <div className="uspto-panel-grid">
               <div className="uspto-panel-card">
-                <h3>Contact for</h3>
+                <h3>{CONTACT_CONTENT.contactFor.title}</h3>
                 <ul className="uspto-list">
-                  <li>Motivational speaking engagements and live/virtual events</li>
-                  <li>Educational teaching sessions and workshops</li>
-                  <li>Faith-based video collaborations and media opportunities</li>
-                  <li>Interviews and partnership inquiries</li>
+                  {CONTACT_CONTENT.contactFor.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ul>
               </div>
 
               <div className="uspto-panel-card">
-                <h3>Best Way to Reach Out</h3>
+                <h3>{CONTACT_CONTENT.bestWay.title}</h3>
                 <p>
-                  Send a brief email with your name, organization, event or project details, and the kind of opportunity
-                  you have in mind. The Divine Get Down can then follow up directly with next steps.
+                  {CONTACT_CONTENT.bestWay.description}
                 </p>
                 <div className="cta-row">
                   <a className="primary-cta" href={emailHref}>
-                    Email Now
+                    {CONTACT_CONTENT.bestWay.emailButton}
                   </a>
                   <a className="secondary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
-                    View Channel
+                    {CONTACT_CONTENT.bestWay.channelButton}
                   </a>
                 </div>
               </div>
@@ -324,11 +276,11 @@ export default function TabContent({ activeTab }) {
       )}
 
       {activeTab === 'start' && (
-        <TabPanel id="start" heading="Scroll Vault">
+        <TabPanel id="start" heading={HOME_CONTENT.scrollVault.tabHeading}>
           <section className="panel-block">
-            <h2 className="panel-title">Enter the Scroll Vault</h2>
+            <h2 className="panel-title">{HOME_CONTENT.scrollVault.title}</h2>
             <p className="panel-lede">
-              Return here when you need a deeper reset, a moment of stillness, or a sacred word to carry with you.
+              {HOME_CONTENT.scrollVault.description}
             </p>
 
             <div className="cta-row">
@@ -338,10 +290,10 @@ export default function TabContent({ activeTab }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Open the Vault
+                {HOME_CONTENT.scrollVault.vaultButton}
               </a>
               <a className="secondary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
-                Watch on YouTube
+                {HOME_CONTENT.scrollVault.youtubeButton}
               </a>
             </div>
 
@@ -382,18 +334,18 @@ TabPanel.propTypes = {
 function PinnedLinks({ emailHref }) {
   return (
     <div className="panel-footer">
-      <div className="pinned-links" aria-label="Pinned links">
+      <div className="pinned-links" aria-label={HOME_CONTENT.pinnedLinks.ariaLabel}>
         <a className="pinned-link" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
           <span aria-hidden="true">🔗</span>
           <span>
-            <strong>YouTube Channel</strong>
-            <div className="muted">Tap to watch more videos.</div>
+            <strong>{HOME_CONTENT.pinnedLinks.youtubeTitle}</strong>
+            <div className="muted">{HOME_CONTENT.pinnedLinks.youtubeDescription}</div>
           </span>
         </a>
         <a className="pinned-link" href={emailHref}>
           <span aria-hidden="true">✉️</span>
           <span>
-            <strong>Email The Divine Get Down</strong>
+            <strong>{HOME_CONTENT.pinnedLinks.emailTitle}</strong>
             <div className="muted">{CONTACT_EMAIL}</div>
           </span>
         </a>
@@ -430,7 +382,7 @@ function ContactInquiryForm({ emailHref }) {
         body: new URLSearchParams(new FormData(form)).toString(),
       });
 
-      if (!response.ok) throw new Error('Inquiry submission failed.');
+      if (!response.ok) throw new Error(CONTACT_CONTENT.form.submissionFailure);
 
       form.reset();
       setStatus('success');
@@ -448,37 +400,41 @@ function ContactInquiryForm({ emailHref }) {
         aria-live="polite"
       >
         <h3 id="contact-confirmation-title" ref={confirmationRef} tabIndex={-1}>
-          Thank you. Your inquiry has been received.
+          {CONTACT_CONTENT.form.confirmationTitle}
         </h3>
         <p>
-          The Divine Get Down will review your message and follow up using the email address you provided.
+          {CONTACT_CONTENT.form.confirmationDescription}
         </p>
         <p className="muted">
-          Need to add context? Email <a href={emailHref}>{CONTACT_EMAIL}</a>.
+          {CONTACT_CONTENT.form.confirmationEmailPrefix}
+          <a href={emailHref}>{CONTACT_EMAIL}</a>
+          {CONTACT_CONTENT.form.confirmationEmailSuffix}
         </p>
         <button type="button" className="secondary-cta" onClick={() => setStatus('idle')}>
-          Send Another Inquiry
+          {CONTACT_CONTENT.form.sendAnotherButton}
         </button>
       </section>
     );
   }
 
   const statusMessage = status === 'invalid'
-    ? 'Please complete each required field before sending your inquiry.'
+    ? CONTACT_CONTENT.form.statuses.invalid
     : status === 'error'
-      ? 'We could not send your inquiry. Please try again, or use the email address above.'
+      ? CONTACT_CONTENT.form.statuses.error
       : status === 'submitting'
-        ? 'Sending your inquiry...'
+        ? CONTACT_CONTENT.form.statuses.submitting
         : '';
 
   return (
     <section className="contact-form-card" aria-labelledby="contact-inquiry-title">
-      <h3 id="contact-inquiry-title">Send an Inquiry</h3>
+      <h3 id="contact-inquiry-title">{CONTACT_CONTENT.form.title}</h3>
       <p id="contact-inquiry-guidance" className="contact-form-intro">
-        Use this form for business, speaking, teaching, media, and faith-based collaboration inquiries.
+        {CONTACT_CONTENT.form.guidance}
       </p>
       <p id="contact-required-note" className="contact-required-note">
-        Fields marked <span aria-hidden="true">*</span> are required.
+        {CONTACT_CONTENT.form.requiredPrefix}
+        <span aria-hidden="true">*</span>
+        {CONTACT_CONTENT.form.requiredSuffix}
       </p>
 
       <form
@@ -496,7 +452,7 @@ function ContactInquiryForm({ emailHref }) {
 
         <p className="contact-honeypot" aria-hidden="true">
           <label htmlFor="contact-bot-field">
-            Leave this field blank
+            {CONTACT_CONTENT.form.honeypotLabel}
             <input id="contact-bot-field" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
           </label>
         </p>
@@ -504,7 +460,7 @@ function ContactInquiryForm({ emailHref }) {
         <div className="contact-form-grid">
           <div className="contact-field">
             <label htmlFor="contact-name">
-              Name <span aria-hidden="true">*</span>
+              {CONTACT_CONTENT.form.fields.name} <span aria-hidden="true">*</span>
             </label>
             <input
               id="contact-name"
@@ -518,7 +474,7 @@ function ContactInquiryForm({ emailHref }) {
 
           <div className="contact-field">
             <label htmlFor="contact-email">
-              Email <span aria-hidden="true">*</span>
+              {CONTACT_CONTENT.form.fields.email} <span aria-hidden="true">*</span>
             </label>
             <input
               id="contact-email"
@@ -531,7 +487,9 @@ function ContactInquiryForm({ emailHref }) {
           </div>
 
           <div className="contact-field">
-            <label htmlFor="contact-organization">Organization (optional)</label>
+            <label htmlFor="contact-organization">
+              {CONTACT_CONTENT.form.fields.organization}
+            </label>
             <input
               id="contact-organization"
               name="organization"
@@ -543,10 +501,10 @@ function ContactInquiryForm({ emailHref }) {
 
           <div className="contact-field">
             <label htmlFor="contact-inquiry-type">
-              Inquiry type <span aria-hidden="true">*</span>
+              {CONTACT_CONTENT.form.fields.inquiryType} <span aria-hidden="true">*</span>
             </label>
             <select id="contact-inquiry-type" name="inquiry-type" defaultValue="" required>
-              <option value="" disabled>Select an inquiry type</option>
+              <option value="" disabled>{CONTACT_CONTENT.form.fields.inquiryTypePlaceholder}</option>
               {INQUIRY_TYPES.map((type) => (
                 <option key={type.value} value={type.value}>{type.label}</option>
               ))}
@@ -555,7 +513,7 @@ function ContactInquiryForm({ emailHref }) {
 
           <div className="contact-field contact-field--full">
             <label htmlFor="contact-message">
-              Message <span aria-hidden="true">*</span>
+              {CONTACT_CONTENT.form.fields.message} <span aria-hidden="true">*</span>
             </label>
             <textarea
               id="contact-message"
@@ -566,19 +524,20 @@ function ContactInquiryForm({ emailHref }) {
               required
             />
             <span id="contact-message-help" className="contact-field-help">
-              Share the event, project, timing, and response details needed for follow-up.
+              {CONTACT_CONTENT.form.fields.messageHelp}
             </span>
           </div>
         </div>
 
         <p id="contact-privacy-note" className="contact-privacy-note">
-          Please do not include payment information, passwords, medical details, or highly sensitive spiritual disclosures.
-          Your information will be used only to review and respond to this inquiry.
+          {CONTACT_CONTENT.form.privacy}
         </p>
 
         <div className="contact-form-actions">
           <button type="submit" className="primary-cta" disabled={status === 'submitting'}>
-            {status === 'submitting' ? 'Sending...' : 'Send Inquiry'}
+            {status === 'submitting'
+              ? CONTACT_CONTENT.form.submittingButton
+              : CONTACT_CONTENT.form.submitButton}
           </button>
         </div>
 
@@ -604,105 +563,12 @@ function StartHereMini() {
     <div className="panel-footer">
       <div className="start-here-mini">
         <p>
-          <strong>If life feels loud, start here →</strong> Enter the Scroll Vault
+          <strong>{HOME_CONTENT.startHere.prompt}</strong> {HOME_CONTENT.startHere.destination}
         </p>
         <a className="secondary-cta" href={YOUTUBE.emailCaptureUrl} target="_blank" rel="noreferrer">
-          Open the Vault
+          {HOME_CONTENT.startHere.button}
         </a>
       </div>
     </div>
   );
-}
-
-function getTabMeta(tabId) {
-  const baseTitle = 'The Divine Get Down';
-  const ogImage = `${SITE_URL}/divine_logo.png`;
-
-  switch (tabId) {
-    case 'services':
-      return {
-        path: '/#services',
-        title: `Services | ${baseTitle}`,
-        description:
-          'Explore the video content, motivational speaking, educational teaching, and collaborations offered through The Divine Get Down.',
-        ogTitle: `Services | ${baseTitle}`,
-        ogDescription:
-          'Faith-based video content, motivational speaking, educational teaching, and spiritual encouragement.',
-        ogImage,
-      };
-
-    case 'watch':
-      return {
-        path: '/#watch',
-        title: `Watch | ${baseTitle}`,
-        description:
-          'Watch the featured message, explore playlists, and subscribe for faith-filled videos that bring peace and clarity.',
-        ogTitle: `Watch | ${baseTitle}`,
-        ogDescription:
-          'Watch the featured message, explore playlists, and subscribe for weekly encouragement.',
-        ogImage,
-        videoId: YOUTUBE.featuredVideoId,
-        videoTitle: 'The Divine Get Down — Featured Video',
-        videoDescription:
-          'A featured message from The Divine Get Down — faith-filled encouragement designed to bring stillness and strength.',
-        uploadDate: '2025-01-01',
-      };
-
-    case 'shorts':
-      return {
-        path: '/#shorts',
-        title: `Shorts | ${baseTitle}`,
-        description:
-          'Short, scripture-centered encouragement you can watch in under a minute—designed to reset your mind and strengthen your spirit.',
-        ogTitle: `Shorts | ${baseTitle}`,
-        ogDescription: 'Quick, faith-filled resets you can watch daily.',
-        ogImage,
-      };
-
-    case 'about':
-      return {
-        path: '/#about',
-        title: `About | ${baseTitle}`,
-        description:
-          'About The Divine Get Down and its faith-based media platform, spiritual encouragement, and speaking mission.',
-        ogTitle: `About | ${baseTitle}`,
-        ogDescription: 'Why this exists and what The Divine Get Down provides.',
-        ogImage,
-      };
-
-    case 'contact':
-      return {
-        path: '/#contact',
-        title: `Contact | ${baseTitle}`,
-        description:
-          'Contact The Divine Get Down for speaking engagements, teaching, interviews, collaborations, partnerships, and business inquiries.',
-        ogTitle: `Contact | ${baseTitle}`,
-        ogDescription: 'Speaking, collaboration, partnership, and business inquiries.',
-        ogImage,
-      };
-
-    case 'start':
-      return {
-        path: '/#start',
-        title: `Scroll Vault | ${baseTitle}`,
-        description:
-          'Enter the Scroll Vault for deeper reflection, stillness, and faith-filled resources from The Divine Get Down.',
-        ogTitle: `Scroll Vault | ${baseTitle}`,
-        ogDescription: 'A deeper place for reflection, stillness, and sacred encouragement.',
-        ogImage,
-      };
-
-    case 'welcome':
-    default:
-      return {
-        path: '/',
-        title: `${baseTitle} | Faith-Based Videos, Teaching & Speaking`,
-        description:
-          'The Divine Get Down offers faith-based video content, motivational speaking, educational teaching, and spiritual encouragement.',
-        ogTitle: baseTitle,
-        ogDescription:
-          'Faith-based video content, motivational speaking, educational teaching, and spiritual encouragement.',
-        ogImage,
-      };
-  }
 }

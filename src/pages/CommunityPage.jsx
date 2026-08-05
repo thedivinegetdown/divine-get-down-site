@@ -2,96 +2,94 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MetaTags from '../components/MetaTags';
+import { COMMUNITY_CONTENT } from '../content/community';
+import { SITE } from '../content/site';
 import '../App.css';
 import './FunnelPages.css';
 
 function CommunityPage() {
   return (
     <div className="App">
-      <MetaTags title="The Inner Rhythm — The Divine Get Down" description="A sanctuary for community, short films, and sacred rhythm. Watch, reflect, and share the light." path="/community" />
+      <MetaTags {...COMMUNITY_CONTENT.metadata} />
 
       <main className="funnel-shell" id="main-content" tabIndex={-1}>
         <div className="funnel-card">
           <div className="funnel-back">
-            <Link className="funnel-link" to="/">
-              ← Back to the Sanctuary
+            <Link className="funnel-link" to={SITE.links.home}>
+              {SITE.labels.backToSanctuary}
             </Link>
           </div>
 
           <div className="funnel-top">
             <picture>
-      <source srcSet="/divine_logo.webp" type="image/webp" />
-      <img
-        src="/divine_logo.png"
-              alt="The Divine Get Down crest"
-              className="funnel-logo"
-              loading="eager"
-              decoding="async"
-            
-        width="160"
-        height="160"
-        fetchPriority="high"
-      />
-    </picture>
+              <source srcSet={SITE.logo.webp} type="image/webp" />
+              <img
+                src={SITE.logo.png}
+                alt={SITE.logo.alt}
+                className="funnel-logo"
+                loading="eager"
+                decoding="async"
+                width={SITE.logo.width}
+                height={SITE.logo.height}
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
-          <h1 className="funnel-title">The Inner Rhythm</h1>
-          <p className="funnel-subtitle">For those who want to walk together.</p>
+          <h1 className="funnel-title">{COMMUNITY_CONTENT.title}</h1>
+          <p className="funnel-subtitle">{COMMUNITY_CONTENT.subtitle}</p>
 
           <div className="funnel-divider" />
 
           <div className="funnel-block">
             <p>
-              This community exists for gentle accountability, shared prayer, and collective
-              stillness.
+              {COMMUNITY_CONTENT.introduction}
             </p>
             <p>
-              Community is not obligation.
+              {COMMUNITY_CONTENT.rhythmLine}
               <br />
-              It is shared presence.
+              {COMMUNITY_CONTENT.rhythmResponse}
             </p>
 
-            <h2>What You’ll Receive</h2>
+            <h2>{COMMUNITY_CONTENT.receiveHeading}</h2>
             <ul className="funnel-list">
-              <li>Weekly guidance</li>
-              <li>Monthly live moments</li>
-              <li>Shared scripture & reflection</li>
-              <li>A quiet space to belong</li>
+              {COMMUNITY_CONTENT.receiveItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
 
             <div className="funnel-panel" style={{ marginTop: 16 }}>
-              <h3>Membership</h3>
+              <h3>{COMMUNITY_CONTENT.membership.title}</h3>
               <p>
-                <strong>$29/month</strong>
+                <strong>{COMMUNITY_CONTENT.membership.price}</strong>
               </p>
-              <p>Come and go freely. No pressure to stay.</p>
+              <p>{COMMUNITY_CONTENT.membership.description}</p>
             </div>
 
             <div className="funnel-divider" />
 
-            <h2>Join the Inner Rhythm</h2>
+            <h2>{COMMUNITY_CONTENT.joinHeading}</h2>
             <p style={{ textAlign: 'center' }}>
-              Checkout can be connected next. For now, request access below and we’ll send you the
-              entry link.
+              {COMMUNITY_CONTENT.joinDescription}
             </p>
 
             <form
               className="funnel-form"
               name="inner-rhythm-access"
               method="POST"
-              action="/thank-you"
+              action={SITE.links.thankYou}
               data-netlify="true"
               netlify-honeypot="bot-field"
             >
               <input type="hidden" name="form-name" value="inner-rhythm-access" />
               <p style={{ display: 'none' }}>
                 <label>
-                  Don’t fill this out if you’re human: <input name="bot-field" />
+                  {COMMUNITY_CONTENT.form.honeypotLabel} <input name="bot-field" />
                 </label>
               </p>
 
               <label className="funnel-label" htmlFor="community-email">
-                Email address
+                {COMMUNITY_CONTENT.form.emailLabel}
               </label>
               <input
                 id="community-email"
@@ -99,32 +97,32 @@ function CommunityPage() {
                 type="email"
                 name="email"
                 required
-                placeholder="Your email address"
+                placeholder={COMMUNITY_CONTENT.form.emailPlaceholder}
                 autoComplete="email"
               />
 
               <label className="funnel-label" htmlFor="community-note">
-                Prayer request (optional)
+                {COMMUNITY_CONTENT.form.noteLabel}
               </label>
               <textarea
                 id="community-note"
                 className="funnel-textarea"
                 name="note"
-                placeholder="Optional: What would you like prayer for this month?"
+                placeholder={COMMUNITY_CONTENT.form.notePlaceholder}
               />
 
               <div className="funnel-actions">
                 <button className="primary-cta" type="submit">
-                  Join the Inner Rhythm
+                  {COMMUNITY_CONTENT.form.submitButton}
                 </button>
-                <Link className="funnel-link" to="/vault">
-                  Prefer self-paced? Enter the Scroll Vault →
+                <Link className="funnel-link" to={SITE.links.scrollVault}>
+                  {COMMUNITY_CONTENT.form.vaultLink}
                 </Link>
               </div>
             </form>
 
             <p className="funnel-footnote">
-              Community is not obligation. It is shared presence.
+              {COMMUNITY_CONTENT.footnote}
             </p>
           </div>
         </div>

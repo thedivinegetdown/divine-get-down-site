@@ -2,8 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
-
-const DEFAULT_IMAGE = '/divine_logo.png';
+import { METADATA_DEFAULTS } from '../content/metadata';
 
 /**
  * Production-grade meta tags for SEO + rich previews.
@@ -13,15 +12,15 @@ export default function MetaTags({
   title,
   description,
   path = '/',
-  image = DEFAULT_IMAGE,
-  canonicalBase = 'https://thedivinegetdown.com',
+  image = METADATA_DEFAULTS.image,
+  canonicalBase = METADATA_DEFAULTS.canonicalBase,
   noIndex = false,
 }) {
   const url = `${canonicalBase}${path}`;
-  const safeTitle = title?.trim() || 'The Divine Get Down';
+  const safeTitle = title?.trim() || METADATA_DEFAULTS.title;
   const safeDesc =
     description?.trim() ||
-    'A cinematic sanctuary for stillness, Scripture, and sacred rhythm.';
+    METADATA_DEFAULTS.description;
 
   return (
     <Helmet>

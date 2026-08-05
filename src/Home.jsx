@@ -4,27 +4,16 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import './App.css';
 
-import { YOUTUBE } from './config/youtube';
+import { HOME_CONTENT } from './content/home';
+import { EXPERIENCE_TAB_ID, HOME_TABS } from './content/navigation';
+import { SITE } from './content/site';
+import { YOUTUBE } from './content/youtube';
 
 const NavigationBar = lazy(() => import('./components/NavigationBar'));
 const TabContent = lazy(() => import('./components/TabContent'));
 
-const TABS = [
-  { id: 'welcome', label: 'Welcome' },
-
-  // 🔥 KEEP THIS SECOND (VISIBLE IMMEDIATELY)
-  { id: 'experience', label: 'Experience' },
-
-  { id: 'watch', label: 'Watch' },
-  { id: 'shorts', label: 'Shorts' },
-  { id: 'services', label: 'Services' },
-  { id: 'start', label: 'Scroll Vault' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' },
-];
-
 function Home() {
-  const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const [activeTab, setActiveTab] = useState(HOME_TABS[0].id);
   const location = useLocation();
   const stickyTabsRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
@@ -32,7 +21,7 @@ function Home() {
   useEffect(() => {
     const hash = (location.hash || '').replace('#', '').trim();
     if (!hash) return;
-    const exists = TABS.some((t) => t.id === hash);
+    const exists = HOME_TABS.some((t) => t.id === hash);
     if (exists) setActiveTab(hash);
   }, [location.hash]);
 
@@ -73,7 +62,7 @@ function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const subscribeUrl = `${YOUTUBE?.channelUrl || 'https://www.youtube.com/@TheDivineGetDown'}?sub_confirmation=1`;
+  const subscribeUrl = `${YOUTUBE.channelUrl}?sub_confirmation=1`;
 
   return (
     <div className="App">
@@ -85,12 +74,12 @@ function Home() {
           transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: 'easeOut' }}
         >
           <picture>
-            <source srcSet="/divine_logo.webp" type="image/webp" />
+            <source srcSet={SITE.logo.webp} type="image/webp" />
             <img
-              src="/divine_logo.png"
-              width="160"
-              height="160"
-              alt="The Divine Get Down crest"
+              src={SITE.logo.png}
+              width={SITE.logo.width}
+              height={SITE.logo.height}
+              alt={SITE.logo.alt}
               className="hero-logo"
               loading="eager"
               decoding="async"
@@ -107,7 +96,7 @@ function Home() {
               duration: shouldReduceMotion ? 0 : 0.6,
             }}
           >
-            A sacred rhythm for the weary soul — a place to breathe, remember, and rest in God's presence.
+            {HOME_CONTENT.hero.tagline}
           </motion.p>
         </motion.div>
 
@@ -121,11 +110,11 @@ function Home() {
         >
           <Suspense fallback={<NavFallback />}>
             <NavigationBar
-              tabs={TABS}
+              tabs={HOME_TABS}
               activeTab={activeTab}
               onTabChange={(id) => {
-                if (id === 'experience') {
-                  window.location.href = '/reset-experience';
+                if (id === EXPERIENCE_TAB_ID) {
+                  window.location.href = SITE.links.resetExperience;
                 } else {
                   setActiveTab(id);
                 }
@@ -134,15 +123,15 @@ function Home() {
           </Suspense>
         </div>
 
-        <section className="compliance-shell compliance-shell--after-menu" aria-label="Services">
+        <section
+          className="compliance-shell compliance-shell--after-menu"
+          aria-label={HOME_CONTENT.compliance.ariaLabel}
+        >
           <div className="compliance-card compliance-card--primary">
-            <p className="compliance-kicker">Faith-Based Media, Teaching, and Speaking</p>
-            <h1 className="compliance-title">The Divine Get Down</h1>
+            <p className="compliance-kicker">{HOME_CONTENT.compliance.kicker}</p>
+            <h1 className="compliance-title">{HOME_CONTENT.compliance.title}</h1>
             <p className="compliance-copy">
-              The Divine Get Down is a faith-based platform offering video content,
-              spiritual encouragement, motivational speaking, educational teaching,
-              and creative collaboration designed to inspire reflection, renewal,
-              and connection with God.
+              {HOME_CONTENT.compliance.description}
             </p>
 
             <div className="compliance-actions">
@@ -151,7 +140,7 @@ function Home() {
                 className="primary-cta compliance-button"
                 onClick={() => setActiveTab('services')}
               >
-                View Services
+                {HOME_CONTENT.compliance.servicesButton}
               </button>
 
               <button
@@ -159,7 +148,7 @@ function Home() {
                 className="secondary-cta compliance-button"
                 onClick={() => setActiveTab('contact')}
               >
-                Speaking & Business Inquiries
+                {HOME_CONTENT.compliance.inquiriesButton}
               </button>
             </div>
           </div>
@@ -188,20 +177,28 @@ function Home() {
         href={subscribeUrl}
         target="_blank"
         rel="noreferrer"
-        aria-label="Subscribe on YouTube"
+        aria-label={HOME_CONTENT.mobileSubscribe.ariaLabel}
       >
-        Subscribe
+        {HOME_CONTENT.mobileSubscribe.label}
       </a>
     </div>
   );
 }
 
 function NavFallback() {
-  return <div className="fallback-nav" role="status" aria-live="polite">Loading navigation…</div>;
+  return (
+    <div className="fallback-nav" role="status" aria-live="polite">
+      {HOME_CONTENT.fallbacks.navigation}
+    </div>
+  );
 }
 
 function ContentFallback() {
-  return <div className="fallback-content" role="status" aria-live="polite">Preparing your sacred space…</div>;
+  return (
+    <div className="fallback-content" role="status" aria-live="polite">
+      {HOME_CONTENT.fallbacks.content}
+    </div>
+  );
 }
 
 export default Home;

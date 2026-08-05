@@ -1,6 +1,7 @@
 // src/components/youtube/LiteYouTube.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
+import { YOUTUBE_CONTENT } from '../../content/youtube';
 
 // Lightweight YouTube embeds.
 // Install: npm i lite-youtube-embed
@@ -15,8 +16,8 @@ function LiteYouTube({ videoId, title }) {
     <div className="yt-lite-wrap">
       <lite-youtube
         videoid={videoId}
-        playlabel={title || 'Play'}
-        title={title || 'YouTube video'}
+        playlabel={title || YOUTUBE_CONTENT.defaultPlayLabel}
+        title={title || YOUTUBE_CONTENT.defaultVideoTitle}
         params="rel=0&modestbranding=1"
       />
     </div>
