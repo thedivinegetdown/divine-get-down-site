@@ -12,6 +12,8 @@ The permanent governing architecture package is documented in [docs/architecture
 
 The analytics event contract and search-verification setup are documented in [docs/ANALYTICS_AND_SEARCH_READINESS.md](docs/ANALYTICS_AND_SEARCH_READINESS.md).
 
+Production ownership, contact operations, health checks, rollback, and recovery are documented in [docs/operations/PRODUCTION_READINESS.md](docs/operations/PRODUCTION_READINESS.md).
+
 All implementation work must follow the architecture-first workflow defined there:
 
 Architecture -> Roadmap -> Execution Order -> Implementation -> One Validation Cycle -> One Commit -> One Push -> Architecture Review.
