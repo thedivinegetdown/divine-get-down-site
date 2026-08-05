@@ -3,11 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css'; // Global styles
 import './styles/animations.css';
 import App from './App'; // Main app component
-import { initAnalytics } from './utils/analytics';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-
-initAnalytics();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

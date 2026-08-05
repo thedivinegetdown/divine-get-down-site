@@ -10,6 +10,8 @@ To create a sacred rhythm for the weary soul, a place to breathe, remember, and 
 
 The permanent governing architecture package is documented in [docs/architecture/README.md](docs/architecture/README.md).
 
+The analytics event contract and search-verification setup are documented in [docs/ANALYTICS_AND_SEARCH_READINESS.md](docs/ANALYTICS_AND_SEARCH_READINESS.md).
+
 All implementation work must follow the architecture-first workflow defined there:
 
 Architecture -> Roadmap -> Execution Order -> Implementation -> One Validation Cycle -> One Commit -> One Push -> Architecture Review.

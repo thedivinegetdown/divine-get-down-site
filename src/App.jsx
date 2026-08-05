@@ -5,8 +5,11 @@ import { Helmet } from 'react-helmet-async';
 
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTop from './components/ScrollToTop';
-import { trackPageview } from './utils/analytics';
+import { trackPageView } from './utils/analytics';
 import './App.css';
+
+const GOOGLE_SITE_VERIFICATION = process.env.REACT_APP_GOOGLE_SITE_VERIFICATION?.trim();
+const BING_SITE_VERIFICATION = process.env.REACT_APP_BING_SITE_VERIFICATION?.trim();
 
 // Route-level code splitting (faster first load)
 const Home = lazy(() => import('./Home'));
@@ -27,8 +30,8 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    trackPageview();
-  }, [location.pathname, location.hash, location.search]);
+    trackPageView(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -67,6 +70,12 @@ function App() {
           name="description"
           content="The Divine Get Down provides non-downloadable faith-based videos, motivational and educational speaking services, and spiritual encouragement."
         />
+        {GOOGLE_SITE_VERIFICATION ? (
+          <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+        ) : null}
+        {BING_SITE_VERIFICATION ? (
+          <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />
+        ) : null}
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
