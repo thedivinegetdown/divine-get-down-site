@@ -1,5 +1,5 @@
 // src/components/TabContent.jsx
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 
@@ -10,6 +10,16 @@ const ShortsGrid = lazy(() => import('./youtube/ShortsGrid'));
 
 const SITE_URL = process.env.REACT_APP_SITE_URL || 'https://thedivinegetdown.com';
 const CONTACT_EMAIL = 'thedivinegetdown@gmail.com';
+const CONTACT_FORM_NAME = 'contact-inquiry';
+
+const INQUIRY_TYPES = [
+  { value: 'speaking-engagement', label: 'Speaking engagement' },
+  { value: 'teaching-workshop', label: 'Teaching or workshop' },
+  { value: 'interview-media', label: 'Interview or media appearance' },
+  { value: 'faith-collaboration', label: 'Faith-based collaboration' },
+  { value: 'business-partnership', label: 'Business or partnership inquiry' },
+  { value: 'general-inquiry', label: 'General inquiry' },
+];
 
 export default function TabContent({ activeTab }) {
   const meta = getTabMeta(activeTab);
@@ -280,6 +290,8 @@ export default function TabContent({ activeTab }) {
               </p>
             </div>
 
+            <ContactInquiryForm emailHref={emailHref} />
+
             <div className="uspto-panel-grid">
               <div className="uspto-panel-card">
                 <h3>Contact for</h3>
@@ -391,6 +403,199 @@ function PinnedLinks({ emailHref }) {
 }
 
 PinnedLinks.propTypes = {
+  emailHref: PropTypes.string.isRequired,
+};
+
+function ContactInquiryForm({ emailHref }) {
+  const [status, setStatus] = useState('idle');
+  const confirmationRef = useRef(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    if (!form.checkValidity()) {
+      setStatus('invalid');
+      form.reportValidity();
+      form.querySelector(':invalid')?.focus();
+      return;
+    }
+
+    setStatus('submitting');
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      });
+
+      if (!response.ok) throw new Error('Inquiry submission failed.');
+
+      form.reset();
+      setStatus('success');
+      window.requestAnimationFrame(() => confirmationRef.current?.focus());
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  if (status === 'success') {
+    return (
+      <section
+        className="contact-form-card contact-confirmation"
+        aria-labelledby="contact-confirmation-title"
+        aria-live="polite"
+      >
+        <h3 id="contact-confirmation-title" ref={confirmationRef} tabIndex={-1}>
+          Thank you. Your inquiry has been received.
+        </h3>
+        <p>
+          The Divine Get Down will review your message and follow up using the email address you provided.
+        </p>
+        <p className="muted">
+          Need to add context? Email <a href={emailHref}>{CONTACT_EMAIL}</a>.
+        </p>
+        <button type="button" className="secondary-cta" onClick={() => setStatus('idle')}>
+          Send Another Inquiry
+        </button>
+      </section>
+    );
+  }
+
+  const statusMessage = status === 'invalid'
+    ? 'Please complete each required field before sending your inquiry.'
+    : status === 'error'
+      ? 'We could not send your inquiry. Please try again, or use the email address above.'
+      : status === 'submitting'
+        ? 'Sending your inquiry...'
+        : '';
+
+  return (
+    <section className="contact-form-card" aria-labelledby="contact-inquiry-title">
+      <h3 id="contact-inquiry-title">Send an Inquiry</h3>
+      <p id="contact-inquiry-guidance" className="contact-form-intro">
+        Use this form for business, speaking, teaching, media, and faith-based collaboration inquiries.
+      </p>
+      <p id="contact-required-note" className="contact-required-note">
+        Fields marked <span aria-hidden="true">*</span> are required.
+      </p>
+
+      <form
+        className="contact-form"
+        name={CONTACT_FORM_NAME}
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        noValidate
+        aria-describedby="contact-inquiry-guidance contact-required-note contact-privacy-note"
+        aria-busy={status === 'submitting'}
+        onSubmit={handleSubmit}
+      >
+        <input type="hidden" name="form-name" value={CONTACT_FORM_NAME} />
+
+        <p className="contact-honeypot" aria-hidden="true">
+          <label htmlFor="contact-bot-field">
+            Leave this field blank
+            <input id="contact-bot-field" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
+          </label>
+        </p>
+
+        <div className="contact-form-grid">
+          <div className="contact-field">
+            <label htmlFor="contact-name">
+              Name <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              autoComplete="name"
+              maxLength="100"
+              required
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="contact-email">
+              Email <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              maxLength="254"
+              required
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="contact-organization">Organization (optional)</label>
+            <input
+              id="contact-organization"
+              name="organization"
+              type="text"
+              autoComplete="organization"
+              maxLength="160"
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="contact-inquiry-type">
+              Inquiry type <span aria-hidden="true">*</span>
+            </label>
+            <select id="contact-inquiry-type" name="inquiry-type" defaultValue="" required>
+              <option value="" disabled>Select an inquiry type</option>
+              {INQUIRY_TYPES.map((type) => (
+                <option key={type.value} value={type.value}>{type.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="contact-field contact-field--full">
+            <label htmlFor="contact-message">
+              Message <span aria-hidden="true">*</span>
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="7"
+              maxLength="3000"
+              aria-describedby="contact-message-help"
+              required
+            />
+            <span id="contact-message-help" className="contact-field-help">
+              Share the event, project, timing, and response details needed for follow-up.
+            </span>
+          </div>
+        </div>
+
+        <p id="contact-privacy-note" className="contact-privacy-note">
+          Please do not include payment information, passwords, medical details, or highly sensitive spiritual disclosures.
+          Your information will be used only to review and respond to this inquiry.
+        </p>
+
+        <div className="contact-form-actions">
+          <button type="submit" className="primary-cta" disabled={status === 'submitting'}>
+            {status === 'submitting' ? 'Sending...' : 'Send Inquiry'}
+          </button>
+        </div>
+
+        {statusMessage ? (
+          <p
+            className={`contact-form-status${status === 'error' || status === 'invalid' ? ' is-error' : ''}`}
+            role={status === 'error' || status === 'invalid' ? 'alert' : 'status'}
+          >
+            {statusMessage}
+          </p>
+        ) : null}
+      </form>
+    </section>
+  );
+}
+
+ContactInquiryForm.propTypes = {
   emailHref: PropTypes.string.isRequired,
 };
 

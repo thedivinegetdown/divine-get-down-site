@@ -58,6 +58,29 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
+    <form
+      name="contact-inquiry"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+      aria-hidden="true"
+    >
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="organization" />
+      <select name="inquiry-type">
+        <option value="speaking-engagement">Speaking engagement</option>
+        <option value="teaching-workshop">Teaching or workshop</option>
+        <option value="interview-media">Interview or media appearance</option>
+        <option value="faith-collaboration">Faith-based collaboration</option>
+        <option value="business-partnership">Business or partnership inquiry</option>
+        <option value="general-inquiry">General inquiry</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+
     <style>
       .skip-link {
         position: absolute;
