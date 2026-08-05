@@ -27,6 +27,10 @@
 }
 
 .primary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   min-height: 56px;
   margin-top: var(--space-6);
   padding: var(--space-5) var(--space-10);
@@ -43,6 +47,8 @@
   font-size: 1.06rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-button);
+  text-align: center;
+  text-decoration: none;
   transition: transform var(--duration-lift) var(--easing-standard),
     box-shadow var(--duration-standard) var(--easing-standard),
     border-color var(--duration-standard) var(--easing-standard),
@@ -239,6 +245,16 @@
 }
 
 @media (max-width: 768px) {
+  html {
+    scroll-padding-top: 72px;
+    scroll-padding-bottom: 84px;
+  }
+
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    scroll-margin-top: 72px;
+    scroll-margin-bottom: 84px;
+  }
+
   .primary-cta,
   .secondary-cta {
     width: auto;

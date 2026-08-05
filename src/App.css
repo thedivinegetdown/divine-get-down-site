@@ -429,6 +429,13 @@ body::after {
   .mobile-subscribe {
     display: inline-flex;
   }
+
+  .App main:focus-within ~ .mobile-subscribe {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   /* ✅ Mobile: allow swipe tabs to start from the left */
   .navbar-container {
     justify-content: flex-start;

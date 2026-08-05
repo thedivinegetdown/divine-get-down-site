@@ -16,6 +16,7 @@ function Home() {
   const [activeTab, setActiveTab] = useState(HOME_TABS[0].id);
   const location = useLocation();
   const stickyTabsRef = useRef(null);
+  const previousTabRef = useRef(activeTab);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -34,6 +35,9 @@ function Home() {
   }, [activeTab]);
 
   useEffect(() => {
+    if (previousTabRef.current === activeTab) return;
+    previousTabRef.current = activeTab;
+
     const el = document.getElementById('main-content');
     if (el) {
       el.scrollIntoView({
