@@ -176,8 +176,10 @@ Apply the retention process rather than treating the repository as their backup.
 
 - The provider-neutral browser-error contract and emergency disable procedure
   are documented in [ERROR_MONITORING.md](ERROR_MONITORING.md).
-- HTTPS is forced and HSTS, content-type, frame, referrer, permissions, opener,
-  resource, and embedder headers are present.
+- The production browser-header contract and approved third-party origins are
+  documented in [SECURITY_HEADERS.md](SECURITY_HEADERS.md).
+- HTTPS is forced, Netlify supplies HSTS, and the repository configures CSP,
+  content-type, frame, referrer, permissions, opener, and resource headers.
 - No private production secret is required by the current browser-only site.
 - `REACT_APP_*` values are public at build time and must never contain secrets.
 - Netlify Forms collects only the minimum inquiry data and must not be expanded
@@ -194,7 +196,7 @@ Apply the retention process rather than treating the repository as their backup.
 | High | `thedivinegetdown.net` has an expired certificate and serves an old under-construction site | Migrate it to the canonical site and implement the ADR-013 redirect in a domain-specific Execution Order |
 | High | The Create React App toolchain has critical and high npm audit findings in build and development dependency paths | Perform a dedicated dependency and framework remediation assessment |
 | Medium | Unknown SPA routes return HTTP `200` while rendering the custom Not Found page | Address soft-404 behavior with route and SEO architecture work |
-| Medium | No Content Security Policy or production browser-error and uptime monitoring is active | Design staged CSP and observability controls without introducing an unapproved vendor |
+| Medium | No real production browser-error provider or uptime monitoring is active | Select privacy-reviewed providers under a separate observability Execution Order |
 | Medium | Registrar renewal state is outside Netlify because both brand domains use an external registrar | Record registrar ownership, renewal contacts, and renewal dates in the approved private operations record |
 
 The canonical `.com` site may continue operating while these risks are tracked,
