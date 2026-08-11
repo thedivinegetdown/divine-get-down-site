@@ -51,6 +51,7 @@ form submissions in GitHub issues, commits, deploy logs, or this repository.
    npm run lint
    npm test -- --watchAll=false
    npm run build
+   npm run test:visual:functional
    git status --short
    ```
 

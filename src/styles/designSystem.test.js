@@ -62,4 +62,13 @@ describe('design system foundation', () => {
     expect(appStyles).not.toMatch(/(^|\n):root\s*\{/);
     expect(indexStyles).not.toContain('@media (prefers-reduced-motion: reduce)');
   });
+
+  test('allows pinned links to shrink at narrow viewport widths', () => {
+    const appStyles = fs.readFileSync(path.join(__dirname, '..', 'App.css'), 'utf8');
+
+    expect(appStyles).toMatch(
+      /\.pinned-links\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s
+    );
+    expect(appStyles).toMatch(/\.pinned-link\s*>\s*span:last-child\s*\{[^}]*overflow-wrap:\s*anywhere/s);
+});
 });
