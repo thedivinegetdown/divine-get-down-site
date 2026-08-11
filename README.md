@@ -60,6 +60,7 @@ git diff --check
 npm run lint
 npm test -- --watchAll=false
 npm run build
+npm run test:visual:functional
 git status
 ```
 
@@ -68,6 +69,8 @@ Notes:
 - `npm run lint` uses the React app ESLint configuration.
 - `npm test -- --watchAll=false` is configured to pass when no test files exist yet.
 - Future Execution Orders may add stricter validation gates without changing this baseline retroactively.
+- `npm run test:visual:functional` runs the responsive structural and browser
+  journey checks without requiring a workstation-specific pixel baseline.
 
 ## Routes
 
