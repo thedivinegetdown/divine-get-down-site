@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { CONTACT_CONTENT } from './contact';
 import { APP_METADATA } from './appMetadata';
 import { COMMUNITY_CONTENT } from './community';
@@ -47,12 +49,15 @@ test('preserves media, PDF, and checkout identifiers', () => {
     emailCaptureUrl: 'https://thedivinegetdown.com/stillness',
   });
   expect(YOUTUBE.shorts).toEqual([
-    'PFk-2MwQ0X8',
-    'GlVfcBWHy_8',
-    'SMnaSvh7KZA',
-    'TYJ6dRF83E4',
-    'iqFTeh-2tNA',
-    '8hPm7RZhRwA',
+    { id: 'PFk-2MwQ0X8', title: 'Follow God’s Example | Walk in Love' },
+    { id: 'GlVfcBWHy_8', title: 'A Prayer of Protection for This Generation' },
+    { id: 'SMnaSvh7KZA', title: 'This Valley Isn’t Your Ending — It’s Your Becoming' },
+    { id: 'TYJ6dRF83E4', title: 'When You Seek Him with All Your Heart' },
+    { id: 'iqFTeh-2tNA', title: 'The God Who Parts Seas | Exodus 14:21' },
+    {
+      id: '8hPm7RZhRwA',
+      title: 'Love Like Jesus: The Patience and Kindness That Changes Everything',
+    },
   ]);
   expect(STILLNESS_SCROLL_CONTENT.pdfHref).toBe('/stillness-scroll.pdf');
   expect(RESET_EXPERIENCE_CONTENT.access.companionHref).toBe('/reset-companion.pdf');
@@ -86,8 +91,47 @@ test('preserves canonical website and video structured data', () => {
   });
   expect(createVideoStructuredData(TAB_METADATA.watch)).toMatchObject({
     '@type': 'VideoObject',
-    name: TAB_METADATA.watch.videoTitle,
+    name: 'The Light of God That Formed the Universe',
+    thumbnailUrl: [`https://i.ytimg.com/vi/${YOUTUBE.featuredVideoId}/hqdefault.jpg`],
+    uploadDate: '2025-12-03',
     embedUrl: `https://www.youtube.com/embed/${YOUTUBE.featuredVideoId}`,
     contentUrl: `https://www.youtube.com/watch?v=${YOUTUBE.featuredVideoId}`,
   });
+});
+
+test('keeps public route metadata unique and homepage tabs canonical', () => {
+  const publicMetadata = [
+    TAB_METADATA.welcome,
+    STILLNESS_SCROLL_CONTENT.metadata,
+    RESET_EXPERIENCE_CONTENT.metadata,
+    JOURNEY_CONTENT.metadata,
+    COMMUNITY_CONTENT.metadata,
+    SCROLL_VAULT_CONTENT.metadata,
+  ];
+  const titles = publicMetadata.map(({ title }) => title);
+  const descriptions = publicMetadata.map(({ description }) => description);
+
+  expect(new Set(titles).size).toBe(titles.length);
+  expect(new Set(descriptions).size).toBe(descriptions.length);
+  expect(Object.values(TAB_METADATA).every(({ path: tabPath }) => tabPath === '/')).toBe(true);
+});
+
+test('keeps robots and sitemap aligned with canonical public routes', () => {
+  const publicDirectory = path.join(process.cwd(), 'public');
+  const robots = fs.readFileSync(path.join(publicDirectory, 'robots.txt'), 'utf8');
+  const sitemap = fs.readFileSync(path.join(publicDirectory, 'sitemap.xml'), 'utf8');
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+
+  expect(robots).toContain('User-agent: *');
+  expect(robots).toContain('Allow: /');
+  expect(robots).toContain(`Sitemap: ${SITE.canonicalUrl}/sitemap.xml`);
+  expect(sitemapUrls).toEqual([
+    `${SITE.canonicalUrl}/`,
+    `${SITE.canonicalUrl}${SITE.links.stillness}`,
+    `${SITE.canonicalUrl}${SITE.links.resetExperience}`,
+    `${SITE.canonicalUrl}${SITE.links.journey}`,
+    `${SITE.canonicalUrl}${SITE.links.community}`,
+    `${SITE.canonicalUrl}${SITE.links.scrollVault}`,
+  ]);
+  expect(sitemapUrls.every((url) => !url.includes('#'))).toBe(true);
 });

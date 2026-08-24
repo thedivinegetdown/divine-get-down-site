@@ -90,6 +90,7 @@ test('preserves critical links, embeds, and form identifiers', () => {
   const contact = renderRoute(<TabContent activeTab="contact" />).markup;
 
   expect(stillness).toContain('href="/stillness-scroll.pdf"');
+  expect(stillness).toContain('href="/vault"');
   expect(reset).toContain('href="/experience-access"');
   expect(access).toContain(`src="https://www.youtube.com/embed/${YOUTUBE.experienceVideoId}"`);
   expect(access).toContain('href="/reset-companion.pdf"');

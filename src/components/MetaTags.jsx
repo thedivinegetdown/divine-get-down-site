@@ -13,6 +13,7 @@ export default function MetaTags({
   description,
   path = '/',
   image = METADATA_DEFAULTS.image,
+  imageAlt = METADATA_DEFAULTS.imageAlt,
   canonicalBase = METADATA_DEFAULTS.canonicalBase,
   noIndex = false,
 }) {
@@ -36,15 +37,18 @@ export default function MetaTags({
       {/* Open Graph */}
       <meta property="og:title" content={safeTitle} />
       <meta property="og:description" content={safeDesc} />
+      <meta property="og:site_name" content="The Divine Get Down" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={`${canonicalBase}${image}`} />
+      <meta property="og:image:alt" content={imageAlt} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={safeTitle} />
       <meta name="twitter:description" content={safeDesc} />
       <meta name="twitter:image" content={`${canonicalBase}${image}`} />
+      <meta name="twitter:image:alt" content={imageAlt} />
     </Helmet>
   );
 }
@@ -54,6 +58,7 @@ MetaTags.propTypes = {
   description: PropTypes.string,
   path: PropTypes.string,
   image: PropTypes.string,
+  imageAlt: PropTypes.string,
   canonicalBase: PropTypes.string,
   noIndex: PropTypes.bool,
 };

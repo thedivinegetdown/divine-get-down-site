@@ -6,7 +6,7 @@ const ogImage = `${SITE_URL}/divine_logo.png`;
 
 export const TAB_METADATA = {
   services: {
-    path: '/#services',
+    path: '/',
     title: `Services | ${baseTitle}`,
     description:
       'Explore the video content, motivational speaking, educational teaching, and collaborations offered through The Divine Get Down.',
@@ -16,7 +16,7 @@ export const TAB_METADATA = {
     ogImage,
   },
   watch: {
-    path: '/#watch',
+    path: '/',
     title: `Watch | ${baseTitle}`,
     description:
       'Watch the featured message, explore playlists, and subscribe for faith-filled videos that bring peace and clarity.',
@@ -25,13 +25,14 @@ export const TAB_METADATA = {
       'Watch the featured message, explore playlists, and subscribe for weekly encouragement.',
     ogImage,
     videoId: YOUTUBE.featuredVideoId,
-    videoTitle: 'The Divine Get Down — Featured Video',
+    videoTitle: 'The Light of God That Formed the Universe',
     videoDescription:
-      'A featured message from The Divine Get Down — faith-filled encouragement designed to bring stillness and strength.',
-    uploadDate: '2025-01-01',
+      'A Christ-centered message from The Divine Get Down reflecting on the light of God that formed the universe.',
+    videoThumbnail: `https://i.ytimg.com/vi/${YOUTUBE.featuredVideoId}/hqdefault.jpg`,
+    uploadDate: '2025-12-03',
   },
   shorts: {
-    path: '/#shorts',
+    path: '/',
     title: `Shorts | ${baseTitle}`,
     description:
       'Short, scripture-centered encouragement you can watch in under a minute—designed to reset your mind and strengthen your spirit.',
@@ -40,7 +41,7 @@ export const TAB_METADATA = {
     ogImage,
   },
   about: {
-    path: '/#about',
+    path: '/',
     title: `About | ${baseTitle}`,
     description:
       'About The Divine Get Down and its faith-based media platform, spiritual encouragement, and speaking mission.',
@@ -49,7 +50,7 @@ export const TAB_METADATA = {
     ogImage,
   },
   contact: {
-    path: '/#contact',
+    path: '/',
     title: `Contact | ${baseTitle}`,
     description:
       'Contact The Divine Get Down for speaking engagements, teaching, interviews, collaborations, partnerships, and business inquiries.',
@@ -58,7 +59,7 @@ export const TAB_METADATA = {
     ogImage,
   },
   start: {
-    path: '/#start',
+    path: '/',
     title: `Scroll Vault | ${baseTitle}`,
     description:
       'Enter the Scroll Vault for deeper reflection, stillness, and faith-filled resources from The Divine Get Down.',
@@ -68,12 +69,12 @@ export const TAB_METADATA = {
   },
   welcome: {
     path: '/',
-    title: `${baseTitle} | Faith-Based Videos, Teaching & Speaking`,
+    title: `Christ-Centered Videos, Prayer & Encouragement | ${baseTitle}`,
     description:
-      'The Divine Get Down offers faith-based video content, motivational speaking, educational teaching, and spiritual encouragement.',
+      'Find Christ-centered videos, Scripture-rooted prayer, peaceful encouragement, and speaking services from The Divine Get Down.',
     ogTitle: baseTitle,
     ogDescription:
-      'Faith-based video content, motivational speaking, educational teaching, and spiritual encouragement.',
+      'Christ-centered videos, Scripture-rooted prayer, peaceful encouragement, and speaking services.',
     ogImage,
   },
 };
@@ -97,8 +98,8 @@ export function createVideoStructuredData(meta) {
     '@type': 'VideoObject',
     name: meta.videoTitle || 'Featured Video',
     description: meta.videoDescription || meta.description,
-    thumbnailUrl: meta.ogImage ? [meta.ogImage] : undefined,
-    uploadDate: meta.uploadDate || '2025-01-01',
+    thumbnailUrl: meta.videoThumbnail ? [meta.videoThumbnail] : undefined,
+    uploadDate: meta.uploadDate,
     embedUrl: meta.videoId ? `https://www.youtube.com/embed/${meta.videoId}` : undefined,
     contentUrl: meta.videoId ? `https://www.youtube.com/watch?v=${meta.videoId}` : undefined,
     publisher: {

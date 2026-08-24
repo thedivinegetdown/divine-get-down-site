@@ -71,6 +71,10 @@ function StillnessScrollPage() {
 
               <p className="funnel-footnote">
                 {STILLNESS_SCROLL_CONTENT.footnote}
+                <br />
+                <Link className="funnel-link" to={SITE.links.scrollVault}>
+                  {STILLNESS_SCROLL_CONTENT.relatedLink}
+                </Link>
               </p>
             </div>
           </div>

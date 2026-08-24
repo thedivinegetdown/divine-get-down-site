@@ -1,8 +1,8 @@
 export const JOURNEY_CONTENT = {
   metadata: {
-    title: 'The Journey — The Divine Get Down',
+    title: '4-Week Christian Prayer & Scripture Journey | The Divine Get Down',
     description:
-      'Step into the 4-week journey: movement, stillness, breath, and breakthrough—rooted in faith.',
+      'A four-week Christian journey through guided prayer, Scripture reflection, stillness, gentle movement, and intentional time with God.',
     path: '/journey',
   },
   title: 'The Divine Get Down — A 4-Week Sacred Journey',

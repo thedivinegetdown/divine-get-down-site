@@ -1,8 +1,8 @@
 export const SCROLL_VAULT_CONTENT = {
   metadata: {
-    title: 'The Scroll Vault — The Divine Get Down',
+    title: 'Christian Prayers & Scripture Reflections | The Divine Get Down',
     description:
-      'The Scroll Vault is a growing collection of sacred prayers, reflections, and guided moments — a quiet place for those who return.',
+      'Explore Christian prayers for peace, strength, and healing, Scripture reflections, and guided moments that help you realign with God.',
     path: '/vault',
   },
   title: 'The Scroll Vault',

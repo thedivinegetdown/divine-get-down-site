@@ -1,8 +1,8 @@
 export const STILLNESS_SCROLL_CONTENT = {
   metadata: {
-    title: 'Stillness Scroll — The Divine Get Down',
+    title: 'Christian Prayer & Scripture for Peace | The Divine Get Down',
     description:
-      'A calm, Scripture-rooted stillness space. Slow down, breathe, and return to what is steady.',
+      'Pause with a free guided Christian prayer, gentle breathwork, and Scripture for stillness, surrender, and peace through Jesus Christ.',
     path: '/stillness',
   },
   title: 'A Sacred Scroll for the Weary Soul',
@@ -19,6 +19,7 @@ export const STILLNESS_SCROLL_CONTENT = {
   panelHeading: 'Open the scroll whenever you need a moment of peace.',
   pdfHref: '/stillness-scroll.pdf',
   button: 'Open The Stillness Scroll',
+  relatedLink: 'Explore more Christian prayers and Scripture reflections',
   footnote:
     'No noise. No pressure. Only stillness, reflection, and peace through Jesus Christ.',
 };

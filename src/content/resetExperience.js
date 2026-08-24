@@ -1,8 +1,8 @@
 export const RESET_EXPERIENCE_CONTENT = {
   metadata: {
-    title: 'Reset Experience | The Divine Get Down',
+    title: 'Faith-Based Reset Experience | The Divine Get Down',
     description:
-      'A guided movement and rhythm-based experience designed to help you reset your mind, reconnect to your body, and realign your spirit.',
+      'A faith-based guided movement and rhythm experience to quiet your mind, reconnect with your body, and return to spiritual alignment.',
     path: '/reset-experience',
   },
   checkoutFallback: '/experience-access',

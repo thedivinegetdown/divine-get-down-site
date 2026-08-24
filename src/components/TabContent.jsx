@@ -37,15 +37,18 @@ export default function TabContent({ activeTab }) {
         <link rel="canonical" href={canonical} />
 
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={SITE.name} />
         <meta property="og:title" content={meta.ogTitle} />
         <meta property="og:description" content={meta.ogDescription} />
         <meta property="og:image" content={meta.ogImage} />
+        <meta property="og:image:alt" content={SITE.logo.alt} />
         <meta property="og:url" content={canonical} />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={meta.ogTitle} />
         <meta name="twitter:description" content={meta.ogDescription} />
         <meta name="twitter:image" content={meta.ogImage} />
+        <meta name="twitter:image:alt" content={SITE.logo.alt} />
 
         <script type="application/ld+json">
           {JSON.stringify(ORGANIZATION_STRUCTURED_DATA)}
@@ -189,7 +192,7 @@ export default function TabContent({ activeTab }) {
             </p>
 
             <Suspense fallback={null}>
-              <ShortsGrid videoIds={YOUTUBE.shorts || []} />
+              <ShortsGrid videos={YOUTUBE.shorts || []} />
             </Suspense>
 
             <div className="cta-row">

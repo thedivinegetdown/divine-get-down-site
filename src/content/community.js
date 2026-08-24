@@ -1,8 +1,8 @@
 export const COMMUNITY_CONTENT = {
   metadata: {
-    title: 'The Inner Rhythm — The Divine Get Down',
+    title: 'Christian Prayer & Scripture Community | The Divine Get Down',
     description:
-      'A sanctuary for community, short films, and sacred rhythm. Watch, reflect, and share the light.',
+      'Join a Christ-centered community for shared prayer, Scripture reflection, collective stillness, and gentle spiritual encouragement.',
     path: '/community',
   },
   title: 'The Inner Rhythm',

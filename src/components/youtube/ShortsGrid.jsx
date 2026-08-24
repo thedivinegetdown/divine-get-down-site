@@ -7,13 +7,15 @@ function toThumb(id) {
   return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 }
 
-function ShortsGrid({ videoIds = [] }) {
-  const ids = Array.isArray(videoIds) ? videoIds.filter(Boolean).slice(0, 12) : [];
-  if (ids.length === 0) return null;
+function ShortsGrid({ videos = [] }) {
+  const items = Array.isArray(videos)
+    ? videos.filter(({ id, title }) => id && title).slice(0, 12)
+    : [];
+  if (items.length === 0) return null;
 
   return (
     <div className="shorts-grid" role="list">
-      {ids.map((id) => (
+      {items.map(({ id, title }) => (
         <a
           key={id}
           className="short-card"
@@ -21,6 +23,7 @@ function ShortsGrid({ videoIds = [] }) {
           href={`https://www.youtube.com/shorts/${id}`}
           target="_blank"
           rel="noreferrer"
+          aria-label={`Watch “${title}” on YouTube`}
         >
           <img
             loading="lazy"
@@ -28,13 +31,14 @@ function ShortsGrid({ videoIds = [] }) {
             referrerPolicy="no-referrer"
             className="short-thumb"
             src={toThumb(id)}
-            alt={YOUTUBE_CONTENT.shortThumbnailAlt}
+            alt={`${title} video thumbnail`}
             width="480"
             height="360"
           />
           <span className="short-badge" aria-hidden="true">
             {YOUTUBE_CONTENT.shortBadge}
           </span>
+          <span className="short-title">{title}</span>
         </a>
       ))}
     </div>
@@ -42,7 +46,12 @@ function ShortsGrid({ videoIds = [] }) {
 }
 
 ShortsGrid.propTypes = {
-  videoIds: PropTypes.arrayOf(PropTypes.string),
+  videos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
 
