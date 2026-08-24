@@ -2,7 +2,7 @@
 
 **Status:** Active production runbook
 
-**Last verified:** 2026-08-05
+**Last verified:** 2026-08-24
 
 **Canonical domain:** `https://thedivinegetdown.com`
 
@@ -172,6 +172,75 @@ If the Netlify project must be recreated:
 Netlify form submissions are operational records and are not stored in GitHub.
 Apply the retention process rather than treating the repository as their backup.
 
+## Source and Configuration Recovery
+
+### GitHub Source Recovery
+
+1. Recover from a verified clone, GitHub archive, or accountable operator's
+   known-good mirror only when the primary repository is unavailable.
+2. Verify the expected commit SHA and signed-in GitHub organization or owner
+   before changing a remote.
+3. Restore branch history without rewriting published `main` history. Require a
+   reviewed recovery pull request whenever GitHub is operational.
+4. Run `npm ci`, lint, tests, and the production build before reconnecting
+   Netlify.
+5. Re-enable the repository validation workflow and branch protections before
+   resuming normal releases.
+
+### Environment Restoration
+
+Keep a private, access-controlled inventory of Netlify variable names, scopes,
+owners, and last-verification dates. Do not store their values in Git. The
+current public build-variable contract includes:
+
+- `REACT_APP_RESET_EXPERIENCE_CHECKOUT_URL`
+- `REACT_APP_ANALYTICS_ENABLED`
+- `REACT_APP_ERROR_MONITORING_ENABLED`
+- `REACT_APP_RELEASE`
+- optional search-verification identifiers
+
+On recovery, restore only approved values, remember that every `REACT_APP_*`
+value becomes public browser code, deploy, and verify the resulting behavior.
+Keep analytics and error monitoring disabled unless their separate provider
+Execution Orders are complete.
+
+### Domain and DNS Recovery
+
+1. Use the approved private registrar record to identify the accountable owner,
+   renewal status, nameservers, and recovery contact.
+2. Export or record the active DNS zone in the provider's protected operations
+   store before a migration. Do not commit the zone or verification records.
+3. Restore the canonical `.com` records to the verified Netlify project, attach
+   both apex and `www`, and wait for valid TLS before changing traffic.
+4. Attach owned secondary domains to the canonical project and permanently
+   redirect them to `https://thedivinegetdown.com` under ADR-013.
+5. Verify DNS from an independent resolver, certificate hostname and expiry,
+   HTTP-to-HTTPS behavior, `www` behavior, and the complete health checklist.
+
+### Contact Form Recovery
+
+After a Netlify project recovery, confirm form detection registers
+`contact-inquiry`, recreate the submission email hook, and make one deliberate
+owner-approved test submission. Confirm both the Netlify record and actual
+ministry-inbox receipt, then delete the test record and email under the retention
+policy. The routine release gate must not create production form submissions.
+
+## Repository Protection Owner Baseline
+
+The validation workflow runs on pull requests and pushes to `main`. An owner
+must complete the account-level controls that cannot be expressed safely in the
+repository:
+
+1. Require a pull request before merge while preserving at least one documented
+   owner recovery path.
+2. Require the `validate` status check after it has completed successfully at
+   least once on `main`.
+3. Block force pushes and branch deletion for `main`.
+4. Enable secret scanning, push protection, Dependabot alerts, and Dependabot
+   security updates; assign an accountable alert reviewer.
+5. Confirm administrators are not silently bypassing normal releases. Retain
+   emergency recovery access without using it for routine work.
+
 ## Security and Privacy Baseline
 
 - The provider-neutral browser-error contract and emergency disable procedure
@@ -191,10 +260,11 @@ Apply the retention process rather than treating the repository as their backup.
 
 | Severity | Risk | Required follow-up |
 | --- | --- | --- |
-| High | GitHub `main` is unprotected and has no CI validation workflow | Add branch protection and automated lint, test, and build gates under ADR-010 |
-| High | GitHub secret scanning, push protection, and Dependabot alerts are disabled | Enable repository security controls and establish alert ownership |
-| High | `thedivinegetdown.net` has an expired certificate and serves an old under-construction site | Migrate it to the canonical site and implement the ADR-013 redirect in a domain-specific Execution Order |
-| High | The Create React App toolchain has critical and high npm audit findings in build and development dependency paths | Perform a dedicated dependency and framework remediation assessment |
+| High | GitHub `main` has no publicly visible ruleset, and account-level branch protection cannot be verified without owner authentication | Apply the Repository Protection Owner Baseline and require the new validation check |
+| High | GitHub secret scanning, push protection, and Dependabot controls cannot be verified and were previously recorded disabled | Enable the controls and record alert ownership in the private operations record |
+| High | `thedivinegetdown.net` and its `www` name present a certificate for `*.netlify.app`; the apex serves the obsolete site rather than redirecting to `.com` | Attach both names to the canonical Netlify project, provision valid TLS, and add the permanent ADR-013 redirect |
+| High | Production advertises the paid Reset Experience through a Stripe test Payment Link while access and the companion PDF remain publicly reachable | Before commercial v1, configure the approved live link and explicitly exclude protected fulfillment until ADR-005 implementation |
+| Medium | The Create React App toolchain has critical and high npm audit labels in build and development dependency paths | Retain the evidence-based deferral; perform dependency/framework remediation in a dedicated Execution Order rather than forcing upgrades |
 | Medium | Unknown SPA routes return HTTP `200` while rendering the custom Not Found page | Address soft-404 behavior with route and SEO architecture work |
 | Medium | No real production browser-error provider or uptime monitoring is active | Select privacy-reviewed providers under a separate observability Execution Order |
 | Medium | Registrar renewal state is outside Netlify because both brand domains use an external registrar | Record registrar ownership, renewal contacts, and renewal dates in the approved private operations record |

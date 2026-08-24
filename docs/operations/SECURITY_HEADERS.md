@@ -2,7 +2,7 @@
 
 **Status:** Active production control
 
-**Last verified:** 2026-08-05
+**Last verified:** 2026-08-24
 
 The public website's browser security headers are defined in `netlify.toml` and
 deployed by Netlify. This document records the intended policy, required
@@ -87,8 +87,8 @@ Form delivery and checkout transactions follow their own operational checks.
 
 The current CSP still permits inline scripts and styles for compatibility with
 the existing static architecture. Removing those allowances requires a scoped
-React and metadata migration, not an unreviewed header edit. Public source maps
-remain governed by the decision recorded in `ERROR_MONITORING.md`.
+React and metadata migration, not an unreviewed header edit. Production source
+maps remain governed by the private-artifact decision in `ERROR_MONITORING.md`.
 
 If a release blocks an approved production journey, restore the previous
 known-good Netlify deploy, revert the single security commit in Git, run the

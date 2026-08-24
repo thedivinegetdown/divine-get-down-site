@@ -76,13 +76,15 @@ possible personal value.
 
 ## Source Maps
 
-Create React App currently generates and publicly deploys production source
-maps. This foundation does not change that behavior. Before a real provider is
-connected, its Execution Order must decide whether to:
+EO-0019 disables production source-map generation through the committed
+`.env.production` contract. The prior public maps exposed application source
+but an in-memory production audit found no common secret patterns. Because no
+monitoring provider or release-artifact upload exists, public maps provide no
+current operational benefit that justifies continuing the disclosure.
 
-1. upload source maps as private release artifacts and stop publishing them, or
-2. retain public maps with an explicitly accepted disclosure and performance
-   posture.
+A future provider integration may generate maps only for a private release
+artifact upload and must ensure they are excluded from the published site. It
+must not restore public maps merely to simplify setup.
 
 The provider release must exactly match `REACT_APP_RELEASE` and the deployed Git
 commit. Source maps must never contain environment secrets or captured user data.
