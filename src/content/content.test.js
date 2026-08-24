@@ -135,3 +135,36 @@ test('keeps robots and sitemap aligned with canonical public routes', () => {
   ]);
   expect(sitemapUrls.every((url) => !url.includes('#'))).toBe(true);
 });
+
+test('marks static SEO fallbacks for Helmet reconciliation', () => {
+  const indexHtml = fs.readFileSync(
+    path.join(process.cwd(), 'public', 'index.html'),
+    'utf8',
+  );
+  const fallbackDocument = document.implementation.createHTMLDocument();
+  fallbackDocument.documentElement.innerHTML = indexHtml;
+  const helmetManagedSelectors = [
+    'head > title',
+    'meta[name="description"]',
+    'link[rel="canonical"]',
+    'meta[property="og:site_name"]',
+    'meta[property="og:title"]',
+    'meta[property="og:description"]',
+    'meta[property="og:type"]',
+    'meta[property="og:url"]',
+    'meta[property="og:image"]',
+    'meta[property="og:image:alt"]',
+    'meta[name="twitter:card"]',
+    'meta[name="twitter:title"]',
+    'meta[name="twitter:description"]',
+    'meta[name="twitter:image"]',
+  ];
+
+  helmetManagedSelectors.forEach((selector) => {
+    const elements = fallbackDocument.querySelectorAll(selector);
+    expect(elements).toHaveLength(1);
+    expect(elements[0].getAttribute('data-rh')).toBe('true');
+  });
+  expect(fallbackDocument.querySelector('meta[name="robots"]')).toBeNull();
+  expect(fallbackDocument.querySelector('script[type="application/ld+json"]')).toBeNull();
+});
