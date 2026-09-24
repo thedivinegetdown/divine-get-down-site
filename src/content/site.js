@@ -13,6 +13,7 @@ export const SITE = {
   links: {
     home: '/',
     start: '/start',
+    beStill: '/be-still',
     drawNear: '/draw-near',
     stillness: '/stillness',
     journey: '/journey',

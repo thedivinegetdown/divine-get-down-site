@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { CONTACT_CONTENT } from './contact';
+import { BE_STILL_CONTENT } from './beStill';
 import { DRAW_NEAR_CONTENT } from './drawNear';
 import { APP_METADATA } from './appMetadata';
 import { COMMUNITY_CONTENT } from './community';
@@ -34,6 +35,7 @@ test('preserves canonical public navigation and metadata paths', () => {
 
   expect(STILLNESS_SCROLL_CONTENT.metadata.path).toBe(SITE.links.stillness);
   expect(START_CONTENT.metadata.path).toBe(SITE.links.start);
+  expect(BE_STILL_CONTENT.metadata.path).toBe(SITE.links.beStill);
   expect(DRAW_NEAR_CONTENT.metadata.path).toBe(SITE.links.drawNear);
   expect(RESET_EXPERIENCE_CONTENT.metadata.path).toBe(SITE.links.resetExperience);
   expect(RESET_EXPERIENCE_CONTENT.access.metadata.path).toBe(SITE.links.experienceAccess);
@@ -53,6 +55,7 @@ test('registers the noindex guided start route without changing the sitemap', ()
   );
 
   expect(appSource).toContain('path="/start" element={<StartPage />}');
+  expect(appSource).toContain('path="/be-still" element={<BeStillPage />}');
   expect(START_CONTENT.metadata).toMatchObject({
     path: '/start',
     noIndex: true,
@@ -69,11 +72,13 @@ test('maps the three guided pathways only to approved resources', () => {
     'draw-near',
   ]);
   expect(peace.primary).toMatchObject({
-    id: 'stillness-scroll',
-    title: STILLNESS_SCROLL_CONTENT.resourceName,
-    href: SITE.links.stillness,
+    id: BE_STILL_CONTENT.integration.slug,
+    title: BE_STILL_CONTENT.integration.fullTitle,
+    href: SITE.links.beStill,
+    external: false,
   });
   expect(peace.secondary.map(({ id }) => id)).toEqual([
+    'stillness-scroll',
     YOUTUBE_SHORTS.protectionPrayer.id,
   ]);
   expect(encouragement.primary).toMatchObject({
@@ -170,6 +175,7 @@ test('preserves canonical website and video structured data', () => {
 test('keeps public route metadata unique and homepage tabs canonical', () => {
   const publicMetadata = [
     TAB_METADATA.welcome,
+    BE_STILL_CONTENT.metadata,
     DRAW_NEAR_CONTENT.metadata,
     STILLNESS_SCROLL_CONTENT.metadata,
     RESET_EXPERIENCE_CONTENT.metadata,
@@ -198,6 +204,7 @@ test('keeps robots and sitemap aligned with canonical public routes', () => {
     `${SITE.canonicalUrl}/`,
     `${SITE.canonicalUrl}${SITE.links.stillness}`,
     `${SITE.canonicalUrl}${SITE.links.drawNear}`,
+    `${SITE.canonicalUrl}${SITE.links.beStill}`,
     `${SITE.canonicalUrl}${SITE.links.resetExperience}`,
     `${SITE.canonicalUrl}${SITE.links.journey}`,
     `${SITE.canonicalUrl}${SITE.links.community}`,

@@ -74,6 +74,13 @@ const scenarios = [
       expectTop: false,
     },
   ),
+  scenario("be-still-1280x800", "/be-still", 1280, 800, "#main-content"),
+  scenario("be-still-768x1024", "/be-still", 768, 1024, "#main-content"),
+  scenario("be-still-390x844", "/be-still", 390, 844, "#main-content"),
+  scenario("be-still-375x667", "/be-still", 375, 667, "#main-content"),
+  scenario("be-still-320x568", "/be-still", 320, 568, "#main-content"),
+  scenario("be-still-844x390", "/be-still", 844, 390, "#main-content"),
+  scenario("draw-near-1280x800", "/draw-near", 1280, 800, "#main-content"),
   scenario("stillness-1280x800", "/stillness", 1280, 800, "#main-content"),
   scenario(
     "reset-experience-1280x800",
@@ -999,6 +1006,69 @@ async function runFunctionalChecks(client, baseUrl, localServer) {
     `Boolean(document.querySelector('.start-recommendation')) && document.activeElement?.id === 'start-recommendation-heading'`,
     "guided pathway keyboard selection and focus",
   );
+  const peaceLinks = await evaluate(
+    client,
+    `(() => ({
+      primary: document.querySelector('.start-primary-resource a')?.getAttribute('href'),
+      secondary: Array.from(document.querySelectorAll('.start-secondary-resources a')).map((link) => link.getAttribute('href'))
+    }))()`,
+  );
+  assert(peaceLinks.primary === '/be-still', 'Peace primary does not link to /be-still.');
+  assert(
+    JSON.stringify(peaceLinks.secondary) ===
+      JSON.stringify(['/stillness', 'https://www.youtube.com/shorts/GlVfcBWHy_8']),
+    `Peace secondary links changed: ${JSON.stringify(peaceLinks.secondary)}.`,
+  );
+  await evaluate(client, `document.querySelector('.start-primary-resource a').click()`);
+  await poll(
+    client,
+    `location.pathname === '/be-still' && document.activeElement?.id === 'main-content'`,
+    'start to Be Still route and focus',
+  );
+  const beStillAudit = await evaluate(
+    client,
+    `(() => ({
+      h1Count: document.querySelectorAll('h1').length,
+      sectionCount: document.querySelectorAll('.draw-near-section').length,
+      scriptureLinks: document.querySelectorAll('a[href^="https://ebible.org/engwebp/"]').length,
+      blockquotes: document.querySelectorAll('blockquote').length,
+      relatedLinks: Array.from(document.querySelectorAll('.draw-near-related-list a')).map((link) => link.getAttribute('href')),
+      backLink: document.querySelector('.draw-near-nav a')?.getAttribute('href'),
+      closing: document.querySelector('.draw-near-closing')?.textContent.trim()
+    }))()`,
+  );
+  assert(beStillAudit.h1Count === 1, 'Be Still must render exactly one h1.');
+  assert(beStillAudit.sectionCount === 8, 'Be Still must render all eight sections.');
+  assert(beStillAudit.scriptureLinks === 10, 'Be Still Scripture link count changed.');
+  assert(beStillAudit.blockquotes === 3, 'Be Still blockquote count changed.');
+  assert(
+    JSON.stringify(beStillAudit.relatedLinks) ===
+      JSON.stringify([
+        '/stillness',
+        '/draw-near',
+        'https://www.youtube.com/shorts/GlVfcBWHy_8',
+      ]),
+    `Be Still related links changed: ${JSON.stringify(beStillAudit.relatedLinks)}.`,
+  );
+  assert(beStillAudit.backLink === '/start', 'Be Still back link does not point to /start.');
+  assert(
+    beStillAudit.closing === 'You can rest while there is still something to pray about.',
+    'Be Still spiritual closing changed.',
+  );
+  await evaluate(client, `document.querySelector('.draw-near-nav a').click()`);
+  await poll(
+    client,
+    `location.pathname === '/start' && document.activeElement?.id === 'main-content'`,
+    'Be Still to start route and focus',
+  );
+
+  await navigate(client, `${baseUrl}/be-still`, '#main-content');
+  await client.send('Page.reload', { ignoreCache: true });
+  await poll(
+    client,
+    `location.pathname === '/be-still' && Boolean(document.querySelector('#main-content'))`,
+    'Be Still direct route refresh',
+  );
 
   await navigate(client, `${baseUrl}/journey`, "#main-content");
   await navigate(client, `${baseUrl}/community`, "#main-content");
@@ -1048,7 +1118,7 @@ async function runFunctionalChecks(client, baseUrl, localServer) {
   );
   await verifyStaticAssets(baseUrl);
   console.log(
-    "  direct refresh, guided keyboard focus, history, rapid tabs, orientation, contact, and PDF checks passed",
+    "  direct refresh, Be Still navigation, guided keyboard focus, history, rapid tabs, orientation, contact, and PDF checks passed",
   );
 }
 

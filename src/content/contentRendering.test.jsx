@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import TabContent from '../components/TabContent';
+import BeStillPage from '../pages/BeStillPage';
 import CommunityPage from '../pages/CommunityPage';
 import DrawNearPage from '../pages/DrawNearPage';
 import ExperienceAccessPage from '../pages/ExperienceAccessPage';
@@ -14,6 +15,7 @@ import StillnessScrollPage from '../pages/StillnessScrollPage';
 import StartPage from '../pages/StartPage';
 import ThankYouPage from '../pages/ThankYouPage';
 import { ABOUT_CONTENT } from './about';
+import { BE_STILL_CONTENT } from './beStill';
 import { COMMUNITY_CONTENT } from './community';
 import { CONTACT_CONTENT } from './contact';
 import { DRAW_NEAR_CONTENT } from './drawNear';
@@ -60,6 +62,7 @@ function renderRoute(element, location = '/') {
 
 test.each([
   ['/stillness', <StillnessScrollPage />, STILLNESS_SCROLL_CONTENT.title],
+  ['/be-still', <BeStillPage />, BE_STILL_CONTENT.hero.title],
   ['/draw-near', <DrawNearPage />, DRAW_NEAR_CONTENT.hero.title],
   ['/start', <StartPage />, START_CONTENT.title],
   ['/reset-experience', <ResetExperiencePage />, RESET_EXPERIENCE_CONTENT.title],

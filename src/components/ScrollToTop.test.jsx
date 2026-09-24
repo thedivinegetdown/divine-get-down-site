@@ -30,14 +30,14 @@ beforeEach(async () => {
             path="/start"
             element={(
               <>
-                <Link to="/draw-near">Open Draw Near</Link>
+                <Link to="/be-still">Open Be Still</Link>
                 <main id="main-content" data-page="start" tabIndex={-1} />
               </>
             )}
           />
           <Route
-            path="/draw-near"
-            element={<main id="main-content" data-page="draw-near" tabIndex={-1} />}
+            path="/be-still"
+            element={<main id="main-content" data-page="be-still" tabIndex={-1} />}
           />
         </Routes>
       </MemoryRouter>,
@@ -61,5 +61,5 @@ test('moves focus to the incoming main after a route change', async () => {
     await new Promise((resolve) => window.setTimeout(resolve, 10));
   });
 
-  expect(document.activeElement).toBe(container.querySelector('[data-page="draw-near"]'));
+  expect(document.activeElement).toBe(container.querySelector('[data-page="be-still"]'));
 });

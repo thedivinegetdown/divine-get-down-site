@@ -1,4 +1,5 @@
 import { SITE } from './site';
+import { BE_STILL_CONTENT } from './beStill';
 import { DRAW_NEAR_CONTENT } from './drawNear';
 import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
 import { YOUTUBE, YOUTUBE_CONTENT, YOUTUBE_SHORTS } from './youtube';
@@ -56,9 +57,17 @@ export const START_CONTENT = {
       id: 'peace',
       name: 'Find Peace in God’s Presence',
       invitation: 'Begin with a quiet, Scripture-rooted moment of prayer and rest.',
-      primary: stillnessResource,
-      primaryCta: 'Begin with the Free Stillness Scroll',
+      primary: {
+        id: BE_STILL_CONTENT.integration.slug,
+        title: BE_STILL_CONTENT.integration.fullTitle,
+        description: BE_STILL_CONTENT.integration.description,
+        format: 'Free Scripture reflection',
+        href: SITE.links.beStill,
+        external: false,
+      },
+      primaryCta: BE_STILL_CONTENT.integration.primaryCta,
       secondary: [
+        stillnessResource,
         shortResource(
           YOUTUBE_SHORTS.protectionPrayer,
           'A brief prayer of protection for this generation.',
