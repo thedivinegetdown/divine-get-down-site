@@ -4,7 +4,7 @@ export const HOME_TABS = [
   { id: 'watch', label: 'Watch' },
   { id: 'shorts', label: 'Shorts' },
   { id: 'services', label: 'Services' },
-  { id: 'start', label: 'Scroll Vault' },
+  { id: 'start', label: 'Resource Library' },
   { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' },
 ];

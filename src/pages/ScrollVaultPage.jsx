@@ -1,148 +1,156 @@
 // src/pages/ScrollVaultPage.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MetaTags from '../components/MetaTags';
+import { getPublicLibraryResources } from '../content/resourceRegistry';
 import { SCROLL_VAULT_CONTENT } from '../content/scrollVault';
 import { SITE } from '../content/site';
 import '../App.css';
-import './FunnelPages.css';
+import './ScrollVaultPage.css';
+
+const RESOURCE_TYPE_LABELS = {
+  'scripture-reflection': 'Scripture reflection',
+  'guided-scroll': 'Guided visual Scroll',
+  'youtube-video': 'Featured video',
+  'youtube-short': 'Short encouragement',
+};
+
+const libraryResources = getPublicLibraryResources();
+
+const resourceSections = [
+  {
+    id: 'reflections',
+    className: 'library-grid library-grid--flagships',
+    resources: libraryResources.filter(({ type }) => type === 'scripture-reflection'),
+  },
+  {
+    id: 'stillness',
+    className: 'library-grid library-grid--feature',
+    resources: libraryResources.filter(({ type }) => type === 'guided-scroll'),
+  },
+  {
+    id: 'watch',
+    className: 'library-grid library-grid--feature',
+    resources: libraryResources.filter(({ type }) => type === 'youtube-video'),
+  },
+  {
+    id: 'shorts',
+    className: 'library-grid library-grid--shorts',
+    resources: libraryResources.filter(({ type }) => type === 'youtube-short'),
+  },
+];
 
 function ScrollVaultPage() {
   return (
     <div className="App">
       <MetaTags {...SCROLL_VAULT_CONTENT.metadata} />
 
-      <main className="funnel-shell" id="main-content" tabIndex={-1}>
-        <div className="funnel-card">
-          <div className="funnel-back">
-            <Link className="funnel-link" to={SITE.links.home}>
-              {SITE.labels.backToSanctuary}
-            </Link>
-          </div>
+      <main className="library-shell" id="main-content" tabIndex={-1}>
+        <div className="library-frame">
+          <nav className="library-return" aria-label="Resource library navigation">
+            <Link to={SITE.links.home}>{SITE.labels.backToSanctuary}</Link>
+          </nav>
 
-          <div className="funnel-top">
-            <picture>
-              <source srcSet={SITE.logo.webp} type="image/webp" />
-              <img
-                src={SITE.logo.png}
-                alt={SITE.logo.alt}
-                className="funnel-logo"
-                loading="eager"
-                width={SITE.logo.width}
-                height={SITE.logo.height}
-                decoding="async"
-                fetchPriority="high"
-              />
-            </picture>
-          </div>
-
-          <h1 className="funnel-title">{SCROLL_VAULT_CONTENT.title}</h1>
-          <p className="funnel-subtitle">{SCROLL_VAULT_CONTENT.subtitle}</p>
-
-          <div className="funnel-divider" />
-
-          <div className="funnel-block">
-            <p>
+          <header className="library-hero">
+            <p className="library-eyebrow">{SCROLL_VAULT_CONTENT.eyebrow}</p>
+            <h1>{SCROLL_VAULT_CONTENT.title}</h1>
+            <p className="library-hero__subtitle">{SCROLL_VAULT_CONTENT.subtitle}</p>
+            <p className="library-hero__introduction">
               {SCROLL_VAULT_CONTENT.introduction}
             </p>
-            <p>
-              {SCROLL_VAULT_CONTENT.rhythmLine}
-              <br />
-              {SCROLL_VAULT_CONTENT.rhythmResponse}
-            </p>
+          </header>
 
-            <h2>{SCROLL_VAULT_CONTENT.insideHeading}</h2>
-            <ul className="funnel-list">
-              {SCROLL_VAULT_CONTENT.insideItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+          {resourceSections.map(({ id, className, resources }) => {
+            const section = SCROLL_VAULT_CONTENT.sections[id];
 
-            <div className="funnel-grid" style={{ marginTop: 16 }}>
-              {SCROLL_VAULT_CONTENT.accessOptions.map((option) => (
-                <div className="funnel-panel" key={option.title}>
-                  <h3>{option.title}</h3>
-                  <p>
-                    {option.pricePrefix}
-                    <strong>{option.price}</strong>
-                  </p>
-                  <p>{option.description}</p>
+            return (
+              <section className="library-section" aria-labelledby={`library-${id}`} key={id}>
+                <div className="library-section__heading">
+                  <h2 id={`library-${id}`}>{section.title}</h2>
+                  <p>{section.description}</p>
                 </div>
-              ))}
+
+                <div className={className}>
+                  {resources.map((resource) => (
+                    <ResourceEntry resource={resource} key={resource.id} />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+
+          <aside className="library-start" aria-labelledby="library-start-heading">
+            <div>
+              <h2 id="library-start-heading">{SCROLL_VAULT_CONTENT.startPrompt}</h2>
+              <p>{SCROLL_VAULT_CONTENT.startDescription}</p>
             </div>
+            <Link className="primary-cta" to={SITE.links.start}>
+              {SCROLL_VAULT_CONTENT.startButton}
+            </Link>
+          </aside>
 
-            <div className="funnel-divider" />
-
-            <h2>{SCROLL_VAULT_CONTENT.requestHeading}</h2>
-            <p style={{ textAlign: 'center' }}>
-              {SCROLL_VAULT_CONTENT.requestDescription}
-            </p>
-
-            <form
-              className="funnel-form"
-              name="scroll-vault-access"
-              method="POST"
-              action={SITE.links.thankYou}
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-            >
-              <input type="hidden" name="form-name" value="scroll-vault-access" />
-              <p style={{ display: 'none' }}>
-                <label>
-                  {SCROLL_VAULT_CONTENT.form.honeypotLabel} <input name="bot-field" />
-                </label>
-              </p>
-
-              <label className="funnel-label" htmlFor="vault-email">
-                {SCROLL_VAULT_CONTENT.form.emailLabel}
-              </label>
-              <input
-                id="vault-email"
-                className="funnel-input"
-                type="email"
-                name="email"
-                required
-                placeholder={SCROLL_VAULT_CONTENT.form.emailPlaceholder}
-                autoComplete="email"
-              />
-
-              <label className="funnel-label" htmlFor="vault-plan">
-                {SCROLL_VAULT_CONTENT.form.planLabel}
-              </label>
-              <select id="vault-plan" className="funnel-select" name="plan" defaultValue="one-time" required>
-                {SCROLL_VAULT_CONTENT.form.plans.map((plan) => (
-                  <option key={plan.value} value={plan.value}>{plan.label}</option>
-                ))}
-              </select>
-
-              <label className="funnel-label" htmlFor="vault-note">
-                {SCROLL_VAULT_CONTENT.form.noteLabel}
-              </label>
-              <textarea
-                id="vault-note"
-                className="funnel-textarea"
-                name="note"
-                placeholder={SCROLL_VAULT_CONTENT.form.notePlaceholder}
-              />
-
-              <div className="funnel-actions">
-                <button className="primary-cta" type="submit">
-                  {SCROLL_VAULT_CONTENT.form.submitButton}
-                </button>
-                <Link className="funnel-link" to={SITE.links.journey}>
-                  {SCROLL_VAULT_CONTENT.form.journeyLink}
-                </Link>
-              </div>
-            </form>
-
-            <p className="funnel-footnote">
-              {SCROLL_VAULT_CONTENT.footnote}
-            </p>
-          </div>
+          <footer className="library-footer">
+            <Link to={SITE.links.home}>{SCROLL_VAULT_CONTENT.homeButton}</Link>
+          </footer>
         </div>
       </main>
     </div>
   );
 }
+
+function ResourceEntry({ resource }) {
+  const typeLabel = RESOURCE_TYPE_LABELS[resource.type];
+  const isExternal = resource.destination.kind === 'external';
+  const linkText = resource.type === 'scripture-reflection'
+    ? `Read ${resource.title}`
+    : resource.type === 'guided-scroll'
+      ? `Open ${resource.title}`
+      : `Watch ${resource.title} on YouTube`;
+
+  const linkClassName = resource.type === 'scripture-reflection'
+    ? 'library-entry__link library-entry__link--primary'
+    : 'library-entry__link';
+
+  const destinationLink = isExternal ? (
+    <a
+      className={linkClassName}
+      href={resource.destination.href}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {linkText}
+    </a>
+  ) : (
+    <Link className={linkClassName} to={resource.destination.href}>
+      {linkText}
+    </Link>
+  );
+
+  return (
+    <article
+      className={`library-entry library-entry--${resource.type}`}
+      data-resource-id={resource.id}
+    >
+      <p className="library-entry__type">{typeLabel}</p>
+      <h3>{resource.title}</h3>
+      <p className="library-entry__description">{resource.description}</p>
+      {destinationLink}
+    </article>
+  );
+}
+
+ResourceEntry.propTypes = {
+  resource: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    destination: PropTypes.shape({
+      kind: PropTypes.oneOf(['internal', 'external']).isRequired,
+      href: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default ScrollVaultPage;

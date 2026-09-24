@@ -60,11 +60,11 @@ export const TAB_METADATA = {
   },
   start: {
     path: '/',
-    title: `Scroll Vault | ${baseTitle}`,
+    title: `Resource Library | ${baseTitle}`,
     description:
-      'Enter the Scroll Vault for deeper reflection, stillness, and faith-filled resources from The Divine Get Down.',
-    ogTitle: `Scroll Vault | ${baseTitle}`,
-    ogDescription: 'A deeper place for reflection, stillness, and sacred encouragement.',
+      'Explore free Scripture reflections, stillness, Christian video, and short encouragement from The Divine Get Down.',
+    ogTitle: `Resource Library | ${baseTitle}`,
+    ogDescription: 'A curated collection of Scripture-centered resources from The Divine Get Down.',
     ogImage,
   },
   welcome: {

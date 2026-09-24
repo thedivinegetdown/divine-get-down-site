@@ -56,11 +56,11 @@ export const HOME_CONTENT = {
     subscribeButton: 'Subscribe',
   },
   scrollVault: {
-    tabHeading: 'Scroll Vault',
-    title: 'Enter the Scroll Vault',
+    tabHeading: 'Resource Library',
+    title: 'Explore the Resource Library',
     description:
-      'Return here when you need a deeper reset, a moment of stillness, or a sacred word to carry with you.',
-    vaultButton: 'Open the Vault',
+      'Browse free Scripture reflections, stillness, Christian video, and short encouragement from The Divine Get Down.',
+    vaultButton: 'Open the Resource Library',
     youtubeButton: 'Watch on YouTube',
   },
   pinnedLinks: {
@@ -70,8 +70,8 @@ export const HOME_CONTENT = {
     emailTitle: 'Email The Divine Get Down',
   },
   startHere: {
-    prompt: 'If life feels loud, start here →',
-    destination: 'Enter the Scroll Vault',
-    button: 'Open the Vault',
+    prompt: 'Not sure where to begin?',
+    destination: 'Choose a guided pathway based on what you need right now.',
+    button: 'Find Your Place to Begin',
   },
 };

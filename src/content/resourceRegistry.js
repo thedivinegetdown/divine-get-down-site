@@ -9,6 +9,13 @@ import { YOUTUBE, YOUTUBE_CONTENT, YOUTUBE_SHORTS } from './youtube';
 export const RESOURCE_ACCESS_VALUES = ['free', 'paid', 'test-only', 'unpublished'];
 export const RESOURCE_STATUS_VALUES = ['ready', 'limited', 'draft', 'test-only'];
 
+const PUBLIC_LIBRARY_TYPES = new Set([
+  'scripture-reflection',
+  'guided-scroll',
+  'youtube-video',
+  'youtube-short',
+]);
+
 const internalDestination = (href) => ({ kind: 'internal', href });
 const externalDestination = (href) => ({ kind: 'external', href });
 const youtubeShortUrl = (id) => `https://www.youtube.com/shorts/${id}`;
@@ -146,4 +153,13 @@ export function getResourceById(id) {
 
 export function getResourcesByIds(ids) {
   return ids.map(getResourceById);
+}
+
+export function getPublicLibraryResources() {
+  return RESOURCE_REGISTRY.filter(
+    ({ access, status, type }) =>
+      access === 'free' &&
+      ['ready', 'limited'].includes(status) &&
+      PUBLIC_LIBRARY_TYPES.has(type),
+  );
 }

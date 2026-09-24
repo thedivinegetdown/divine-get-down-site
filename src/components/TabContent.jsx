@@ -300,14 +300,9 @@ export default function TabContent({ activeTab }) {
             </p>
 
             <div className="cta-row">
-              <a
-                className="primary-cta"
-                href={YOUTUBE.emailCaptureUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <Link className="primary-cta" to={SITE.links.scrollVault}>
                 {HOME_CONTENT.scrollVault.vaultButton}
-              </a>
+              </Link>
               <a className="secondary-cta" href={YOUTUBE.channelUrl} target="_blank" rel="noreferrer">
                 {HOME_CONTENT.scrollVault.youtubeButton}
               </a>
@@ -581,9 +576,9 @@ function StartHereMini() {
         <p>
           <strong>{HOME_CONTENT.startHere.prompt}</strong> {HOME_CONTENT.startHere.destination}
         </p>
-        <a className="secondary-cta" href={YOUTUBE.emailCaptureUrl} target="_blank" rel="noreferrer">
+        <Link className="secondary-cta" to={SITE.links.start}>
           {HOME_CONTENT.startHere.button}
-        </a>
+        </Link>
       </div>
     </div>
   );
