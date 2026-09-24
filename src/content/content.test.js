@@ -15,8 +15,9 @@ import { RESET_EXPERIENCE_CONTENT } from './resetExperience';
 import { SCROLL_VAULT_CONTENT } from './scrollVault';
 import { SITE } from './site';
 import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
+import { START_CONTENT } from './start';
 import { THANK_YOU_CONTENT } from './thankYou';
-import { YOUTUBE } from './youtube';
+import { YOUTUBE, YOUTUBE_CONTENT, YOUTUBE_SHORTS } from './youtube';
 
 test('preserves canonical public navigation and metadata paths', () => {
   expect(HOME_TABS).toEqual([
@@ -31,6 +32,7 @@ test('preserves canonical public navigation and metadata paths', () => {
   ]);
 
   expect(STILLNESS_SCROLL_CONTENT.metadata.path).toBe(SITE.links.stillness);
+  expect(START_CONTENT.metadata.path).toBe(SITE.links.start);
   expect(RESET_EXPERIENCE_CONTENT.metadata.path).toBe(SITE.links.resetExperience);
   expect(RESET_EXPERIENCE_CONTENT.access.metadata.path).toBe(SITE.links.experienceAccess);
   expect(JOURNEY_CONTENT.metadata.path).toBe(SITE.links.journey);
@@ -39,6 +41,64 @@ test('preserves canonical public navigation and metadata paths', () => {
   expect(THANK_YOU_CONTENT.metadata.path).toBe(SITE.links.thankYou);
   expect(NOT_FOUND_CONTENT.metadata.path).toBe('/404');
   expect(TAB_METADATA.welcome.path).toBe('/');
+});
+
+test('registers the noindex guided start route without changing the sitemap', () => {
+  const appSource = fs.readFileSync(path.join(process.cwd(), 'src', 'App.jsx'), 'utf8');
+  const sitemap = fs.readFileSync(
+    path.join(process.cwd(), 'public', 'sitemap.xml'),
+    'utf8',
+  );
+
+  expect(appSource).toContain('path="/start" element={<StartPage />}');
+  expect(START_CONTENT.metadata).toMatchObject({
+    path: '/start',
+    noIndex: true,
+  });
+  expect(sitemap).not.toContain(`${SITE.canonicalUrl}${SITE.links.start}`);
+});
+
+test('maps the three guided pathways only to approved existing resources', () => {
+  const [peace, encouragement, drawNear] = START_CONTENT.pathways;
+
+  expect(START_CONTENT.pathways.map(({ id }) => id)).toEqual([
+    'peace',
+    'encouragement',
+    'draw-near',
+  ]);
+  expect(peace.primary).toMatchObject({
+    id: 'stillness-scroll',
+    title: STILLNESS_SCROLL_CONTENT.resourceName,
+    href: SITE.links.stillness,
+  });
+  expect(peace.secondary.map(({ id }) => id)).toEqual([
+    YOUTUBE_SHORTS.protectionPrayer.id,
+  ]);
+  expect(encouragement.primary).toMatchObject({
+    id: YOUTUBE.featuredVideoId,
+    title: YOUTUBE_CONTENT.featuredVideoTitle,
+  });
+  expect(encouragement.secondary.map(({ id }) => id)).toEqual([
+    YOUTUBE_SHORTS.valleyBecoming.id,
+    YOUTUBE_SHORTS.partsSeas.id,
+  ]);
+  expect(drawNear.primary.id).toBe(YOUTUBE_SHORTS.seekHim.id);
+  expect(drawNear.secondary.map(({ id }) => id)).toEqual([
+    YOUTUBE_SHORTS.loveLikeJesus.id,
+    YOUTUBE_SHORTS.walkInLove.id,
+    'stillness-scroll',
+  ]);
+
+  const guidedContent = JSON.stringify(START_CONTENT);
+  [
+    'Scroll Vault',
+    'Four-Week',
+    'Inner Rhythm',
+    'Reset Experience',
+    'Reset Companion',
+  ].forEach((excludedResource) => {
+    expect(guidedContent).not.toContain(excludedResource);
+  });
 });
 
 test('preserves media, PDF, and checkout identifiers', () => {

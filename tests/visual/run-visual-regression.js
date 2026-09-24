@@ -50,6 +50,30 @@ const scenarios = [
   scenario("home-844x390", "/", 844, 390, "#panel-welcome", {
     expectTop: true,
   }),
+  scenario(
+    "welcome-guided-entry-1280x800",
+    "/",
+    1280,
+    800,
+    ".start-here-mini",
+    { scrollTo: ".start-here-mini", expectTop: false },
+  ),
+  scenario("start-1280x800", "/start", 1280, 800, ".start-pathway-list"),
+  scenario("start-390x844", "/start", 390, 844, ".start-pathway-list"),
+  scenario("start-320x568", "/start", 320, 568, ".start-pathway-list"),
+  scenario(
+    "start-selected-peace-1280x800",
+    "/start",
+    1280,
+    800,
+    ".start-pathway-list",
+    {
+      action: "start-select-peace",
+      readyAfterAction: ".start-recommendation",
+      scrollTo: ".start-recommendation",
+      expectTop: false,
+    },
+  ),
   scenario("stillness-1280x800", "/stillness", 1280, 800, "#main-content"),
   scenario(
     "reset-experience-1280x800",
@@ -186,9 +210,8 @@ async function startStaticServer() {
   const chunkDirectory = path.join(BUILD_DIR, "static", "js");
   const stillnessChunk = fs.readdirSync(chunkDirectory).find((file) => {
     if (!file.endsWith(".chunk.js")) return false;
-    return fs
-      .readFileSync(path.join(chunkDirectory, file), "utf8")
-      .includes("stillness-scroll.pdf");
+    const source = fs.readFileSync(path.join(chunkDirectory, file), "utf8");
+    return source.includes("stillness-scroll.pdf") && source.includes("funnel-panel");
   });
   assert(
     stillnessChunk,
@@ -574,6 +597,13 @@ async function navigate(client, url, readySelector, options = {}) {
 }
 
 async function applyScenarioAction(client, current) {
+  if (current.action === "start-select-peace") {
+    await evaluate(
+      client,
+      `document.querySelector('[data-pathway-id="peace"]').click()`,
+    );
+  }
+
   if (current.action === "contact-success") {
     await evaluate(
       client,
@@ -648,6 +678,23 @@ async function pressTab(client) {
     code: "Tab",
     windowsVirtualKeyCode: 9,
     nativeVirtualKeyCode: 9,
+  });
+}
+
+async function pressSpace(client) {
+  await client.send("Input.dispatchKeyEvent", {
+    type: "rawKeyDown",
+    key: " ",
+    code: "Space",
+    windowsVirtualKeyCode: 32,
+    nativeVirtualKeyCode: 32,
+  });
+  await client.send("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    key: " ",
+    code: "Space",
+    windowsVirtualKeyCode: 32,
+    nativeVirtualKeyCode: 32,
   });
 }
 
@@ -944,6 +991,15 @@ async function runFunctionalChecks(client, baseUrl, localServer) {
     "direct route refresh",
   );
 
+  await navigate(client, `${baseUrl}/start`, ".start-pathway-list");
+  await focusWithKeyboard(client, '[data-pathway-id="peace"]');
+  await pressSpace(client);
+  await poll(
+    client,
+    `Boolean(document.querySelector('.start-recommendation')) && document.activeElement?.id === 'start-recommendation-heading'`,
+    "guided pathway keyboard selection and focus",
+  );
+
   await navigate(client, `${baseUrl}/journey`, "#main-content");
   await navigate(client, `${baseUrl}/community`, "#main-content");
   await evaluate(client, "history.back()");
@@ -992,7 +1048,7 @@ async function runFunctionalChecks(client, baseUrl, localServer) {
   );
   await verifyStaticAssets(baseUrl);
   console.log(
-    "  direct refresh, history, rapid tabs, orientation, contact, and PDF checks passed",
+    "  direct refresh, guided keyboard focus, history, rapid tabs, orientation, contact, and PDF checks passed",
   );
 }
 

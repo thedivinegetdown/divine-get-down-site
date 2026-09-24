@@ -24,7 +24,7 @@ export const HOME_CONTENT = {
     tabHeading: 'Welcome',
     title: 'Stillness. Scripture. Strength.',
     description:
-      "If you've been carrying weight you can't explain—this space is for you. Watch the latest message, subscribe for weekly encouragement, and enter the Scroll Vault when you need a deeper reset.",
+      "If you've been carrying weight you can't explain—this space is for you. Watch the latest message, subscribe for weekly encouragement, or choose a peaceful place to begin.",
     watchButton: 'Watch Latest',
     subscribeButton: 'Subscribe',
     cards: [

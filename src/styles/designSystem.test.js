@@ -62,4 +62,14 @@ describe('design system foundation', () => {
     expect(appStyles).not.toMatch(/(^|\n):root\s*\{/);
     expect(indexStyles).not.toContain('@media (prefers-reduced-motion: reduce)');
   });
+
+  test('gives the guided start reveal an explicit reduced-motion result', () => {
+    const startStyles = fs.readFileSync(
+      path.join(__dirname, '..', 'pages', 'StartPage.css'),
+      'utf8',
+    );
+
+    expect(startStyles).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(startStyles).toMatch(/\.start-recommendation\s*{[\s\S]*?animation:\s*none;/);
+  });
 });

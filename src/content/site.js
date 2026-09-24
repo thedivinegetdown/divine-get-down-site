@@ -12,6 +12,7 @@ export const SITE = {
   },
   links: {
     home: '/',
+    start: '/start',
     stillness: '/stillness',
     journey: '/journey',
     community: '/community',

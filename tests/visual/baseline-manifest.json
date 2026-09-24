@@ -70,6 +70,46 @@
       "sha256": "897b5ca71b47df5ca7c069925964066e004abdab4edef0692029e09912767355"
     },
     {
+      "id": "welcome-guided-entry-1280x800",
+      "route": "/",
+      "width": 1280,
+      "height": 800,
+      "file": "welcome-guided-entry-1280x800.png",
+      "sha256": "0a46496f141a77afffd0443cc09d0d71c1a28cc29f6069d6ad936b99c6cef78f"
+    },
+    {
+      "id": "start-1280x800",
+      "route": "/start",
+      "width": 1280,
+      "height": 800,
+      "file": "start-1280x800.png",
+      "sha256": "9b77e2e455f04af01429432e361da1456beb0dfbbf882569a22ceb250b72dca8"
+    },
+    {
+      "id": "start-390x844",
+      "route": "/start",
+      "width": 390,
+      "height": 844,
+      "file": "start-390x844.png",
+      "sha256": "84eeb01a8c68c5b734eaa46d693b7669513d121078bf4d91d358d23863690e2a"
+    },
+    {
+      "id": "start-320x568",
+      "route": "/start",
+      "width": 320,
+      "height": 568,
+      "file": "start-320x568.png",
+      "sha256": "0b610a683e674db741c535f587f81c26dd4a4a63d1d82e97f202a21408194578"
+    },
+    {
+      "id": "start-selected-peace-1280x800",
+      "route": "/start",
+      "width": 1280,
+      "height": 800,
+      "file": "start-selected-peace-1280x800.png",
+      "sha256": "ee8feba1c7af09d97be873f5cd8614b0bb0acdfbf442efae2d19739dab5119d3"
+    },
+    {
       "id": "stillness-1280x800",
       "route": "/stillness",
       "width": 1280,

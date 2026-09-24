@@ -21,6 +21,7 @@ const JourneyPage = lazy(() => import('./pages/JourneyPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
 const ScrollVaultPage = lazy(() => import('./pages/ScrollVaultPage'));
 const ResetExperiencePage = lazy(() => import('./pages/ResetExperiencePage'));
+const StartPage = lazy(() => import('./pages/StartPage'));
 
 // 🔥 ADD THIS (ACCESS PAGE)
 const ExperienceAccessPage = lazy(() => import('./pages/ExperienceAccessPage'));
@@ -56,6 +57,7 @@ function App() {
       import('./pages/StillnessScrollPage');
       import('./pages/ResetExperiencePage');
       import('./pages/ExperienceAccessPage'); // 🔥 ADD THIS
+      import('./pages/StartPage');
     };
 
     const idleId = window.requestIdleCallback(prefetch, { timeout: 1500 });
@@ -100,6 +102,7 @@ function App() {
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/vault" element={<ScrollVaultPage />} />
             <Route path="/reset-experience" element={<ResetExperiencePage />} />
+            <Route path="/start" element={<StartPage />} />
 
             {/* 🔥 THIS IS THE KEY ADD */}
             <Route path="/experience-access" element={<ExperienceAccessPage />} />

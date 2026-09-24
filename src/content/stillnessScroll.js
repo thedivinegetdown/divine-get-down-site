@@ -5,6 +5,7 @@ export const STILLNESS_SCROLL_CONTENT = {
       'Pause with a free guided Christian prayer, gentle breathwork, and Scripture for stillness, surrender, and peace through Jesus Christ.',
     path: '/stillness',
   },
+  resourceName: 'The Stillness Scroll',
   title: 'A Sacred Scroll for the Weary Soul',
   subtitle:
     'A quiet moment of prayer, breath, and scripture — created to help you release what you’ve been carrying.',

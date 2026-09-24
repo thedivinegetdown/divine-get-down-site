@@ -10,6 +10,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import ResetExperiencePage from '../pages/ResetExperiencePage';
 import ScrollVaultPage from '../pages/ScrollVaultPage';
 import StillnessScrollPage from '../pages/StillnessScrollPage';
+import StartPage from '../pages/StartPage';
 import ThankYouPage from '../pages/ThankYouPage';
 import { ABOUT_CONTENT } from './about';
 import { COMMUNITY_CONTENT } from './community';
@@ -21,6 +22,7 @@ import { RESET_EXPERIENCE_CONTENT } from './resetExperience';
 import { SCROLL_VAULT_CONTENT } from './scrollVault';
 import { SERVICES_CONTENT } from './services';
 import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
+import { START_CONTENT } from './start';
 import { THANK_YOU_CONTENT } from './thankYou';
 import { YOUTUBE } from './youtube';
 
@@ -56,6 +58,7 @@ function renderRoute(element, location = '/') {
 
 test.each([
   ['/stillness', <StillnessScrollPage />, STILLNESS_SCROLL_CONTENT.title],
+  ['/start', <StartPage />, START_CONTENT.title],
   ['/reset-experience', <ResetExperiencePage />, RESET_EXPERIENCE_CONTENT.title],
   ['/experience-access', <ExperienceAccessPage />, RESET_EXPERIENCE_CONTENT.access.title],
   ['/journey', <JourneyPage />, JOURNEY_CONTENT.title],

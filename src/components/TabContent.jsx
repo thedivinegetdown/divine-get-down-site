@@ -2,6 +2,7 @@
 import React, { Suspense, lazy, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 
 import { ABOUT_CONTENT } from '../content/about';
 import { CONTACT_CONTENT } from '../content/contact';
@@ -13,6 +14,7 @@ import {
 } from '../content/tabMetadata';
 import { SERVICES_CONTENT } from '../content/services';
 import { CONTACT_EMAIL_HREF, SITE, SITE_URL } from '../content/site';
+import { START_CONTENT } from '../content/start';
 import { YOUTUBE, YOUTUBE_CONTENT } from '../content/youtube';
 
 const LiteYouTube = lazy(() => import('./youtube/LiteYouTube'));
@@ -80,17 +82,20 @@ export default function TabContent({ activeTab }) {
               </a>
             </div>
 
-            <div className="uspto-panel-grid">
-              {HOME_CONTENT.welcome.cards.map((card) => (
-                <div className="uspto-panel-card" key={card.title}>
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                </div>
-              ))}
+            <div className="panel-footer">
+              <div className="start-here-mini">
+                <p>
+                  <strong>{START_CONTENT.homeEntry.title}</strong>
+                  <br />
+                  {START_CONTENT.homeEntry.description}
+                </p>
+                <Link className="secondary-cta" to={SITE.links.start}>
+                  {START_CONTENT.homeEntry.button}
+                </Link>
+              </div>
             </div>
 
             <PinnedLinks emailHref={emailHref} />
-            <StartHereMini />
           </section>
         </TabPanel>
       )}
