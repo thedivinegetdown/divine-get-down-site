@@ -77,25 +77,33 @@ export default function TabContent({ activeTab }) {
               >
                 {HOME_CONTENT.welcome.watchButton}
               </a>
-              <a className="secondary-cta" href={subscribeUrl} target="_blank" rel="noreferrer">
+              <a
+                className="secondary-cta welcome-subscribe"
+                href={subscribeUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {HOME_CONTENT.welcome.subscribeButton}
               </a>
             </div>
 
             <div className="panel-footer">
-              <div className="start-here-mini">
-                <p>
-                  <strong>{START_CONTENT.homeEntry.title}</strong>
-                  <br />
-                  {START_CONTENT.homeEntry.description}
-                </p>
-                <Link className="secondary-cta" to={SITE.links.start}>
+              <div className="start-here-mini welcome-start-entry">
+                <div className="welcome-start-copy">
+                  <h3>{START_CONTENT.homeEntry.title}</h3>
+                  <p>
+                    {START_CONTENT.homeEntry.description}
+                  </p>
+                </div>
+                <Link className="secondary-cta welcome-start-cta" to={SITE.links.start}>
                   {START_CONTENT.homeEntry.button}
                 </Link>
               </div>
             </div>
 
-            <PinnedLinks emailHref={emailHref} />
+            <div className="welcome-support-links">
+              <PinnedLinks emailHref={emailHref} />
+            </div>
           </section>
         </TabPanel>
       )}
