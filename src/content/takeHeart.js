@@ -1,5 +1,3 @@
-import { BE_STILL_CONTENT } from './beStill';
-import { DRAW_NEAR_CONTENT } from './drawNear';
 import { SITE } from './site';
 
 const paragraph = (text) => ({ type: 'paragraph', text });
@@ -421,22 +419,6 @@ export const TAKE_HEART_CONTENT = {
           text: 'Take heart in him. Bring him the weariness that remains. Receive the help he gives through his Word and his people. With your attention on Jesus, take the next faithful step.',
         },
       ],
-    },
-  ],
-  relatedResources: [
-    {
-      id: BE_STILL_CONTENT.integration.slug,
-      title: BE_STILL_CONTENT.integration.fullTitle,
-      href: SITE.links.beStill,
-      external: false,
-      label: 'Scripture Reflection',
-    },
-    {
-      id: DRAW_NEAR_CONTENT.integration.slug,
-      title: DRAW_NEAR_CONTENT.integration.fullTitle,
-      href: SITE.links.drawNear,
-      external: false,
-      label: 'Scripture Reflection',
     },
   ],
 };

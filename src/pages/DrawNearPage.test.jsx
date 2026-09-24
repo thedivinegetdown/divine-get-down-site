@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { StaticRouter } from 'react-router-dom/server';
 import { DRAW_NEAR_CONTENT } from '../content/drawNear';
+import { getResourceById, getResourcesByIds } from '../content/resourceRegistry';
 import DrawNearPage from './DrawNearPage';
 
 function renderDrawNear() {
@@ -113,7 +114,9 @@ test('contains only the approved related resources and no commercial CTA', () =>
   );
 
   expect(relatedTitles).toEqual(
-    DRAW_NEAR_CONTENT.relatedResources.map(({ title }) => title),
+    getResourcesByIds(
+      getResourceById(DRAW_NEAR_CONTENT.integration.slug).relatedResourceIds,
+    ).map(({ title }) => title),
   );
   ['Reset Experience', 'Donate', 'Membership', 'Buy now', 'Email address'].forEach(
     (prohibitedText) => expect(container.textContent).not.toContain(prohibitedText),

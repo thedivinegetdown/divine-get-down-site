@@ -1,29 +1,24 @@
 import { SITE } from './site';
-import { BE_STILL_CONTENT } from './beStill';
-import { DRAW_NEAR_CONTENT } from './drawNear';
-import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
-import { TAKE_HEART_CONTENT } from './takeHeart';
+import { getResourceById } from './resourceRegistry';
 import { YOUTUBE_SHORTS } from './youtube';
 
-const youtubeShortUrl = (id) => `https://www.youtube.com/shorts/${id}`;
+const startResource = (id) => {
+  const resource = getResourceById(id);
+  const formats = {
+    'guided-scroll': 'Free guided scroll',
+    'scripture-reflection': 'Free Scripture reflection',
+    'youtube-short': 'Free YouTube Short',
+  };
 
-const stillnessResource = {
-  id: 'stillness-scroll',
-  title: STILLNESS_SCROLL_CONTENT.resourceName,
-  description: 'A free guided prayer, gentle breath, and Scripture for stillness and peace.',
-  format: 'Free guided scroll',
-  href: SITE.links.stillness,
-  external: false,
+  return {
+    id: resource.id,
+    title: resource.title,
+    description: resource.description,
+    format: formats[resource.type],
+    href: resource.destination.href,
+    external: resource.destination.kind === 'external',
+  };
 };
-
-const shortResource = (short, description) => ({
-  id: short.id,
-  title: short.title,
-  description,
-  format: 'Free YouTube Short',
-  href: youtubeShortUrl(short.id),
-  external: true,
-});
 
 export const START_CONTENT = {
   metadata: {
@@ -57,74 +52,35 @@ export const START_CONTENT = {
       id: 'peace',
       name: 'Find Peace in God’s Presence',
       invitation: 'Begin with a quiet, Scripture-rooted moment of prayer and rest.',
-      primary: {
-        id: BE_STILL_CONTENT.integration.slug,
-        title: BE_STILL_CONTENT.integration.fullTitle,
-        description: BE_STILL_CONTENT.integration.description,
-        format: 'Free Scripture reflection',
-        href: SITE.links.beStill,
-        external: false,
-      },
-      primaryCta: BE_STILL_CONTENT.integration.primaryCta,
+      primary: startResource('be-still'),
+      primaryCta: getResourceById('be-still').ctaLabel,
       secondary: [
-        stillnessResource,
-        shortResource(
-          YOUTUBE_SHORTS.protectionPrayer,
-          'A brief prayer of protection for this generation.',
-        ),
+        startResource('stillness-scroll'),
+        startResource(YOUTUBE_SHORTS.protectionPrayer.id),
       ],
     },
     {
       id: 'encouragement',
       name: 'Receive Scripture-Centered Encouragement',
       invitation: 'Receive Scripture-rooted hope for the long road of discouragement.',
-      primary: {
-        id: TAKE_HEART_CONTENT.integration.slug,
-        title: TAKE_HEART_CONTENT.integration.fullTitle,
-        description: TAKE_HEART_CONTENT.integration.description,
-        format: 'Free Scripture reflection',
-        href: SITE.links.takeHeart,
-        external: false,
-      },
-      primaryCta: TAKE_HEART_CONTENT.integration.primaryCta,
+      primary: startResource('take-heart'),
+      primaryCta: getResourceById('take-heart').ctaLabel,
       secondary: [
-        shortResource(
-          YOUTUBE_SHORTS.valleyBecoming,
-          'A short word of encouragement for seasons that feel like a valley.',
-        ),
-        shortResource(
-          YOUTUBE_SHORTS.partsSeas,
-          'A Scripture-centered reminder from Exodus 14:21.',
-        ),
+        startResource(YOUTUBE_SHORTS.valleyBecoming.id),
+        startResource(YOUTUBE_SHORTS.partsSeas.id),
       ],
     },
     {
       id: 'draw-near',
       name: 'Draw Near to Jesus',
       invitation: 'Choose a gentle reflection for seeking Jesus and walking in His love.',
-      primary: {
-        id: DRAW_NEAR_CONTENT.integration.slug,
-        title: DRAW_NEAR_CONTENT.integration.fullTitle,
-        description: DRAW_NEAR_CONTENT.integration.description,
-        format: 'Free Scripture reflection',
-        href: SITE.links.drawNear,
-        external: false,
-      },
-      primaryCta: DRAW_NEAR_CONTENT.integration.primaryCta,
+      primary: startResource('draw-near'),
+      primaryCta: getResourceById('draw-near').ctaLabel,
       secondary: [
-        shortResource(
-          YOUTUBE_SHORTS.seekHim,
-          'A short reflection on seeking God with your whole heart.',
-        ),
-        shortResource(
-          YOUTUBE_SHORTS.loveLikeJesus,
-          'A reflection on the patience and kindness that changes everything.',
-        ),
-        shortResource(
-          YOUTUBE_SHORTS.walkInLove,
-          'A Scripture-centered invitation to follow God’s example and walk in love.',
-        ),
-        stillnessResource,
+        startResource(YOUTUBE_SHORTS.seekHim.id),
+        startResource(YOUTUBE_SHORTS.loveLikeJesus.id),
+        startResource(YOUTUBE_SHORTS.walkInLove.id),
+        startResource('stillness-scroll'),
       ],
     },
   ],

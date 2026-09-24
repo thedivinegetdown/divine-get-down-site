@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MetaTags from './MetaTags';
+import { getResourceById, getResourcesByIds } from '../content/resourceRegistry';
 import { SITE } from '../content/site';
 import '../App.css';
 import '../pages/DrawNearPage.css';
@@ -124,6 +125,22 @@ function RelatedResource({ resource }) {
   return <Link to={resource.href}>{content}</Link>;
 }
 
+const RELATED_RESOURCE_LABELS = {
+  'guided-scroll': 'Guided Scroll',
+  'scripture-reflection': 'Scripture Reflection',
+  'youtube-short': 'YouTube Short',
+};
+
+function toRelatedResource(resource) {
+  return {
+    id: resource.id,
+    title: resource.title,
+    href: resource.destination.href,
+    external: resource.destination.kind === 'external',
+    label: RELATED_RESOURCE_LABELS[resource.type],
+  };
+}
+
 RelatedResource.propTypes = {
   resource: PropTypes.shape({
     external: PropTypes.bool.isRequired,
@@ -134,7 +151,18 @@ RelatedResource.propTypes = {
 };
 
 export default function DevotionalPage({ content }) {
-  const { hero, introduction, metadata, relatedResources, sections, translationNote } = content;
+  const {
+    hero,
+    introduction,
+    integration,
+    metadata,
+    sections,
+    translationNote,
+  } = content;
+  const devotionalResource = getResourceById(integration.slug);
+  const relatedResources = getResourcesByIds(devotionalResource.relatedResourceIds).map(
+    toRelatedResource,
+  );
 
   return (
     <div className="App draw-near-page">
@@ -225,9 +253,9 @@ export default function DevotionalPage({ content }) {
 DevotionalPage.propTypes = {
   content: PropTypes.shape({
     hero: PropTypes.object.isRequired,
+    integration: PropTypes.shape({ slug: PropTypes.string.isRequired }).isRequired,
     introduction: PropTypes.arrayOf(PropTypes.string).isRequired,
     metadata: PropTypes.object.isRequired,
-    relatedResources: PropTypes.arrayOf(PropTypes.object).isRequired,
     sections: PropTypes.arrayOf(PropTypes.object).isRequired,
     translationNote: PropTypes.string.isRequired,
   }).isRequired,

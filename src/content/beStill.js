@@ -1,7 +1,4 @@
-import { DRAW_NEAR_CONTENT } from './drawNear';
 import { SITE } from './site';
-import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
-import { YOUTUBE_SHORTS } from './youtube';
 
 const paragraph = (text) => ({ type: 'paragraph', text });
 const prompt = (text) => ({ type: 'prompt', text });
@@ -21,7 +18,6 @@ const richParagraph = (...parts) => ({ type: 'richParagraph', parts });
 const link = (text, href) => ({ type: 'link', text, href });
 const emphasis = (text) => ({ type: 'emphasis', text });
 const strong = (text) => ({ type: 'strong', text });
-const youtubeShortUrl = (id) => `https://www.youtube.com/shorts/${id}`;
 
 export const BE_STILL_CONTENT = {
   review: {
@@ -453,29 +449,6 @@ export const BE_STILL_CONTENT = {
           text: 'You can rest while there is still something to pray about.',
         },
       ],
-    },
-  ],
-  relatedResources: [
-    {
-      id: 'stillness-scroll',
-      title: STILLNESS_SCROLL_CONTENT.resourceName,
-      href: SITE.links.stillness,
-      external: false,
-      label: 'Guided Scroll',
-    },
-    {
-      id: DRAW_NEAR_CONTENT.integration.slug,
-      title: DRAW_NEAR_CONTENT.integration.fullTitle,
-      href: SITE.links.drawNear,
-      external: false,
-      label: 'Scripture Reflection',
-    },
-    {
-      id: YOUTUBE_SHORTS.protectionPrayer.id,
-      title: YOUTUBE_SHORTS.protectionPrayer.title,
-      href: youtubeShortUrl(YOUTUBE_SHORTS.protectionPrayer.id),
-      external: true,
-      label: 'YouTube Short',
     },
   ],
 };

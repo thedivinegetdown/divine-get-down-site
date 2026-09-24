@@ -1,6 +1,4 @@
 import { SITE } from './site';
-import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
-import { YOUTUBE_SHORTS } from './youtube';
 
 const scripture = (quote, reference, href) => ({
   type: 'scripture',
@@ -18,7 +16,6 @@ const read = (reference, href, suffix = '.') => ({
   suffix,
 });
 
-const youtubeShortUrl = (id) => `https://www.youtube.com/shorts/${id}`;
 
 export const DRAW_NEAR_CONTENT = {
   metadata: {
@@ -444,29 +441,6 @@ export const DRAW_NEAR_CONTENT = {
           text: 'Come to him with your weariness. Learn from him. Remain in his love.',
         },
       ],
-    },
-  ],
-  relatedResources: [
-    {
-      id: YOUTUBE_SHORTS.seekHim.id,
-      title: YOUTUBE_SHORTS.seekHim.title,
-      href: youtubeShortUrl(YOUTUBE_SHORTS.seekHim.id),
-      external: true,
-      label: 'YouTube Short',
-    },
-    {
-      id: YOUTUBE_SHORTS.walkInLove.id,
-      title: YOUTUBE_SHORTS.walkInLove.title,
-      href: youtubeShortUrl(YOUTUBE_SHORTS.walkInLove.id),
-      external: true,
-      label: 'YouTube Short',
-    },
-    {
-      id: 'stillness-scroll',
-      title: STILLNESS_SCROLL_CONTENT.resourceName,
-      href: SITE.links.stillness,
-      external: false,
-      label: 'Guided Scroll',
     },
   ],
 };
