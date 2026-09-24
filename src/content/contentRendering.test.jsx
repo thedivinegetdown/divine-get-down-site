@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import TabContent from '../components/TabContent';
 import CommunityPage from '../pages/CommunityPage';
+import DrawNearPage from '../pages/DrawNearPage';
 import ExperienceAccessPage from '../pages/ExperienceAccessPage';
 import JourneyPage from '../pages/JourneyPage';
 import NotFoundPage from '../pages/NotFoundPage';
@@ -15,6 +16,7 @@ import ThankYouPage from '../pages/ThankYouPage';
 import { ABOUT_CONTENT } from './about';
 import { COMMUNITY_CONTENT } from './community';
 import { CONTACT_CONTENT } from './contact';
+import { DRAW_NEAR_CONTENT } from './drawNear';
 import { HOME_CONTENT } from './home';
 import { JOURNEY_CONTENT } from './journey';
 import { NOT_FOUND_CONTENT } from './notFound';
@@ -58,6 +60,7 @@ function renderRoute(element, location = '/') {
 
 test.each([
   ['/stillness', <StillnessScrollPage />, STILLNESS_SCROLL_CONTENT.title],
+  ['/draw-near', <DrawNearPage />, DRAW_NEAR_CONTENT.hero.title],
   ['/start', <StartPage />, START_CONTENT.title],
   ['/reset-experience', <ResetExperiencePage />, RESET_EXPERIENCE_CONTENT.title],
   ['/experience-access', <ExperienceAccessPage />, RESET_EXPERIENCE_CONTENT.access.title],

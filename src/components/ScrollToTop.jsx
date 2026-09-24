@@ -19,6 +19,8 @@ export default function ScrollToTop() {
     if (!routeChanged || typeof document === 'undefined') return undefined;
 
     let observer;
+    let focusTimer;
+    let cleanupTimer;
     const focusMain = () => {
       const main = document.getElementById('main-content');
       if (!main) return false;
@@ -32,17 +34,25 @@ export default function ScrollToTop() {
       return true;
     };
 
-    if (focusMain()) return undefined;
-
     const root = document.getElementById('root');
-    if (!root || typeof MutationObserver === 'undefined') return undefined;
+    const scheduleFocus = () => {
+      window.clearTimeout(focusTimer);
+      focusTimer = window.setTimeout(focusMain, 0);
+    };
 
-    observer = new MutationObserver(() => {
-      if (focusMain()) observer.disconnect();
-    });
-    observer.observe(root, { childList: true, subtree: true });
+    if (root && typeof MutationObserver !== 'undefined') {
+      observer = new MutationObserver(scheduleFocus);
+      observer.observe(root, { childList: true, subtree: true });
+    }
 
-    return () => observer.disconnect();
+    scheduleFocus();
+    cleanupTimer = window.setTimeout(() => observer?.disconnect(), 1000);
+
+    return () => {
+      window.clearTimeout(focusTimer);
+      window.clearTimeout(cleanupTimer);
+      observer?.disconnect();
+    };
   }, [pathname]);
 
   useEffect(() => {

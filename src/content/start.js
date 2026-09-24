@@ -1,4 +1,5 @@
 import { SITE } from './site';
+import { DRAW_NEAR_CONTENT } from './drawNear';
 import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
 import { YOUTUBE, YOUTUBE_CONTENT, YOUTUBE_SHORTS } from './youtube';
 
@@ -92,12 +93,20 @@ export const START_CONTENT = {
       id: 'draw-near',
       name: 'Draw Near to Jesus',
       invitation: 'Choose a gentle reflection for seeking Jesus and walking in His love.',
-      primary: shortResource(
-        YOUTUBE_SHORTS.seekHim,
-        'A short reflection on seeking God with your whole heart.',
-      ),
-      primaryCta: 'Watch the Seeking God Reflection',
+      primary: {
+        id: DRAW_NEAR_CONTENT.integration.slug,
+        title: DRAW_NEAR_CONTENT.integration.fullTitle,
+        description: DRAW_NEAR_CONTENT.integration.description,
+        format: 'Free Scripture reflection',
+        href: SITE.links.drawNear,
+        external: false,
+      },
+      primaryCta: DRAW_NEAR_CONTENT.integration.primaryCta,
       secondary: [
+        shortResource(
+          YOUTUBE_SHORTS.seekHim,
+          'A short reflection on seeking God with your whole heart.',
+        ),
         shortResource(
           YOUTUBE_SHORTS.loveLikeJesus,
           'A reflection on the patience and kindness that changes everything.',

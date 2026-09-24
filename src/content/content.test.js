@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { CONTACT_CONTENT } from './contact';
+import { DRAW_NEAR_CONTENT } from './drawNear';
 import { APP_METADATA } from './appMetadata';
 import { COMMUNITY_CONTENT } from './community';
 import { JOURNEY_CONTENT } from './journey';
@@ -33,6 +34,7 @@ test('preserves canonical public navigation and metadata paths', () => {
 
   expect(STILLNESS_SCROLL_CONTENT.metadata.path).toBe(SITE.links.stillness);
   expect(START_CONTENT.metadata.path).toBe(SITE.links.start);
+  expect(DRAW_NEAR_CONTENT.metadata.path).toBe(SITE.links.drawNear);
   expect(RESET_EXPERIENCE_CONTENT.metadata.path).toBe(SITE.links.resetExperience);
   expect(RESET_EXPERIENCE_CONTENT.access.metadata.path).toBe(SITE.links.experienceAccess);
   expect(JOURNEY_CONTENT.metadata.path).toBe(SITE.links.journey);
@@ -58,7 +60,7 @@ test('registers the noindex guided start route without changing the sitemap', ()
   expect(sitemap).not.toContain(`${SITE.canonicalUrl}${SITE.links.start}`);
 });
 
-test('maps the three guided pathways only to approved existing resources', () => {
+test('maps the three guided pathways only to approved resources', () => {
   const [peace, encouragement, drawNear] = START_CONTENT.pathways;
 
   expect(START_CONTENT.pathways.map(({ id }) => id)).toEqual([
@@ -82,8 +84,14 @@ test('maps the three guided pathways only to approved existing resources', () =>
     YOUTUBE_SHORTS.valleyBecoming.id,
     YOUTUBE_SHORTS.partsSeas.id,
   ]);
-  expect(drawNear.primary.id).toBe(YOUTUBE_SHORTS.seekHim.id);
+  expect(drawNear.primary).toMatchObject({
+    id: DRAW_NEAR_CONTENT.integration.slug,
+    title: DRAW_NEAR_CONTENT.integration.fullTitle,
+    href: SITE.links.drawNear,
+    external: false,
+  });
   expect(drawNear.secondary.map(({ id }) => id)).toEqual([
+    YOUTUBE_SHORTS.seekHim.id,
     YOUTUBE_SHORTS.loveLikeJesus.id,
     YOUTUBE_SHORTS.walkInLove.id,
     'stillness-scroll',
@@ -162,6 +170,7 @@ test('preserves canonical website and video structured data', () => {
 test('keeps public route metadata unique and homepage tabs canonical', () => {
   const publicMetadata = [
     TAB_METADATA.welcome,
+    DRAW_NEAR_CONTENT.metadata,
     STILLNESS_SCROLL_CONTENT.metadata,
     RESET_EXPERIENCE_CONTENT.metadata,
     JOURNEY_CONTENT.metadata,
@@ -188,6 +197,7 @@ test('keeps robots and sitemap aligned with canonical public routes', () => {
   expect(sitemapUrls).toEqual([
     `${SITE.canonicalUrl}/`,
     `${SITE.canonicalUrl}${SITE.links.stillness}`,
+    `${SITE.canonicalUrl}${SITE.links.drawNear}`,
     `${SITE.canonicalUrl}${SITE.links.resetExperience}`,
     `${SITE.canonicalUrl}${SITE.links.journey}`,
     `${SITE.canonicalUrl}${SITE.links.community}`,
