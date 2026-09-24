@@ -24,6 +24,7 @@ const ResetExperiencePage = lazy(() => import('./pages/ResetExperiencePage'));
 const StartPage = lazy(() => import('./pages/StartPage'));
 const BeStillPage = lazy(() => import('./pages/BeStillPage'));
 const DrawNearPage = lazy(() => import('./pages/DrawNearPage'));
+const TakeHeartPage = lazy(() => import('./pages/TakeHeartPage'));
 
 // 🔥 ADD THIS (ACCESS PAGE)
 const ExperienceAccessPage = lazy(() => import('./pages/ExperienceAccessPage'));
@@ -62,6 +63,7 @@ function App() {
       import('./pages/StartPage');
       import('./pages/BeStillPage');
       import('./pages/DrawNearPage');
+      import('./pages/TakeHeartPage');
     };
 
     const idleId = window.requestIdleCallback(prefetch, { timeout: 1500 });
@@ -109,6 +111,7 @@ function App() {
             <Route path="/start" element={<StartPage />} />
             <Route path="/be-still" element={<BeStillPage />} />
             <Route path="/draw-near" element={<DrawNearPage />} />
+            <Route path="/take-heart" element={<TakeHeartPage />} />
 
             {/* 🔥 THIS IS THE KEY ADD */}
             <Route path="/experience-access" element={<ExperienceAccessPage />} />

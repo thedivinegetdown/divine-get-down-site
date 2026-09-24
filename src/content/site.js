@@ -15,6 +15,7 @@ export const SITE = {
     start: '/start',
     beStill: '/be-still',
     drawNear: '/draw-near',
+    takeHeart: '/take-heart',
     stillness: '/stillness',
     journey: '/journey',
     community: '/community',

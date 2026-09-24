@@ -2,9 +2,9 @@ import { SITE } from './site';
 import { BE_STILL_CONTENT } from './beStill';
 import { DRAW_NEAR_CONTENT } from './drawNear';
 import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
-import { YOUTUBE, YOUTUBE_CONTENT, YOUTUBE_SHORTS } from './youtube';
+import { TAKE_HEART_CONTENT } from './takeHeart';
+import { YOUTUBE_SHORTS } from './youtube';
 
-const youtubeVideoUrl = (id) => `https://www.youtube.com/watch?v=${id}`;
 const youtubeShortUrl = (id) => `https://www.youtube.com/shorts/${id}`;
 
 const stillnessResource = {
@@ -77,16 +77,16 @@ export const START_CONTENT = {
     {
       id: 'encouragement',
       name: 'Receive Scripture-Centered Encouragement',
-      invitation: 'Watch a message that points you back to God’s truth and hope.',
+      invitation: 'Receive Scripture-rooted hope for the long road of discouragement.',
       primary: {
-        id: YOUTUBE.featuredVideoId,
-        title: YOUTUBE_CONTENT.featuredVideoTitle,
-        description: 'A Christ-centered featured message from The Divine Get Down.',
-        format: 'Free featured video',
-        href: youtubeVideoUrl(YOUTUBE.featuredVideoId),
-        external: true,
+        id: TAKE_HEART_CONTENT.integration.slug,
+        title: TAKE_HEART_CONTENT.integration.fullTitle,
+        description: TAKE_HEART_CONTENT.integration.description,
+        format: 'Free Scripture reflection',
+        href: SITE.links.takeHeart,
+        external: false,
       },
-      primaryCta: 'Watch the Featured Message',
+      primaryCta: TAKE_HEART_CONTENT.integration.primaryCta,
       secondary: [
         shortResource(
           YOUTUBE_SHORTS.valleyBecoming,

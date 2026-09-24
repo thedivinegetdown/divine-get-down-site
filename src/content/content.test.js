@@ -18,8 +18,9 @@ import { SCROLL_VAULT_CONTENT } from './scrollVault';
 import { SITE } from './site';
 import { STILLNESS_SCROLL_CONTENT } from './stillnessScroll';
 import { START_CONTENT } from './start';
+import { TAKE_HEART_CONTENT } from './takeHeart';
 import { THANK_YOU_CONTENT } from './thankYou';
-import { YOUTUBE, YOUTUBE_CONTENT, YOUTUBE_SHORTS } from './youtube';
+import { YOUTUBE, YOUTUBE_SHORTS } from './youtube';
 
 test('preserves canonical public navigation and metadata paths', () => {
   expect(HOME_TABS).toEqual([
@@ -37,6 +38,7 @@ test('preserves canonical public navigation and metadata paths', () => {
   expect(START_CONTENT.metadata.path).toBe(SITE.links.start);
   expect(BE_STILL_CONTENT.metadata.path).toBe(SITE.links.beStill);
   expect(DRAW_NEAR_CONTENT.metadata.path).toBe(SITE.links.drawNear);
+  expect(TAKE_HEART_CONTENT.metadata.path).toBe(SITE.links.takeHeart);
   expect(RESET_EXPERIENCE_CONTENT.metadata.path).toBe(SITE.links.resetExperience);
   expect(RESET_EXPERIENCE_CONTENT.access.metadata.path).toBe(SITE.links.experienceAccess);
   expect(JOURNEY_CONTENT.metadata.path).toBe(SITE.links.journey);
@@ -56,6 +58,7 @@ test('registers the noindex guided start route without changing the sitemap', ()
 
   expect(appSource).toContain('path="/start" element={<StartPage />}');
   expect(appSource).toContain('path="/be-still" element={<BeStillPage />}');
+  expect(appSource).toContain('path="/take-heart" element={<TakeHeartPage />}');
   expect(START_CONTENT.metadata).toMatchObject({
     path: '/start',
     noIndex: true,
@@ -82,8 +85,10 @@ test('maps the three guided pathways only to approved resources', () => {
     YOUTUBE_SHORTS.protectionPrayer.id,
   ]);
   expect(encouragement.primary).toMatchObject({
-    id: YOUTUBE.featuredVideoId,
-    title: YOUTUBE_CONTENT.featuredVideoTitle,
+    id: TAKE_HEART_CONTENT.integration.slug,
+    title: TAKE_HEART_CONTENT.integration.fullTitle,
+    href: SITE.links.takeHeart,
+    external: false,
   });
   expect(encouragement.secondary.map(({ id }) => id)).toEqual([
     YOUTUBE_SHORTS.valleyBecoming.id,
@@ -176,6 +181,7 @@ test('keeps public route metadata unique and homepage tabs canonical', () => {
   const publicMetadata = [
     TAB_METADATA.welcome,
     BE_STILL_CONTENT.metadata,
+    TAKE_HEART_CONTENT.metadata,
     DRAW_NEAR_CONTENT.metadata,
     STILLNESS_SCROLL_CONTENT.metadata,
     RESET_EXPERIENCE_CONTENT.metadata,
@@ -203,6 +209,7 @@ test('keeps robots and sitemap aligned with canonical public routes', () => {
   expect(sitemapUrls).toEqual([
     `${SITE.canonicalUrl}/`,
     `${SITE.canonicalUrl}${SITE.links.stillness}`,
+    `${SITE.canonicalUrl}${SITE.links.takeHeart}`,
     `${SITE.canonicalUrl}${SITE.links.drawNear}`,
     `${SITE.canonicalUrl}${SITE.links.beStill}`,
     `${SITE.canonicalUrl}${SITE.links.resetExperience}`,

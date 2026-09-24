@@ -6,6 +6,7 @@ import ScrollToTop from './ScrollToTop';
 let container;
 let root;
 let originalScrollTo;
+let originalMatchMedia;
 
 beforeAll(() => {
   global.IS_REACT_ACT_ENVIRONMENT = true;
@@ -16,7 +17,9 @@ beforeEach(async () => {
   document.body.appendChild(container);
   root = createRoot(container);
   originalScrollTo = window.scrollTo;
+  originalMatchMedia = window.matchMedia;
   window.scrollTo = jest.fn();
+  window.matchMedia = jest.fn().mockReturnValue({ matches: false });
 
   await act(async () => {
     root.render(
@@ -48,6 +51,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await act(async () => root.unmount());
   window.scrollTo = originalScrollTo;
+  window.matchMedia = originalMatchMedia;
   container.remove();
 });
 
@@ -62,4 +66,16 @@ test('moves focus to the incoming main after a route change', async () => {
   });
 
   expect(document.activeElement).toBe(container.querySelector('[data-page="be-still"]'));
+});
+
+test('uses immediate scrolling when reduced motion is requested', async () => {
+  window.matchMedia.mockReturnValue({ matches: true });
+  window.scrollTo.mockClear();
+
+  await act(async () => container.querySelector('a').click());
+
+  expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
+  expect(window.scrollTo).not.toHaveBeenCalledWith(
+    expect.objectContaining({ behavior: 'smooth' }),
+  );
 });
