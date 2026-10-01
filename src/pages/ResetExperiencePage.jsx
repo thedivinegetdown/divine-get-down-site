@@ -6,13 +6,7 @@ import { SITE } from '../content/site';
 import '../App.css';
 import './ResetExperiencePage.css';
 
-const checkoutUrl =
-  process.env.REACT_APP_RESET_EXPERIENCE_CHECKOUT_URL ||
-  RESET_EXPERIENCE_CONTENT.checkoutFallback;
-
 function ResetExperiencePage() {
-  const checkoutIsExternal = /^https?:\/\//i.test(checkoutUrl);
-
   return (
     <div className="App reset-experience-page">
       <MetaTags {...RESET_EXPERIENCE_CONTENT.metadata} />
@@ -43,14 +37,6 @@ function ResetExperiencePage() {
             {RESET_EXPERIENCE_CONTENT.description}
           </p>
 
-          <a
-            className="primary-cta reset-cta"
-            href={checkoutUrl}
-            target={checkoutIsExternal ? '_blank' : undefined}
-            rel={checkoutIsExternal ? 'noreferrer' : undefined}
-          >
-            {RESET_EXPERIENCE_CONTENT.unlockButton}
-          </a>
         </section>
 
         <section
@@ -93,24 +79,16 @@ function ResetExperiencePage() {
             </article>
           </div>
 
-          <section className="reset-checkout" id="checkout" aria-labelledby="reset-price-title">
+          <section className="reset-checkout" id="availability" aria-labelledby="reset-availability-title">
             <span className="reset-section-number">
-              {RESET_EXPERIENCE_CONTENT.sections.checkout.number}
+              {RESET_EXPERIENCE_CONTENT.sections.availability.number}
             </span>
-            <h2 id="reset-price-title">
-              {RESET_EXPERIENCE_CONTENT.sections.checkout.title}
+            <h2 id="reset-availability-title">
+              {RESET_EXPERIENCE_CONTENT.sections.availability.title}
             </h2>
             <p>
-              {RESET_EXPERIENCE_CONTENT.sections.checkout.description}
+              {RESET_EXPERIENCE_CONTENT.sections.availability.description}
             </p>
-            <a
-              className="primary-cta reset-cta"
-              href={checkoutUrl}
-              target={checkoutIsExternal ? '_blank' : undefined}
-              rel={checkoutIsExternal ? 'noreferrer' : undefined}
-            >
-              {RESET_EXPERIENCE_CONTENT.unlockButton}
-            </a>
           </section>
 
           <p className="reset-footer-line">

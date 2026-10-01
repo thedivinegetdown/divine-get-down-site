@@ -5,13 +5,11 @@ export const RESET_EXPERIENCE_CONTENT = {
       'A faith-based guided movement and rhythm experience to quiet your mind, reconnect with your body, and return to spiritual alignment.',
     path: '/reset-experience',
   },
-  checkoutFallback: '/experience-access',
   backLabel: 'Back to the Sanctuary',
   kicker: 'Reset Experience',
   title: 'Return to Alignment.',
   description:
     'A guided movement and rhythm-based experience designed to help you reset your mind, reconnect to your body, and realign your spirit.',
-  unlockButton: 'Unlock The Experience',
   detailsAriaLabel: 'Reset Experience details',
   sections: {
     whatThisIs: {
@@ -40,11 +38,11 @@ export const RESET_EXPERIENCE_CONTENT = {
         'repeatable reset experience',
       ],
     },
-    checkout: {
+    availability: {
       number: '04',
-      title: '$17 — One-Time Access',
+      title: 'A Quiet Pause',
       description:
-        'Step into the reset whenever you need a guided return to presence, rhythm, and clarity.',
+        'The Reset Experience is not currently available for purchase. Until it is ready, you are welcome to rest and explore the sanctuary.',
     },
   },
   footer: 'You don’t need to stay stuck. You just need to reconnect.',
