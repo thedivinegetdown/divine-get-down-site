@@ -14,34 +14,34 @@ function ShortsGrid({ videos = [] }) {
   if (items.length === 0) return null;
 
   return (
-    <div className="shorts-grid" role="list">
+    <ul className="shorts-grid">
       {items.map(({ id, title }) => (
-        <a
-          key={id}
-          className="short-card"
-          role="listitem"
-          href={`https://www.youtube.com/shorts/${id}`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Watch “${title}” on YouTube`}
-        >
-          <img
-            loading="lazy"
-            decoding="async"
-            referrerPolicy="no-referrer"
-            className="short-thumb"
-            src={toThumb(id)}
-            alt={`${title} video thumbnail`}
-            width="480"
-            height="360"
-          />
-          <span className="short-badge" aria-hidden="true">
-            {YOUTUBE_CONTENT.shortBadge}
-          </span>
-          <span className="short-title">{title}</span>
-        </a>
+        <li key={id} className="shorts-grid__item">
+          <a
+            className="short-card"
+            href={`https://www.youtube.com/shorts/${id}`}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Watch “${title}” on YouTube`}
+          >
+            <img
+              loading="lazy"
+              decoding="async"
+              referrerPolicy="no-referrer"
+              className="short-thumb"
+              src={toThumb(id)}
+              alt={`${title} video thumbnail`}
+              width="480"
+              height="360"
+            />
+            <span className="short-badge" aria-hidden="true">
+              {YOUTUBE_CONTENT.shortBadge}
+            </span>
+            <span className="short-title">{title}</span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
