@@ -1137,3 +1137,22 @@ body.tdg-diag-static::after {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+
+/* Keep the homepage's mobile layers static without changing its layout or desktop treatment. */
+@media (max-width: 600px) {
+  body.tdg-home::after,
+  .App .hero-logo,
+  .App .tab-button.is-active {
+    animation: none;
+  }
+
+  .App .hero-logo {
+    filter: none;
+  }
+
+  .App .sticky-tabs,
+  .App .sticky-tabs.is-stuck {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

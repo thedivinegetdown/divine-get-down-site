@@ -18,13 +18,31 @@ function Home() {
   const stickyTabsRef = useRef(null);
   const previousTabRef = useRef(activeTab);
   const prefersReducedMotion = useReducedMotion();
+  const [isMobileViewport, setIsMobileViewport] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches
+  );
   const isStaticDiagnostic = new URLSearchParams(location.search).get('tdg_diag') === 'static';
-  const shouldReduceMotion = prefersReducedMotion || isStaticDiagnostic;
+  const shouldReduceMotion = prefersReducedMotion || isStaticDiagnostic || isMobileViewport;
 
   useEffect(() => {
-    if (!isStaticDiagnostic) return undefined;
-    document.body.classList.add('tdg-diag-static');
-    return () => document.body.classList.remove('tdg-diag-static');
+    const query = window.matchMedia('(max-width: 600px)');
+    const onChange = (event) => setIsMobileViewport(event.matches);
+    setIsMobileViewport(query.matches);
+    if (query.addEventListener) query.addEventListener('change', onChange);
+    else query.addListener(onChange);
+    return () => {
+      if (query.removeEventListener) query.removeEventListener('change', onChange);
+      else query.removeListener(onChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.add('tdg-home');
+    if (isStaticDiagnostic) document.body.classList.add('tdg-diag-static');
+    return () => {
+      document.body.classList.remove('tdg-home');
+      document.body.classList.remove('tdg-diag-static');
+    };
   }, [isStaticDiagnostic]);
 
   useEffect(() => {
@@ -124,7 +142,7 @@ function Home() {
             <NavigationBar
               tabs={HOME_TABS}
               activeTab={activeTab}
-              staticVisuals={isStaticDiagnostic}
+              staticVisuals={isStaticDiagnostic || isMobileViewport}
               onTabChange={(id) => {
                 if (id === EXPERIENCE_TAB_ID) {
                   window.location.href = SITE.links.resetExperience;
