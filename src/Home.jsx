@@ -17,7 +17,15 @@ function Home() {
   const location = useLocation();
   const stickyTabsRef = useRef(null);
   const previousTabRef = useRef(activeTab);
-  const shouldReduceMotion = useReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
+  const isStaticDiagnostic = new URLSearchParams(location.search).get('tdg_diag') === 'static';
+  const shouldReduceMotion = prefersReducedMotion || isStaticDiagnostic;
+
+  useEffect(() => {
+    if (!isStaticDiagnostic) return undefined;
+    document.body.classList.add('tdg-diag-static');
+    return () => document.body.classList.remove('tdg-diag-static');
+  }, [isStaticDiagnostic]);
 
   useEffect(() => {
     const hash = (location.hash || '').replace('#', '').trim();
@@ -69,7 +77,7 @@ function Home() {
   const subscribeUrl = `${YOUTUBE.channelUrl}?sub_confirmation=1`;
 
   return (
-    <div className="App">
+    <div className={`App${isStaticDiagnostic ? ' tdg-diag-static' : ''}`}>
       <header aria-label="Site header">
         <motion.div
           className="hero-logo-wrap"
@@ -116,6 +124,7 @@ function Home() {
             <NavigationBar
               tabs={HOME_TABS}
               activeTab={activeTab}
+              staticVisuals={isStaticDiagnostic}
               onTabChange={(id) => {
                 if (id === EXPERIENCE_TAB_ID) {
                   window.location.href = SITE.links.resetExperience;

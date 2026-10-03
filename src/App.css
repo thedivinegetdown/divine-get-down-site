@@ -1109,3 +1109,31 @@ body {
 }
 
 .hero-secondary-actions{display:none !important;}
+/* iPhone compositor isolation mode; only active on the homepage diagnostic URL. */
+body.tdg-diag-static::after {
+  animation: none !important;
+}
+
+.tdg-diag-static .hero-logo,
+.tdg-diag-static .tab-button.is-active {
+  animation: none !important;
+  filter: none !important;
+}
+
+.tdg-diag-static .tab-button {
+  transition: none !important;
+}
+
+.tdg-diag-static .tab-button:hover {
+  transform: none !important;
+}
+
+.tdg-diag-static .sticky-tabs,
+.tdg-diag-static .tab-button,
+.tdg-diag-static .tabpanel,
+.tdg-diag-static .short-badge,
+.tdg-diag-static .mobile-subscribe,
+.tdg-diag-static .compliance-card {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}

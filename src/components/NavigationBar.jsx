@@ -11,7 +11,7 @@ import { NAVIGATION_ARIA_LABEL } from '../content/navigation';
  * - Pointer drag-to-scroll (desktop + touch)
  * - Auto-centers the active tab when it changes
  */
-export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps = {} }) {
+export default function NavigationBar({ tabs, activeTab, onTabChange, staticVisuals = false, ariaProps = {} }) {
   const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -37,13 +37,13 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
     const btn = container.querySelector(`[data-tab-id="${activeTab}"]`);
     if (!btn) return;
 
-    const prefersReducedMotion =
+    const prefersReducedMotion = staticVisuals || (
       typeof window !== 'undefined' &&
       window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
     centerChild(container, btn, prefersReducedMotion);
-  }, [activeTab]);
+  }, [activeTab, staticVisuals]);
 
   // Smooth wheel -> horizontal scroll
   useEffect(() => {
@@ -53,10 +53,10 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
     const onWheel = (e) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
-        const prefersReducedMotion =
+        const prefersReducedMotion = staticVisuals || (
           typeof window !== 'undefined' &&
           window.matchMedia &&
-          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
         el.scrollBy({
           left: e.deltaY,
@@ -67,7 +67,7 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
 
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
-  }, []);
+  }, [staticVisuals]);
 
   // Pointer drag (mouse + touch)
   useEffect(() => {
@@ -178,10 +178,10 @@ export default function NavigationBar({ tabs, activeTab, onTabChange, ariaProps 
 
     btn.focus();
 
-    const prefersReducedMotion =
+    const prefersReducedMotion = staticVisuals || (
       typeof window !== 'undefined' &&
       window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
     centerChild(container, btn, prefersReducedMotion);
   };
@@ -239,6 +239,7 @@ NavigationBar.propTypes = {
   ).isRequired,
   activeTab: PropTypes.string.isRequired,
   onTabChange: PropTypes.func.isRequired,
+  staticVisuals: PropTypes.bool,
   ariaProps: PropTypes.object,
 };
 
